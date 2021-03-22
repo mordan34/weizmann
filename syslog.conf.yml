@@ -8,8 +8,8 @@
     blockinfile:
       path: /etc/rsyslog.conf
       block: |
-        *.info  @132.76.78.45:514
-        *.*  @132.76.78.45:514
+        *.info  @132.76.78.60:514
+        *.*  @132.76.78.60:514
       backup: yes
     notify:
       - restart syslog
