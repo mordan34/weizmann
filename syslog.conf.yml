@@ -11,9 +11,9 @@
         *.info  @132.76.78.45:514
         *.*  @132.76.78.45:514
       backup: yes
-      notify:
+    notify:
       - restart syslog
 
-    handlers:
+  handlers:
     - name: restart syslog
       service: name=syslog state=restarted
