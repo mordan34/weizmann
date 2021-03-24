@@ -5,11 +5,12 @@
 
   tasks:
   - name: Add extra entries of Syslog server to rsyslog.conf
-    blockinfile:
-      path: /etc/rsyslog.conf
-      block: |
-        *.info  @132.76.78.60:514
-        *.*  @132.76.78.60:514
+    copy:
+      src: ./rsyslog.conf
+      dest: /etc/rsyslog.conf
+      owner: root
+      group: root
+      mode: '0644'
       backup: yes
     notify:
       - restart syslog
