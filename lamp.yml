@@ -1,0 +1,12 @@
+---
+- name: Configure LAMP Stack
+  hosts: php
+  vars:
+    php_version: '7.3'
+    php_versions_install_recommends: true
+  remote_user: root
+  roles:
+    - role: geerlingguy.repo-remi
+      when: ansible_os_family == 'RedHat'
+    - geerlingguy.php-versions
+    - geerlingguy.php
