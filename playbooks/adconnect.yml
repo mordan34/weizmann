@@ -69,3 +69,21 @@
       vars:
         - crypto_policies_policy: "{{ policy }}"
         - crypto_policies_reboot_ok: false
+
+    - name: set timezone
+      shell: timedatectl set-timezone Asia/Jerusalem
+
+    - name: Install Chrony
+      yum: name=chrony state=installed 
+ 
+    - name: Copy over the NTP configuration
+      template: src=./templates/chrony.conf dest=/etc/chrony.conf
+      notify:
+      - restart chronyd
+
+    - name: Make sure Chrony service is up
+      service: name=chronyd state=running enabled=yes
+
+    handlers:
+    - name: restart chronyd
+      service: name=chronyd state=restarted
