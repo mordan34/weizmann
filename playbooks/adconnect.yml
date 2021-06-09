@@ -3,31 +3,69 @@
   hosts: test
   become: yes
   remote_user: root
-
+  roles:
+    - linux-system-roles.crypto_policies
+    
   tasks:
+
+    - name: Save current Policy
+      set_fact: 
+        policy: "{{ crypto_policies_active }}"
+
+    - name: Print initial Policy
+      debug:
+        var: policy
+
+    - name: Configure crypto policy to DEFAULT
+      include_role:
+        name: linux-system-roles.crypto_policies
+      vars:
+        - crypto_policies_policy: DEFAULT
+        - crypto_policies_reboot_ok: false
+
     - name: Install unzip
       yum:
         name: unzip
         state: latest
 
-    - name: Download the latest package for SEP AntiVirus
-      get_url:
-        url: http://antivirus.weizmann.ac.il/Information%20System%20Division%20-%20IT/Linux%20Servers/latest.zip
-        dest: /tmp/latest.zip
+    - name: Extract SEP package contents
+      command: mkdir -p /tmp/sep
 
     - name: Extract SEP package contents
-      command: /usr/bin/unzip /tmp/latest.zip -d sep
+      unarchive:
+        src: http://antivirus.weizmann.ac.il/Information%20System%20Division%20-%20IT/Linux%20Servers/latest.zip
+        dest: /tmp/sep
+        remote_src: yes
+      register: result
+      failed_when:  (result == 10)
 
     - name: Find LinuxInstaller executable file
       find:
-        paths: /tmp/sep
-        patterns: 'LinuxInstaller'
-        recurse: yes
-        register: exec
+        paths: "/tmp/sep"
+        patterns: "LinuxInstaller"
+        recurse: "yes"
+      register: exec
 
+    - name: Copy the sep executable file to /tmp
       copy: 
-        src: {{ exec }} 
-        dest: /tmp
+        src: "{{ exec.files[0].path }}"
+        dest: /tmp/sep
         owner: root
-        mode: 0775
+        mode: 0744
+        remote_src: yes
+
+    - name: Install SEP AntiVirus
+      command: /tmp/sep/LinuxInstaller
+      register: sep_result
+      ignore_errors: True
+
+    - name: Fail the play if the SEP installation failed
+      fail: msg="SEP installation failed"
+      when: "sep_result.rc != 0 and sep_result.rc != 3"
    
+    - name: Configure crypto policy back to before
+      include_role:
+        name: linux-system-roles.crypto_policies
+      vars:
+        - crypto_policies_policy: "{{ policy }}"
+        - crypto_policies_reboot_ok: false
