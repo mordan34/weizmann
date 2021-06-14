@@ -112,6 +112,8 @@
         dest: /etc/sudoers
         line: '%LinuxAdmGrp@wis.testing.com        ALL=(ALL)       ALL'
         insertafter: '^%wheel'
+      notify:
+        - restart sssd
 
   handlers:
       - name: restart chronyd
