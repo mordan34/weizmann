@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: true
+  tasks: 
+        - name: Create a new user - 'ansible'
+          user: 
+             name: ansible
+             password: Remotelogin56&
+             state: present
+
+        - name: Deploy SSH Key
+          ansible.posix.authorized_key:
+                  user: ansible
+                  state: present
+                  key: "{{ lookup ('file','/home/ansible/.ssh/id_rsa.pub')}}"
