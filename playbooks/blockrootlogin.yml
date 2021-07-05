@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: true
+  remote_user: root
+  tasks:
+        - name: Change sshd_config PermitRootLogin
+          lineinfile: 
+            dest: /etc/ssh/sshd_config 
+            regexp: '^PermitRootLogin' 
+            line: 'PermitRootLogin No'
+          notify:
+            - restart sshd
+
+  handlers:
+      - name: restart sshd
+        service: name=sshd state=restarted
