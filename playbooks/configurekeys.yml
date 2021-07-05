@@ -1,7 +1,7 @@
 ---
 - hosts: all
   become: true
-  remote_user: root
+  remote_user: mordan
   tasks: 
         - name: Create a new user - 'ansible'
           user: 
@@ -13,7 +13,7 @@
           ansible.posix.authorized_key:
                   user: ansible
                   state: present
-                  key: "{{ lookup ('file','/home/vagrant/id_rsa.pub')}}"
+                  key: "{{ lookup ('file','/root/.ssh/id_rsa.pub')}}"
 
         - name: Add the LinuxAdmins AD Group to sudoers
           lineinfile:
