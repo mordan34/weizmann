@@ -1,8 +1,9 @@
 ---
 - hosts: all
   become: true
-  remote_user: mordan
-  tasks: 
+  remote_user: root
+  tasks:
+
         - name: Create a new user - 'ansible'
           user: 
              name: ansible
