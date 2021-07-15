@@ -97,7 +97,7 @@
 
     - name: Join system to AD and add the computer object in the Linux OU
       expect:
-        command: /bin/bash -c "/usr/sbin/realm join -U Administrator wis.testing.com --computer-ou='ou=Linux,ou=Resources,ou=Global Settings'"
+        command: /bin/bash -c "/usr/sbin/realm join -U administrator wis.testing.com --computer-ou='ou=Linux,ou=Resources,ou=Global Settings'"
         responses:
           Password for *: "{{ bind_password }}"
       register: realm_result
