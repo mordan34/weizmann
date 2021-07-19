@@ -84,6 +84,9 @@
     - name: Make sure Chrony service is up
       service: name=chronyd state=started enabled=yes
 
+    - name: Copy krb5.conf to the client
+      template: src=../templates/krb5.conf dest=/etc/krb5.conf
+
     - name: Install the required packages
       yum:
         name: realmd,sssd,oddjob,oddjob-mkhomedir,adcli,samba-common,samba-common-tools,chrony,python3-pip,krb5-workstation

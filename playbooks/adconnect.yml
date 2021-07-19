@@ -84,10 +84,8 @@
     - name: Make sure Chrony service is up
       service: name=chronyd state=started enabled=yes
 
-
     - name: Copy krb5.conf to the client
       template: src=../templates/krb5test.conf dest=/etc/krb5.conf
-      
 
     - name: Install the required packages
       yum:
