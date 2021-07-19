@@ -77,12 +77,17 @@
       yum: name=chrony state=installed 
  
     - name: Copy over the NTP configuration
-      template: src=./templates/chrony.conf dest=/etc/chrony.conf
+      template: src=../templates/chronytest.conf dest=/etc/chrony.conf
       notify:
       - restart chronyd
 
     - name: Make sure Chrony service is up
       service: name=chronyd state=started enabled=yes
+
+
+    - name: Copy krb5.conf to the client
+      template: src=../templates/krb5test.conf dest=/etc/krb5.conf
+      
 
     - name: Install the required packages
       yum:
