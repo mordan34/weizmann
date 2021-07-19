@@ -14,7 +14,7 @@
           ansible.posix.authorized_key:
                   user: ansible
                   state: present
-                  key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+                  path: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
 
         - name: Add the LinuxAdmins AD Group to sudoers
           lineinfile:
