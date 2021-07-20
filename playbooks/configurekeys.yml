@@ -19,12 +19,22 @@
          #     dest: /tmp
          #     local_follow: yes
 
+        #- name: copy pub key to authorized_keys
+          #copy:
+           # src: "/home/{{ item.username }}/.ssh/id_rsa.pub"
+           # dest: "/home/{{ item.username }}/.ssh/authorized_keys"
+           # user: "{{ item.username }}"
+           # group: "{{ item.username }}"
+           # mode: "0644"
+           # remote_src: True
+          #with_items: "{{ users }}"
+
     
         - name: Copy public key to ansible
           authorized_key:
              user: ansible
              state: present
-             manage_dir: yes
+             remote_src: True
              key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
              #key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD6gUVrrW6qg6Ow6Va8simvAvegA6WlZpRe8I+7GKKdqwTOocoFOCMNuzxYSRKpdjxZMQqasXLMFcNipOhYju3Z9fjp4HQOFQWJeLRPFQdIl0Apes6rl71KiMWi6IL7h5JoQmab2RE6yYEN+fDEmZCEaLB1cZ+xadr1C3GJe2ZykP9uB2BXIfi3joD5sJt/QUqfa5kFMFXwKHAkwh8SLG06tE9D3jny6vdTRMDvOaP8Xqn/+9pRQunnUHTi39w0SCAthgsz2JZN2HpgZMeqIxubhbT0O3IoBc+DdV+1fXebadM+s5FfO0KeGewRbF6A/o9Pm+RhkYtqxTsdYQmM7lLhvEnolXPUxK9l07Vh8e/XTtYXCplhFm89HjZzQkU1Zn2E4RXCRcWSetwUDVilnnUQq7bLuzwWGVItzl7QMRQjfv4yIj1F0KhVhpCUXaIkURbuHhoaiMIPY/p/o9nGvMecwZlgBlmU+3FJjXYbp7g+0TYok0/VXr7ZMjFa8QG4xls= root@iblanstwtstv01t"
         
