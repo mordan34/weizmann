@@ -8,18 +8,17 @@
              password: $6$testing$Dsf3AUPPMRquaHjogzFHUx5jzqP2o8oEB1Yju5hTHFN74Clztb8ZEEpjlsyDdKpiGuSbcqmgNSMcRiyeyINcE.
              state: present
 
-        #- name: Copy private key to root
-          #command: /usr/bin/ssh-copy-id {{ansible_hostname}}
+        - name: Copy public key to rmeote server
+          copy: 
+             src: /root/.ssh/id_rsa.pub
+             dst: /root
 
         - name: Copy private key to ansible
           authorized_key:
              user: ansible
              state: present
              manage_dir: yes
-             key: "{{ lookup('file', '{{ HOME }}/.ssh/id_rsa.pub') }}"
-             become: yes
-             become_user: root
-
+             key: "{{ lookup('file', '/root/id_rsa.pub' }}"
         
 
         - name: Add the LinuxAdmins AD Group to sudoers
