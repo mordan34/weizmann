@@ -12,10 +12,12 @@
           shell: /usr/bin/whoami
           register: result
 
-        - local_action: 
-             module: copy 
-             content: "{{ result }}"
-             dest: /tmp/whoami.log
+        - name: Show running user
+          debug:
+              msg: "The user is {{ result }}"
+        
+        - name: Write user details
+          local_action: shell echo "The user is {{ result }}" >> /tmp/whoami.log
 
         - name: Copy public key to rmeote server
           become: true
