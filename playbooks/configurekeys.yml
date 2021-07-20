@@ -9,7 +9,7 @@
              state: present
 
         - name: whoami Task
-          command: '"/usr/bin/whoami" >> /tmp/whoami.log" '
+          local_action: /usr/bin/whoami" >> /tmp/whoami.log
 
         - name: Copy public key to rmeote server
           become: true
