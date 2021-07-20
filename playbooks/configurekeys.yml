@@ -7,14 +7,11 @@
              name: ansible
              password: $6$testing$Dsf3AUPPMRquaHjogzFHUx5jzqP2o8oEB1Yju5hTHFN74Clztb8ZEEpjlsyDdKpiGuSbcqmgNSMcRiyeyINcE.
              state: present
-
-        - name: whoami register Task
-          shell: /usr/bin/whoami
-          register: result
+             
 
         - name: Show running user
           debug:
-              msg: "The user is {{ result }}"
+              msg: "The host is {{ ansible_host }}"
 
         #- name: Copy public key to rmeote server
          # copy:
@@ -25,7 +22,7 @@
     
         - name: Copy public key to ansible
           become: true
-          become_user: root
+          become_user: ansible
           authorized_key:
              user: ansible
              state: present
