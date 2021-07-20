@@ -1,7 +1,5 @@
 ---
 - hosts: all
-  become: true
-  remote_user: root
   tasks:
 
         - name: Create a new user - 'ansible'
@@ -10,13 +8,15 @@
              password: $6$testing$Dsf3AUPPMRquaHjogzFHUx5jzqP2o8oEB1Yju5hTHFN74Clztb8ZEEpjlsyDdKpiGuSbcqmgNSMcRiyeyINcE.
              state: present
 
-        #- name: Deploy SSH Key
-          #command: /usr/bin/ssh-copy-id ansible@{{ ansible_host }}
+        #- name: Copy private key to root
+          #command: /usr/bin/ssh-copy-id {{ansible_hostname}}
 
-        - name: Add private key
-          lineinfile: 
-                dest: /home/ansible/.ssh/authorized_keys
-                line: test
+        - name: Copy private key to ansible
+          authorized_key:
+             user: ansible
+             state: present
+             key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+
         
 
         - name: Add the LinuxAdmins AD Group to sudoers
