@@ -15,6 +15,7 @@
           authorized_key:
              user: ansible
              state: present
+             manage_dir: yes
              key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
 
         
