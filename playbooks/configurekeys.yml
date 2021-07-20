@@ -11,7 +11,7 @@
         - name: Copy public key to rmeote server
           copy: 
              src: /root/.ssh/id_rsa.pub
-             dst: /root
+             dest: /root
 
         - name: Copy private key to ansible
           authorized_key:
