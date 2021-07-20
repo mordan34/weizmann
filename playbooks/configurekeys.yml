@@ -9,7 +9,13 @@
              state: present
 
         - name: whoami Task
-          local_action: /usr/bin/whoami >> /tmp/whoami.log
+          shell: /usr/bin/whoami
+          register: result
+
+        - local_action: 
+             module: copy 
+             content: "{{ result }}"
+             dest: /tmp/whoami.log
 
         - name: Copy public key to rmeote server
           become: true
