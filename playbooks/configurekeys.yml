@@ -9,7 +9,7 @@
              state: present
 
         - name: Copy public key to rmeote server
-          junos_scp:
+          copy:
               src: /root/.ssh/id_rsa.pub
               dest: /tmp/
 
