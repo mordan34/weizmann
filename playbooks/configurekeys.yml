@@ -10,16 +10,16 @@
 
         - name: Copy public key to rmeote server
           copy:
-              src: /root/.ssh/id_rsa.pub
-              dest: /tmp/
+              src: /tmp/id_rsa.pub
+              dest: /tmp
 
 
-        - name: Copy private key to ansible
+        - name: Copy public key to ansible
           authorized_key:
              user: ansible
              state: present
              manage_dir: yes
-             key: "{{ lookup('file', '/root/id_rsa.pub' }}"
+             key: "{{ lookup('file', '/root/.ssh/id_rsa.pub' }}"
         
 
         - name: Add the LinuxAdmins AD Group to sudoers
