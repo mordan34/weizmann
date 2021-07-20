@@ -16,7 +16,7 @@
              user: ansible
              state: present
              manage_dir: yes
-             key: "{{ lookup('file', {{ HOME }} + '/.ssh/id_rsa.pub') }}"
+             key: "{{ lookup('file', '{{ HOME }} + /.ssh/id_rsa.pub') }}"
 
         
 
