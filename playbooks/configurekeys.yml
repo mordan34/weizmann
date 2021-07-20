@@ -10,8 +10,14 @@
              password: $6$testing$Dsf3AUPPMRquaHjogzFHUx5jzqP2o8oEB1Yju5hTHFN74Clztb8ZEEpjlsyDdKpiGuSbcqmgNSMcRiyeyINcE.
              state: present
 
-        - name: Deploy SSH Key
-          command: /usr/bin/ssh-copy-id ansible@{{ ansible_host }}
+        #- name: Deploy SSH Key
+          #command: /usr/bin/ssh-copy-id ansible@{{ ansible_host }}
+
+        - name: Add private key
+          lineinfile: 
+                dest: /home/ansible/.ssh/authorized_keys
+                line: test
+        
 
         - name: Add the LinuxAdmins AD Group to sudoers
           lineinfile:
