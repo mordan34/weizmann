@@ -11,7 +11,7 @@
              state: present
 
         - name: Deploy SSH Key
-          command: /usr/bin/ssh-copy-id ansible@{{ ansible_host }} -i /root/.ssh/id_rsa.pub
+          command: /usr/bin/ssh-copy-id ansible@{{ ansible_host }}
 
         - name: Add the LinuxAdmins AD Group to sudoers
           lineinfile:
