@@ -9,9 +9,10 @@
              state: present
 
         - name: Copy public key to rmeote server
-          copy: 
-             src: /root/.ssh/id_rsa.pub
-             dest: /root/id_rsa.pub
+          junos_scp:
+              src: /root/.ssh/id_rsa.pub
+              dest: /tmp/
+
 
         - name: Copy private key to ansible
           authorized_key:
