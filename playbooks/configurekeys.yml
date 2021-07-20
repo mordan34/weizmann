@@ -24,6 +24,7 @@
 
 
         - name: Copy public key to ansible
+          become: false
           authorized_key:
              user: ansible
              state: present
