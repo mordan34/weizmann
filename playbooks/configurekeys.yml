@@ -1,5 +1,9 @@
 ---
 - hosts: all
+  become: yes
+  vars:
+      pubkey: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+
   tasks:
 
         - name: Create a new user - 'ansible'
@@ -9,11 +13,11 @@
              state: present
 
 
-        - name: Set authorized key for user ubuntu copying it from current user
+        - name: Set authorized key for user ansible copying it from current user
           authorized_key:
              user: ansible
              state: present
-             key: "{{ lookup('file', lookup('env','HOME') + '/id_rsa.pub') }}"
+             key: "{{ pubkey }}"
 
         #- name: Copy public key to rmeote server
          # copy:
