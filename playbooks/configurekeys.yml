@@ -21,7 +21,7 @@
           debug: msg="{{ query('file', '/tmp/id_rsa.pub', errors='warn') }}"
 
         - stat:
-            path: "{{ '/root/.ssh/id_rsa.pub' }}"
+            path: "{{ '/tmp/id_rsa.pub' }}"
           register: has_key
           delegate_to: 127.0.0.1
 
