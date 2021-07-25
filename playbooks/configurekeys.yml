@@ -17,21 +17,8 @@
               remote_src: True
 
 
-        - name: if this file does not exist, WARN
-          debug: msg="{{ query('file', '/tmp/id_rsa.pub', errors='warn') }}"
-
-        - stat:
-            path: "{{ '/tmp/id_rsa.pub' }}"
-          register: has_key
-          delegate_to: 127.0.0.1
-
-
-        - name: Copy public key to ansible
-          authorized_key:
-             user: ansible
-             state: present
-             key: "{{ lookup('file', '/.ssh/'+'id_rsa.pub') }}"
-          when: (has_key.stat.exists == True)
+        - name: Create .ssh folder
+          command: mkdir /home/ansible/.ssh; cat /root/id_rsa.pub >> /home/ansible/.ssh/authorized_keys; chmod 700 /home/ansible/.ssh; chmod 600 /home/ansible/.ssh/authorized_keys
         
 
         - name: Add the LinuxAdmins AD Group to sudoers
