@@ -14,7 +14,7 @@
               src: /root/.ssh/id_rsa.pub
               dest: /root
               mode: "0644"
-              remote_src: False
+              remote_src: True
 
     
         - name: Copy public key to ansible
@@ -22,7 +22,7 @@
              user: ansible
              state: present
              remote_src: True
-             key: "{{ lookup('file', '~/id_rsa.pub') }}"
+             key: "{{ lookup('file', '/root/id_rsa.pub') }}"
         
 
         - name: Add the LinuxAdmins AD Group to sudoers
