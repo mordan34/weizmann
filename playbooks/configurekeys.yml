@@ -2,7 +2,7 @@
 - hosts: all
   become: yes
   vars:
-      pubkey: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+      pubkey: "{{ lookup('file', '~/id_rsa.pub') }}"
 
   tasks:
 
