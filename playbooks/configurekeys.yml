@@ -16,13 +16,16 @@
               mode: "0644"
               remote_src: True
 
-    
+
+        - name: if this file does not exist, FAIL (this is the default)
+          debug: msg="{{ lookup('file', '/id_rsa.pub', errors='strict') }}"
+
+
         - name: Copy public key to ansible
           authorized_key:
              user: ansible
              state: present
-             #key: "{{ lookup('file', '/root/id_rsa.pub') }}"
-             key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+             key: "{{ lookup('file', '/id_rsa.pub') }}"
         
 
         - name: Add the LinuxAdmins AD Group to sudoers
