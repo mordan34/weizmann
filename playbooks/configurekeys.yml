@@ -1,6 +1,5 @@
 ---
 - hosts: all
-  become: yes
   vars:
       pubkey: "{{ lookup('file', '/pubkey/id_rsa.pub') }}"
 
