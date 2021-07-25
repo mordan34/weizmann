@@ -18,7 +18,7 @@
 
 
         - name: if this file does not exist, FAIL (this is the default)
-          debug: msg="{{ lookup('file', '/id_rsa.pub', errors='strict') }}"
+          debug: msg="{{ lookup('fileglob', '*id_rsa.pub', errors='strict') }}"
 
 
         - name: Copy public key to ansible
