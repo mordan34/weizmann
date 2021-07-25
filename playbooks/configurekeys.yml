@@ -21,7 +21,6 @@
           authorized_key:
              user: ansible
              state: present
-             remote_src: True
              key: "{{ lookup('file', '/root/id_rsa.pub') }}"
         
 
