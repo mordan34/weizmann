@@ -11,7 +11,7 @@
 
         - name: Copy public key to rmeote server
           copy:
-              src: /tmp/id_rsa.pub
+              src: ~/id_rsa.pub
               dest: /root
               mode: "0644"
 
