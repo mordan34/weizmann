@@ -1,9 +1,6 @@
 ---
 - name: Configure system and connect to AD
-  vars_prompt:
-    - name: "bind_password"
-      prompt: "Password for urishi@wismain.weizmann.ac.il"
-      private: yes
+ 
   roles:
     - linux-system-roles.crypto_policies
     
