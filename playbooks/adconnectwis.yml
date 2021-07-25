@@ -1,8 +1,5 @@
 ---
 - name: Configure system and connect to AD
-  hosts: test
-  become: yes
-  become_method: sudo
   vars_prompt:
     - name: "bind_password"
       prompt: "Password for urishi@wismain.weizmann.ac.il"
