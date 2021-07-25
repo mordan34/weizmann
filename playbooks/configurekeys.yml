@@ -17,7 +17,7 @@
               remote_src: True
 
 
-        - name: if this file does not exist, FAIL (this is the default)
+        - name: if this file does not exist, WARN
           debug: msg="{{ query('file', '/tmp/id_rsa.pub', errors='warn') }}"
 
         - stat:
