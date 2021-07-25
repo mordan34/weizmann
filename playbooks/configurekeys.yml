@@ -19,16 +19,6 @@
              state: present
              key: "{{ pubkey }}"
 
-        #- name: Copy public key to rmeote server
-         # copy:
-          #    src: "~/id_rsa.pub"
-           #   dest: /root
-            #  mode: "0644"
-
-
-        #- name: Create .ssh folder
-        #  command: mkdir /home/ansible/.ssh; cat /root/id_rsa.pub >> /home/ansible/.ssh/authorized_keys; chmod 700 /home/ansible/.ssh; chmod 600 /home/ansible/.ssh/authorized_keys
-        
 
         - name: Add the LinuxAdmins AD Group to sudoers
           lineinfile:
