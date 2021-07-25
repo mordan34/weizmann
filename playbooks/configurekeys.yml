@@ -11,10 +11,9 @@
 
         - name: Copy public key to rmeote server
           copy:
-              src: /root/.ssh/id_rsa.pub
+              src: /tmp/id_rsa.pub
               dest: /root
               mode: "0644"
-              #remote_src: True
 
 
         - name: Create .ssh folder
