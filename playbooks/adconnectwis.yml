@@ -3,16 +3,13 @@
   hosts: all
  
   roles:
-    - linux-system-roles.crypto_policies
+    - { role: linux-system-roles.crypto_policies, tags: ["crypto"]} , when: Ansible_distribution == 'RedHat' }
     
   tasks:
 
     - name: Save current Policy
       set_fact: 
         policy: "{{ crypto_policies_active }}"
-      when:
-        - ansible_facts[‘distribution’] == 'RedHat'
-        - ansible_facts[‘distribution_major_version’] == '8'
 
     - name: Configure crypto policy to DEFAULT
       include_role:
@@ -20,9 +17,6 @@
       vars:
         - crypto_policies_policy: DEFAULT
         - crypto_policies_reboot_ok: false
-      when:
-        - ansible_facts[‘distribution’] == 'RedHat'
-        - ansible_facts[‘distribution_major_version’] == '8'
 
     - name: Install unzip
       yum:
@@ -70,9 +64,6 @@
       vars:
         - crypto_policies_policy: "{{ policy }}"
         - crypto_policies_reboot_ok: False
-      when:
-        - ansible_facts[‘distribution’] == 'RedHat'
-        - ansible_facts[‘distribution_major_version’] == '8'
 
     - name: set timezone
       shell: mv /etc/localtime /etc/localtime.backup; ln -s /usr/share/zoneinfo/Asia/Jerusalem /etc/localtime
