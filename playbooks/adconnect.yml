@@ -1,20 +1,22 @@
 ---
 - name: Configure system and connect to AD
   hosts: test
-  become: yes
-  become_method: sudo
-  vars_prompt:
-    - name: "bind_password"
-      prompt: "Password for administrator@wis.testing.com"
-      private: yes
+  become: true
+  vars_files:
+    - ../vault/vault-pass.yml
   roles:
-    - linux-system-roles.crypto_policies
+    - { role: linux-system-roles.crypto_policies, tags: crypto,
+        when:  'ansible_facts["os_family"] == "RedHat"' , 
+               'ansible_facts["distribution_major_version"] == "8"' }
     
   tasks:
 
     - name: Save current Policy
       set_fact: 
         policy: "{{ crypto_policies_active }}"
+      when:  
+         - 'ansible_facts["os_family"] == "RedHat"'
+         - 'ansible_facts["distribution_major_version"] == "8"' 
 
     - name: Configure crypto policy to DEFAULT
       include_role:
@@ -22,6 +24,9 @@
       vars:
         - crypto_policies_policy: DEFAULT
         - crypto_policies_reboot_ok: false
+      when:  
+         - 'ansible_facts["os_family"] == "RedHat"'
+         - 'ansible_facts["distribution_major_version"] == "8"' 
 
     - name: Install unzip
       yum:
@@ -69,6 +74,9 @@
       vars:
         - crypto_policies_policy: "{{ policy }}"
         - crypto_policies_reboot_ok: False
+      when:  
+         - 'ansible_facts["os_family"] == "RedHat"'
+         - 'ansible_facts["distribution_major_version"] == "8"' 
 
     - name: set timezone
       shell: mv /etc/localtime /etc/localtime.backup; ln -s /usr/share/zoneinfo/Asia/Jerusalem /etc/localtime
@@ -102,7 +110,7 @@
       expect:
         command: /bin/bash -c "/usr/sbin/realm join -U administrator wis.testing.com --computer-ou='ou=Linux,ou=Resources,ou=Global Settings'"
         responses:
-          Password for *: "{{ bind_password }}"
+          Password for *: "{{ wistesting_password }}"
       register: realm_result
       failed_when: "not realm_result.stdout is search('Already joined to this domain') and realm_result.rc != 0"
 
