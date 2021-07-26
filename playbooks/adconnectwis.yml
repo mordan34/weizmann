@@ -18,6 +18,9 @@
       vars:
         - crypto_policies_policy: DEFAULT
         - crypto_policies_reboot_ok: false
+      when:  
+              - 'ansible_facts["distribution"] == "RedHat"'
+              - 'ansible_facts["distribution_major_version"] == "8"' 
 
     - name: Install unzip
       yum:
