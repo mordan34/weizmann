@@ -1,5 +1,6 @@
 ---
 - name: Configure system and connect to AD
+  hosts: all
  
   roles:
     - linux-system-roles.crypto_policies
