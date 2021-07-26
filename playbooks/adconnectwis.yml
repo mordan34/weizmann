@@ -1,9 +1,10 @@
 ---
 - name: Configure system and connect to AD
   hosts: all
- 
   roles:
-    - { role: linux-system-roles.crypto_policies, tags: ["crypto"]} , when: Ansible_distribution == 'RedHat' }
+    - { role: linux-system-roles.crypto_policies, 
+        when:  'ansible_facts["distribution"] == "RedHat"' , 
+               'ansible_facts["distribution_major_version"] == "8"' }
     
   tasks:
 
