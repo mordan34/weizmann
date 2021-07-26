@@ -10,6 +10,9 @@
     - name: Save current Policy
       set_fact: 
         policy: "{{ crypto_policies_active }}"
+      when:
+        - ansible_facts[‘distribution’] == 'RedHat'
+        - ansible_facts[‘distribution_major_version’] == '8'
 
     - name: Configure crypto policy to DEFAULT
       include_role:
