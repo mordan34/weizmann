@@ -12,16 +12,18 @@
       set_fact: 
         policy: "{{ crypto_policies_active }}"
       tags:
-        - crypto
+          - crypto
 
     - name: Configure crypto policy to DEFAULT
       include_role:
         name: linux-system-roles.crypto_policies
+        apply:
+          tags:
+          - crypto
       vars:
         - crypto_policies_policy: DEFAULT
         - crypto_policies_reboot_ok: false
-      tags:
-        - crypto
+
 
     - name: Install unzip
       yum:
@@ -66,11 +68,13 @@
     - name: Configure crypto policy back to before
       include_role:
         name: linux-system-roles.crypto_policies
+        apply:
+          tags:
+          - crypto
       vars:
         - crypto_policies_policy: "{{ policy }}"
         - crypto_policies_reboot_ok: False
-      tags:
-        - crypto
+      
 
     - name: set timezone
       shell: mv /etc/localtime /etc/localtime.backup; ln -s /usr/share/zoneinfo/Asia/Jerusalem /etc/localtime
