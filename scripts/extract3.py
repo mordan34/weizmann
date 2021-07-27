@@ -11,6 +11,11 @@ payload = {'P101_USERNAME':'mordan',
            'P101_PASSWORD':'Makeachange67'
 }
 
+r= requests.post(loginurl, data=payload)
+#print(r.text)
+
 with requests.session() as s:
-    r=s.post(loginurl, data=payload)
-    print(r.text)
+    s.post(loginurl, data=payload)
+    r = s.get(secure_url)
+    soup= BeautifulSoup(r.content, 'html.parser')
+    print(soup.prettify())
