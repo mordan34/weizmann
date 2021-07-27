@@ -11,3 +11,6 @@ payload = {'P101_USERNAME':'mordan',
            'P101_PASSWORD':'Makeachange67'
 }
 
+with requests.session() as s:
+    r=s.post(loginurl, data=payload)
+    print(r.text)
