@@ -1,9 +1,12 @@
 ---
 - name: Configure system and connect to AD
   hosts: all
+  become: true
+  vars_files:
+    - ../vault/vault-pass.yml
   roles:
-    - { role: linux-system-roles.crypto_policies, tags: crypto,
-        when:  'ansible_facts["distribution"] == "RedHat"' , 
+    - { role: linux-system-roles.crypto_policies,
+        when:  'ansible_facts["os_family"] == "RedHat"' , 
                'ansible_facts["distribution_major_version"] == "8"' }
     
   tasks:
@@ -11,19 +14,17 @@
     - name: Save current Policy
       set_fact: 
         policy: "{{ crypto_policies_active }}"
-      tags:
-          - crypto
+      when:  
+         - 'ansible_facts["os_family"] == "RedHat"'
+         - 'ansible_facts["distribution_major_version"] == "8"'
 
     - name: Configure crypto policy to DEFAULT
       include_role:
         name: linux-system-roles.crypto_policies
-        apply:
-          tags:
-          - crypto
       vars:
         - crypto_policies_policy: DEFAULT
         - crypto_policies_reboot_ok: false
-
+      when: policy == "FUTURE" 
 
     - name: Install unzip
       yum:
@@ -68,14 +69,11 @@
     - name: Configure crypto policy back to before
       include_role:
         name: linux-system-roles.crypto_policies
-        apply:
-          tags:
-          - crypto
       vars:
         - crypto_policies_policy: "{{ policy }}"
         - crypto_policies_reboot_ok: False
+      when: policy == "FUTURE" 
       
-
     - name: set timezone
       shell: mv /etc/localtime /etc/localtime.backup; ln -s /usr/share/zoneinfo/Asia/Jerusalem /etc/localtime
 
@@ -83,7 +81,7 @@
       yum: name=chrony state=installed 
  
     - name: Copy over the NTP configuration
-      template: src=./templates/chrony.conf dest=/etc/chrony.conf
+      template: src=../templates/chrony.conf dest=/etc/chrony.conf
       notify:
       - restart chronyd
 
@@ -108,7 +106,7 @@
       expect:
         command: /bin/bash -c "/usr/sbin/realm join -U urishi wismain.weizmann.ac.il --computer-ou='ou=Linux,ou=Resources,ou=Global Settings'"
         responses:
-          Password for *: "{{ bind_password }}"
+          Password for *: "{{ wismain_password }}"
       register: realm_result
       failed_when: "not realm_result.stdout is search('Already joined to this domain') and realm_result.rc != 0"
 
