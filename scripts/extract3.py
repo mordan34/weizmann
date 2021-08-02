@@ -1,21 +1,26 @@
 # importing the libraries
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup as bs
+from pprint import pprint
 
 
-loginurl= ('https://prodis.weizmann.ac.il/ords306/isprod/f?p=133:4:7531191127977::NO:::')
-secure_url= ('https://prodis.weizmann.ac.il/ords306/isprod/wwv_flow.accept')
-custom_User_agent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0"
+url= 'https://prodis.weizmann.ac.il/'
+login_route= 'ords306/isprod/wwv_flow.accept'
 
 payload = {'P101_USERNAME':'mordan', 
            'P101_PASSWORD':'Makeachange67'
 }
 
-r= requests.post(loginurl, data=payload)
-#print(r.text)
+header= {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36', 'origin': url, 'referer': url + login_route}
+
 
 with requests.session() as s:
-    s.post(loginurl, data=payload)
-    r = s.get(secure_url)
-    soup= BeautifulSoup(r.content, 'html.parser')
-    print(soup.prettify())
+    r= s.post(url + 'ords306/isprod/f?p=133:4', headers=header, data=payload)
+    pprint(r.text)
+
+    response = s.get(url + 'ords306/isprod/f?p=133:4:')
+    #print(response.text)
+    #soup= bs(s.get(url + 'ords306/isprod/f?p=133:4:').text, 'html.parser')
+    #print(soup)
+    #tbody=soup.find('table', id='15077363850397519')
+  

@@ -1,0 +1,132 @@
+---
+- name: Configure system and connect to AD
+  hosts: all
+  become: true
+  vars_files:
+    - ../vault/vault-pass.yml
+  roles:
+    - { role: linux-system-roles.crypto_policies,
+        when:  'ansible_facts["os_family"] == "RedHat"' , 
+               'ansible_facts["distribution_major_version"] == "8"' }
+    
+  tasks:
+
+    - name: Save current Policy
+      set_fact: 
+        policy: "{{ crypto_policies_active }}"
+      when:  
+         - 'ansible_facts["os_family"] == "RedHat"'
+         - 'ansible_facts["distribution_major_version"] == "8"' 
+
+    - name: Configure crypto policy to DEFAULT
+      include_role:
+        name: linux-system-roles.crypto_policies
+      vars:
+        - crypto_policies_policy: DEFAULT
+        - crypto_policies_reboot_ok: false
+      when: policy == "FUTURE" 
+
+    - name: Install unzip
+      yum:
+        name: unzip
+        state: latest
+
+    - name: Extract SEP package contents
+      command: mkdir -p /tmp/sep
+
+    - name: Extract SEP package contents
+      unarchive:
+        src: http://antivirus.weizmann.ac.il/Information%20System%20Division%20-%20IT/Linux%20Servers/latest.zip
+        dest: /tmp/sep
+        remote_src: yes
+      register: result
+      failed_when:  (result == 10)
+
+    - name: Find LinuxInstaller executable file
+      find:
+        paths: "/tmp/sep"
+        patterns: "LinuxInstaller"
+        recurse: "yes"
+      register: exec
+
+    - name: Copy the sep executable file to /tmp
+      copy: 
+        src: "{{ exec.files[0].path }}"
+        dest: /tmp/sep
+        owner: root
+        mode: 0744
+        remote_src: yes
+
+    - name: Install SEP AntiVirus
+      command: /tmp/sep/LinuxInstaller
+      register: sep_result
+      ignore_errors: True
+
+    - name: Fail the play if the SEP installation failed
+      fail: msg="SEP installation failed"
+      when: "sep_result.rc != 0 and sep_result.rc != 3"
+   
+    - name: Configure crypto policy back to before
+      include_role:
+        name: linux-system-roles.crypto_policies
+      vars:
+        - crypto_policies_policy: "{{ policy }}"
+        - crypto_policies_reboot_ok: False
+      when: policy == "FUTURE"
+
+    - name: set timezone
+      shell: mv /etc/localtime /etc/localtime.backup; ln -s /usr/share/zoneinfo/Asia/Jerusalem /etc/localtime
+
+    - name: Install Chrony
+      yum: name=chrony state=installed 
+ 
+    - name: Copy over the NTP configuration
+      template: src=../templates/chrony.conf dest=/etc/chrony.conf
+      notify:
+      - restart chronyd
+
+    - name: Make sure Chrony service is up
+      service: name=chronyd state=started enabled=yes
+
+    - name: Copy krb5.conf to the client
+      template: src=../templates/krb5_adlab.conf dest=/etc/krb5.conf
+
+    - name: Install the required packages
+      yum:
+        name: realmd,sssd,oddjob,oddjob-mkhomedir,adcli,samba-common,samba-common-tools,chrony,python3-pip,krb5-workstation
+        state: present
+      notify:
+        - restart realmd
+
+    - name: Install pexpect using pip
+      pip:
+        name: pexpect
+
+    - name: Join system to AD and add the computer object in the Linux OU
+      expect:
+        command: /bin/bash -c "/usr/sbin/realm join -U anssvc adlab.weizmann.ac.il --computer-ou='ou=Linux,ou=Resources,ou=Global Settings'"
+        responses:
+          Password for *: "{{ adlab_password }}"
+      register: realm_result
+      failed_when: "not realm_result.stdout is search('Already joined to this domain') and realm_result.rc != 0"
+
+    - name: Allow the LinuxAdmins AD group to logon to the system
+      command: /bin/bash -c "/usr/sbin/realm permit -g LinuxAdmGrp@adlab.weizmann.ac.il"
+
+    - name: Add the LinuxAdmins AD Group to sudoers
+      lineinfile:
+        dest: /etc/sudoers
+        line: '%LinuxAdmGrp@adlab.weizmann.ac.il        ALL=(ALL)       ALL'
+        insertafter: '^%wheel'
+      notify:
+        - restart sssd
+
+  handlers:
+      - name: restart chronyd
+        service: name=chronyd state=restarted
+
+      - name: restart sssd
+        service: name=sssd state=restarted
+
+      - name: restart realmd
+        service: name=realmd state=restarted
