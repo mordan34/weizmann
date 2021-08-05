@@ -3,7 +3,7 @@
 
 # This script registers a system into Satellite server
 
-curl -O http://iblstlv01.weizmann.ac.il/pub/bootstrap.py
+curl -O https://iblstlv01.weizmann.ac.il/pub/bootstrap.py
 
 chmod +x bootstrap.py
 
