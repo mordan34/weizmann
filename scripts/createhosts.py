@@ -1,7 +1,9 @@
 #!/usr/bin/python
 
 import json
+from os import name
 import sys
+import os.path
 
 try:
     import requests
@@ -12,9 +14,7 @@ except ImportError:
 # URL to your Satellite 6 server
 URL = "https://iblstlv01.weizmann.ac.il"
 # URL for the API to your deployed Satellite 6 server
-SAT_API = "%s/katello/api/v2/" % URL
-# Katello-specific API
-KATELLO_API = "%s/katello/api/" % URL
+SAT_API = "%s/api/v2/" % URL
 POST_HEADERS = {'content-type': 'application/json'}
 # Default credentials to login to Satellite 6
 USERNAME = "admin"
@@ -25,10 +25,10 @@ SSL_VERIFY = False
 # Name of the organization to be either created or used
 ORG_NAME = "Weizmann Institute of Science"
 # Name for hosts to be either created or used
-my_file = open("testhosts", "r")
+my_file = open(os.path.abspath(os.path.join(os.path.dirname(__file__),"..")) + '/data/testhosts')
 content = my_file.read()
-HOSTS = content.split("\n")
-print(HOSTS)
+IMPHOSTS = content.split("\n")
+print(IMPHOSTS)
 
 def get_json(location):
     """
@@ -78,13 +78,22 @@ def main():
 
     # Now, let's fetch all available hosts for this org...
     hosts = get_json(
-        SAT_API + "organizations/" + str(org_id) + "/environments/")
+        SAT_API + "hosts/")
 
-    # ... and add them to a dictionary, with respective 'Prior' environment
-   
+
+    # Create a list of existing hosts in Satellite
+    hostlist= []
+    json_str=json.dumps(hosts['results'], indent=4)
+    existinghosts=json.loads(json_str)
+    hostlist=  [ (sub['name'].split('.',1))[0] for sub in existinghosts]
+
+    # Create a list of all newly added hosts
+    newhosts= []
+    for host in IMPHOSTS:
+        if ( host not in hostlist):
+            newhosts.append(host)
 
     
-
 
 if __name__ == "__main__":
     main()
