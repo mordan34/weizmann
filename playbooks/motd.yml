@@ -12,6 +12,12 @@
           group: root
           mode: '0644'
 
+      - name: Add Banner configuration to sshd_config
+        lineinfile:
+          path: /etc/ssh/sshd_config
+          regexp: '^Banner'
+          insertafter: '# no default banner path'
+          line: Banner /etc/ssh/sshd-banner
 
       - name: Reload sshd.service
         command: kill -s HUP $(cat /var/run/sshd.pid)
