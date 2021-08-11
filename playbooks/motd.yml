@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: true
+
+  tasks: 
+
+      - name: Copy Banner to ssh daemon folder
+        copy: 
+          src: ../templates/sshd-banner
+          dest: /etc/ssh/sshd-banner
+          owner: root
+          group: root
+          mode: '0644'
+
+
+      - name: Reload sshd.service
+        command: kill -s HUP $(cat /var/run/sshd.pid)
