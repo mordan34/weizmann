@@ -31,4 +31,4 @@
       - name: Reload sshd.service
         command: kill -1 "{{ item }}"
         with_items:
-        - {{ sshd_pid }}
+        - "{{ sshd_pid }}"
