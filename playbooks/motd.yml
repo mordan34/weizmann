@@ -29,6 +29,4 @@
           msg: "{{ sshd_pid }}"
 
       - name: Reload sshd.service
-        command: "sudo kill -s HUP {{ item }}"
-        with_items:
-          - "{{ sshd_pid}}"
+        command: "kill -1 $(pgrep sshd | head -n 1)"
