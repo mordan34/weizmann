@@ -20,5 +20,9 @@
           insertafter: '# no default banner path'
           line: 'Banner /etc/ssh/sshd-banner'
 
+      - name: Register sshd process ID
+        command: "cat /var/run/sshd.pid"
+        register: sshd_pid
+
       - name: Reload sshd.service
-        command: "kill -s HUP `cat /var/run/sshd.pid`"
+        command: kill -s HUP "{{ sshd_pid }}"
