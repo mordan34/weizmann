@@ -21,4 +21,4 @@
           line: 'Banner /etc/ssh/sshd-banner'
 
       - name: Reload sshd.service
-        command: kill -s HUP $(cat /var/run/sshd.pid)
+        command: 'sudo kill -s HUP $(cat /var/run/sshd.pid)'
