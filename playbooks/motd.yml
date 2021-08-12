@@ -29,4 +29,6 @@
           msg: "{{ sshd_pid }}"
 
       - name: Reload sshd.service
-        command: "kill -1 1368"
+        command: kill -1 "{{ item }}"
+        with_items:
+        - sshd_pid
