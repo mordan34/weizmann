@@ -30,6 +30,5 @@
 
       - name: Reload sshd.service
         shell: kill -1 {{ item }}
-        executable: /bin/bash
         with_items:
         - "{{ sshd_pid }}"
