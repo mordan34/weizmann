@@ -32,6 +32,4 @@
         become: true
         ansible.builtin.command: 'kill -1'
         args:
-          pid: "{{ sshd_pid }}"
-        with_items:
-        - "{{ sshd_pid }}"
+          pid: '{{ sshd_pid }}'
