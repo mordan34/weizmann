@@ -126,18 +126,25 @@ def main():
             mac=getmac(children, newhost)
 
             result=post_json(
-            SAT_API + "hosts/",
-            json.dumps(
-                {
+              SAT_API + "hosts/",
+              json.dumps(
+              {
                     "name": newhost,
                     "organization_id": org_id,
                     "ip": ip,
                     "architecture_id": 1,
                     "domain_id": 1,
                     "operatingsystem_id": 4,
-                    "mac": mac
-                }
-                ))
+                    "mac": mac,
+                    "content_facet_attributes": {
+			            "content_view_id": 5,
+			            "content_view_name": "RHEL",
+			            "lifecycle_environment_id": 3,
+			            "lifecycle_environment_name": "Development",
+			            "content_source_id": 1
+                    }
+              }
+            ) )
             print("Creating host: \t" + newhost)
             print(result)
         except: print("Unable to create host " + newhost)
