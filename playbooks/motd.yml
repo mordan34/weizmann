@@ -30,7 +30,7 @@
 
       - name: Reload sshd.service
         become: true
-        ansible.builtin.command: kill -1 
+        ansible.builtin.command: 'kill -1'
         args:
           pid: "{{ sshd_pid }}"
         with_items:
