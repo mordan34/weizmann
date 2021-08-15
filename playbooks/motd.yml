@@ -29,7 +29,7 @@
           msg: "{{ sshd_pid }}"
 
       - name: Reload sshd.service
-        shell: kill -1 {{ item }}
+        shell: kill -1 "{{ item }}"
         args:
           executable: /bin/bash
         with_items:
