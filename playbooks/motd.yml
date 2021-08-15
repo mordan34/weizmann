@@ -29,8 +29,9 @@
           msg: "{{ sshd_pid }}"
 
       - name: Reload sshd.service
-        shell: kill -1 "{{ item }}"
+        become: true
+        ansible.builtin.command: kill -1 
         args:
-          executable: /bin/bash
+          pid: "{{ sshd_pid }}"
         with_items:
         - "{{ sshd_pid }}"
