@@ -25,4 +25,4 @@
         register: sshd_pid
 
       - name: Reload sshd.service
-        ansible.builtin.command: "/usr/bin/kill -1 $(cat /var/run/sshd.pid)"
+        shell: service sshd reload
