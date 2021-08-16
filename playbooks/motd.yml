@@ -25,4 +25,6 @@
         register: sshd_pid
 
       - name: Reload sshd.service
-        shell: service sshd reload
+        service:
+          state: reloaded
+          name: sshd.service
