@@ -24,10 +24,6 @@
         command: "cat /var/run/sshd.pid"
         register: sshd_pid
 
-      - name: "loop through list"
-        debug:
-          msg: "{{ sshd_pid }}"
-
       - name: Reload sshd.service
         ansible.builtin.command: 'kill -1'
         args:
