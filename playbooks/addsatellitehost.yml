@@ -7,7 +7,10 @@
      - name: Copy registration script to remote host
        copy:
           src: ../scripts/registerrh8.sh
-          dst: /tmp/registerrh8.sh
+          dest: /tmp/registerrh8.sh
+          owner: root
+          group: root
+          mode: 0770
 
      - name: Register host with Satellite
        command: /tmp/registerrh8.sh
