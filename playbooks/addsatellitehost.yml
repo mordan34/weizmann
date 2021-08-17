@@ -19,7 +19,7 @@
        lineinfile:
           insertafter: EOF
           path: /etc/puppetlabs/puppet/autosign.conf
-          line: "{{ inventory_hostname }}"
+          line: "{{ inventory_hostname }}.weizmann.ac.il"
        delegate_to: iblstlv01.weizmann.ac.il
 
      - name: Install puppet agent
