@@ -53,7 +53,6 @@ def create_host(vms, hostname):
 			            "content_view_id": 5,
 			            "content_view_name": "RHEL",
 			            "lifecycle_environment_id": 3,
-			            "lifecycle_environment_name": "Development",
 			            "content_source_id": 1
                     }
               }
