@@ -1,0 +1,24 @@
+---
+- name: Add existing hosts to Satellite server
+  hosts: all
+
+  tasks: 
+     
+     - name: Register host with Satellite
+       command: /bin/sh registerrh8.sh 
+     
+     - name: Add hostname to autosign.conf
+       lineinfile:
+          insertafter: EOF
+          path: /etc/puppetlabs/puppet/autosign.conf
+          line: "{{ inventory_hostname }}"
+       delegate_to: iblstlv01.weizmann.ac.il
+
+     - name: Install puppet agent
+       yum:
+          name: puppet-agent
+          state: latest
+
+     - name: Initiate puppet registration with Satellite server
+       command: "puppet agent -t --server iblstlv01.weizmann.ac.il"
+
