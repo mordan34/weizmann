@@ -1,6 +1,6 @@
 ---
 - name: Add existing hosts to Satellite server
-  hosts: all
+  hosts: iblanstwtstv01t.weizmann.ac.il
 
   tasks: 
      
