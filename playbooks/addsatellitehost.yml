@@ -4,8 +4,13 @@
 
   tasks: 
      
+     - name: Copy registration script to remote host
+       copy:
+          src: ../scripts/registerrh8.sh
+          dst: /tmp/registerrh8.sh
+
      - name: Register host with Satellite
-       command: /bin/sh registerrh8.sh 
+       command: /tmp/registerrh8.sh
      
      - name: Add hostname to autosign.conf
        lineinfile:
