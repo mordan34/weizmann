@@ -24,13 +24,13 @@
 
      - name: Install puppet package
        yum:
-          name: puppet
+          name: puppet-agent
           state: latest
 
      - name: Enable puppet service
        service:
           name: puppet
-          state: started
+          state: stopped
           enabled: yes
 
      - name: Copy puppet.conf to remote host
@@ -39,8 +39,13 @@
           dest: /etc/puppetlabs/puppet/puppet.conf
           owner: puppet
           group: puppet
-          mode: 0644
+          mode: 0644 
 
      - name: Initiate puppet registration with Satellite server
        command: '/usr/bin/puppet agent -t --server iblstlv01.weizmann.ac.il'
+
+     - name: Start puppet
+       service:
+            name: puppet
+            state: started
 
