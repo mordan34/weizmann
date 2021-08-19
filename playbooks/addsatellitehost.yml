@@ -24,7 +24,7 @@
 
      - name: Install puppet package
        yum:
-          name: puppet
+          name: puppet-agent
           state: latest
 
      - name: Enable puppet service
