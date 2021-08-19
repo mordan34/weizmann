@@ -119,7 +119,7 @@ def main():
     si = connect.SmartConnect(
         host="ibavcv01.weizmann.ac.il",
         user="wismain\mordan",
-        pwd="Makeachange67",
+        pwd="",
         port=443)
 
     content = si.RetrieveContent()

@@ -11,7 +11,7 @@ session = requests.session()
 
 # Create the payload
 payload = {'P101_USERNAME':'mordan', 
-           'P101_PASSWORD':'Makeachange67'
+           'P101_PASSWORD':''
 }
 
 result = session.post(

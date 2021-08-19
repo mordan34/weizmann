@@ -33,7 +33,7 @@ br.select_form(nr=0)
 
 # User credentials
 br.form['P101_USERNAME'] = 'mordan'
-br.form['P101_PASSWORD'] = 'Makeachange67'
+br.form['P101_PASSWORD'] = ''
 
 # Login
 br.submit()

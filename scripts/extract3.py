@@ -8,7 +8,7 @@ login_route= 'ords306/isprod/wwv_flow.accept'
 data_route= 'ords306/isprod/f?p=133:4:'
 
 payload = {'P101_USERNAME':'mordan', 
-           'P101_PASSWORD':'Makeachange67'
+           'P101_PASSWORD':''
 }
 
 header= {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36', 'origin': url, 'referer': url + login_route}
