@@ -6,14 +6,14 @@
      
      - name: Copy registration script to remote host
        copy:
-          src: ../scripts/registerrh8.sh
-          dest: /tmp/registerrh8.sh
+          src: ../scripts/registerrh.sh
+          dest: /tmp/registerrh.sh
           owner: root
           group: root
           mode: 0770
 
      - name: Register host with Satellite
-       command: /tmp/registerrh8.sh
+       command: /tmp/registerrh.sh
      
      - name: Add hostname to autosign.conf
        lineinfile:
