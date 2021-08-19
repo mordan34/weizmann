@@ -38,7 +38,7 @@
      - name: Enable puppet service
        service:
           name: puppet
-          state: restarted
+          state: started
           enabled: yes
 
      - name: Initiate puppet registration with Satellite server
