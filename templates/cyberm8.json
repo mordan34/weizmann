@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "320e5f2a-b2cd-4973-9e7e-81f492165bf5",
+		"name": "CyberM8",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"postman.setGlobalVariable(\"token\",postman.getResponseHeader(\"Authorization\") );"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\": \"ansibletest\", \"password\": \"jvUFjUzkR7rM7Qdq\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://ibapvtv01.weizmann.ac.il:8443/api/login",
+					"protocol": "https",
+					"host": [
+						"ibapvtv01",
+						"weizmann",
+						"ac",
+						"il"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Run Task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"task_id\": \"610bd0b33e167a0b0c87f176\",\r\n\t\"parameters\": {\r\n\t\t\"environment\": \"DC\",\r\n\t\t\"type\": \"Linux\",\r\n\t\t\"server_name\": \"Server Name\",\r\n\t\t\"server_description\": \"Server Description\",\r\n\t\t\"server_owner\": \"Server Owner\",\r\n\t\t\"system_name\": \"System Name\",\r\n\t\t\"ip_address\": \"1.8.8.7\",\r\n\t\t\"requestor\": \"Requestor\"\r\n\t}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://ibapvtv01.weizmann.ac.il:8443/api/runTask",
+					"protocol": "https",
+					"host": [
+						"ibapvtv01",
+						"weizmann",
+						"ac",
+						"il"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"runTask"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
