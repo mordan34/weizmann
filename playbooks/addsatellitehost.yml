@@ -22,10 +22,24 @@
           line: "{{ inventory_hostname }}.weizmann.ac.il"
        delegate_to: iblstlv01.weizmann.ac.il
 
-     - name: Install puppet agent
+     - name: Install puppet package
        yum:
-          name: puppet-agent
+          name: puppet
           state: latest
+
+     - name: Copy puppet.conf to remote host
+       copy:
+          src: ../templates/puppet.conf
+          dest: /etc/puppetlabs/puppet/puppet.conf
+          owner: puppet
+          group: puppet
+          mode: 0644
+
+     - name: Enable puppet service
+       service:
+          name: puppet
+          state: restarted
+          enabled: yes
 
      - name: Initiate puppet registration with Satellite server
        command: '/usr/bin/puppet agent -t --server iblstlv01.weizmann.ac.il'
