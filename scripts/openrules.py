@@ -6,6 +6,8 @@ import pandas
 
 # Path of the .csv file to extract data from
 PATH = os.path.abspath(os.path.join(os.path.dirname(__file__),"..")) + '/data/inventar.csv'
+
+# URI in the API to execute
 LOCATION = "https://ibapvtv01.weizmann.ac.il:8443/api/runTask"
 
 # Building the task for a specific system
@@ -36,5 +38,8 @@ def post_json(location, json_obj):
             data=json_obj
         )
 
+
+# Main routine to open rules for specific Server
 ip = '10.150.10.29'
 load_data(PATH, ip)
+

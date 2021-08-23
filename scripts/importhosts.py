@@ -88,7 +88,8 @@ def post_json(location, json_data):
         data=json_data,
         auth=(USERNAME, PASSWORD),
         verify=SSL_VERIFY,
-        headers=POST_HEADERS)
+        headers=POST_HEADERS
+    )
 
     return result.json()
 
