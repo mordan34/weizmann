@@ -2,7 +2,7 @@
 
 server="iblstlv01.weizmann.ac.il"
 
-hammer  --server https://$server --username admin host create --name $1 --puppet-environment-id 3 --architecture-id 1 --domain-id 1  --puppet-proxy-id 1 --operatingsystem-id 3 --partition-table-id 7 --location-id 2 --organization-id 1 --medium-id 12 --mac "$(facter macaddress)" --build 1 --hostgroup "Dev_RHEL8_VC" &
+hammer  --server https://$server --username admin host create --name $1 --puppet-environment-id 3 --architecture-id 1 --domain-id 1  --puppet-proxy-id 1 --operatingsystem-id 3 --partition-table-id 7 --location-id 2 --organization-id 1 --medium-id 12 --build 1 --hostgroup "Dev_RHEL8_VC" &
 
 pid=$!
 wait $pid
