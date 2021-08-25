@@ -11,9 +11,9 @@ import certifi
 PATH = os.path.abspath(os.path.join(os.path.dirname(__file__),"..")) + '/data/inventar.csv'
 
 # URI in the API to execute
-BASEURL =  "https://ibapvtv01.weizmann.ac.il:8443/api/"
-TASK = BASEURL + "runTask"
-LOGIN = BASEURL + "login"
+BASEURL =  "https://ibapvtv01.weizmann.ac.il:8443"
+TASK = BASEURL + "/api/runTask"
+LOGINURL = BASEURL + "/api/login"
 
 POST_HEADERS = {'content-type': 'application/json'}
 
@@ -66,15 +66,21 @@ def post_json(location, json_data):
 # Main routine to open rules for specific Server
 ip = '10.160.3.28'
 
-#try: 
+
 task_json=load_data(PATH, ip)
-login_json={ "username": USERNAME, "password": PASSWORD }
-#result=post_json(LOGIN, json.dumps( login_json ) )
+login_json = {'username': USERNAME, 'password': PASSWORD}
+payload="{\r\n\t\"task_id\": \"610bd0b33e167a0b0c87f176\",\r\n\t\"parameters\": {\r\n\t\t\"environment\": \"DCTest\",\r\n\t\t\"type\": \"Linux\",\r\n\t\t\"server_name\": \"iblsemurtstv01\",\r\n\t\t\"server_description\": \"Semur Test Server\",\r\n\t\t\"server_owner\": \"mordan\",\r\n\t\t\"system_name\": \"iblsemurtstv01\",\r\n\t\t\"ip_address\": \"10.160.1.56\",\r\n\t\t\"requestor\": \"Katya Rechav\"\r\n\t}\r\n}"
+jar = requests.cookies.RequestsCookieJar()
+jar.set('ZNPCQ003-38363900', '2865fb5f', domain='.weizmann.ac.il')
 
 with requests.Session() as s:
-        s.post(LOGIN, data=login_json)
-        r = s.get('https://ibapvtv01.weizmann.ac.il:8443/operator/tasks')
-        print(r.content)
+        s.headers.update(POST_HEADERS)
+        resp = s.post(LOGINURL, json.dumps(login_json), cookies=jar)
+        print(resp)
+        s.auth = (USERNAME, PASSWORD)
+        print(s.cookies)
+        result = s.post(TASK, data=payload)
+        print(result.content)
 #result2=post_json(TASK, json.dumps( task_json ) )
 #print(result2)
 #print("Created request successfully for IP\t" + ip)
