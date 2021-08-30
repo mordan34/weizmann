@@ -9,8 +9,8 @@
        copy:
           src: ../scripts/registerrh.sh
           dest: /tmp/registerrh.sh
-          owner: root
-          group: root
+          owner: ansible
+          group: ansible
           mode: 0770
 
      - name: Register host with Satellite
