@@ -1,6 +1,7 @@
 ---
 - name: Add existing hosts to Satellite server
   hosts: all
+  become: true
 
   tasks: 
      
