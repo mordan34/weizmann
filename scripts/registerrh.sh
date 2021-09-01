@@ -13,7 +13,7 @@ release=${os:osver_pos+8:3}
 
 # Download and install Satellite's CA certificate
 curl --insecure --output katello-ca-consumer-latest.noarch.rpm https://iblstlv01.weizmann.ac.il/pub/katello-ca-consumer-latest.noarch.rpm
-yum localinstall katello-ca-consumer-latest.noarch.rpm 
+yum -y localinstall katello-ca-consumer-latest.noarch.rpm 
 
 subscription-manager register --org="Weizmann_Institute_of_Science" --activationkey="Dev"
 subscription-manager release --set=$release
