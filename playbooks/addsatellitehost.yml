@@ -39,8 +39,8 @@
        copy:
           src: ../templates/puppet.conf
           dest: /etc/puppetlabs/puppet/puppet.conf
-          owner: puppet
-          group: puppet
+          owner: root
+          group: root
           mode: 0644 
 
      - name: Initiate puppet registration with Satellite server
