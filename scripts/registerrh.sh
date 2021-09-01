@@ -16,6 +16,7 @@ curl --insecure --output katello-ca-consumer-latest.noarch.rpm https://iblstlv01
 yum localinstall katello-ca-consumer-latest.noarch.rpm 
 
 subscription-manager register --org="Weizmann_Institute_of_Science" --activationkey="Dev"
+subscription-manager release --set=$release
 yum -y install katello-host-tools
 yum -y install katello-host-tools-tracer
 yum -y install katello-agent
