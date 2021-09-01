@@ -15,7 +15,7 @@
           mode: 0770
 
      - name: Register host with Satellite
-       command: /tmp/registerrh.sh
+       command: sudo /tmp/registerrh.sh
      
      - name: Add hostname to autosign.conf
        lineinfile:
