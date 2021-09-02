@@ -111,7 +111,7 @@
       failed_when: "not realm_result.stdout is search('Already joined to this domain') and realm_result.rc != 0"
 
     #- name: Allow the LinuxAdmins AD group to logon to the system
-     # command: /bin/bash -c "/usr/sbin/realm permit -g AnsibleTowerPermitted@adlab.weizmann.ac.il"
+     # command: /bin/bash -c "/usr/sbin/realm permit -g LinuxAdmGrp@adlab.weizmann.ac.il"
 
     - name: Add the LinuxAdmins AD Group to sudoers
       lineinfile:
