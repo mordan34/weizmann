@@ -2,7 +2,6 @@
 - name: Add existing hosts to Satellite server
   hosts: all
   become: true
-  become_user: root
 
   tasks: 
      
@@ -15,7 +14,7 @@
           mode: 0770
 
      - name: Register host with Satellite
-       command: sudo /tmp/registerrh.sh
+       command: /tmp/registerrh.sh
      
      - name: Add hostname to autosign.conf
        lineinfile:
