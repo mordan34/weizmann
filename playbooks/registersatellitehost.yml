@@ -50,7 +50,7 @@
           path: /etc/puppetlabs/puppet/ssl/certs/
 
      - name: Initiate puppet registration with Satellite server
-       command: '/usr/bin/puppet agent -t --server iblstlv01.weizmann.ac.il'
+       command: '/opt/puppetlabs/bin/puppet agent -t --server iblstlv01.weizmann.ac.il'
 
      - name: Start puppet
        service:
