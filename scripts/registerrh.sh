@@ -16,6 +16,7 @@ yum -y localinstall katello-ca-consumer-latest.noarch.rpm
 # Choosing correct activation key
 if [ $release == "8*" ];   then            key="RHEL $release"
 elif [ $release == "7*" ]; then            key="RHEL 7"
+fi
 
 subscription-manager register --org="Weizmann_Institute_of_Science" --activationkey=$key
 subscription-manager release --set=$release
