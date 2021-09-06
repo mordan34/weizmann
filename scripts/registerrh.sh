@@ -13,7 +13,11 @@ release=${os:osver_pos+8:3}
 curl --insecure --output katello-ca-consumer-latest.noarch.rpm https://iblstlv01.weizmann.ac.il/pub/katello-ca-consumer-latest.noarch.rpm
 yum -y localinstall katello-ca-consumer-latest.noarch.rpm 
 
-subscription-manager register --org="Weizmann_Institute_of_Science" --activationkey="Dev"
+# Choosing correct activation key
+if [ $release == "8*" ];   then            key="RHEL $release"
+elif [ $release == "7*" ]; then            key="RHEL 7"
+
+subscription-manager register --org="Weizmann_Institute_of_Science" --activationkey=$key
 subscription-manager release --set=$release
 yum -y install katello-host-tools
 yum -y install katello-host-tools-tracer
