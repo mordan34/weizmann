@@ -1,3 +1,7 @@
 # Global Variables
 
 sep_url: http://antivirus.weizmann.ac.il/Information%20System%20Division%20-%20IT/Linux%20Servers/latest.zip
+
+adlab:
+  username: anssvc
+  domain: adlab.weizmann.ac.il

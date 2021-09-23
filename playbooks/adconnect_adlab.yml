@@ -104,7 +104,7 @@
 
     - name: Join system to AD and add the computer object in the Linux OU
       expect:
-        command: /bin/bash -c "/usr/sbin/realm join -U anssvc adlab.weizmann.ac.il --computer-ou='ou=Linux,ou=Resources,ou=Global Settings'"
+        command: /bin/bash -c "/usr/sbin/realm join -U anssvc {{ adlab.domain }} --computer-ou='ou=Linux,ou=Resources,ou=Global Settings'"
         responses:
           Password for *: "{{ adlab_password }}"
       register: realm_result
