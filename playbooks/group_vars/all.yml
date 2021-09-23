@@ -5,3 +5,4 @@ sep_url: http://antivirus.weizmann.ac.il/Information%20System%20Division%20-%20I
 adlab:
   username: anssvc
   domain: adlab.weizmann.ac.il
+  ou: 'ou=Linux,ou=Resources,ou=Global Settings'

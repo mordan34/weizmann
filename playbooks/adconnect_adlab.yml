@@ -104,19 +104,19 @@
 
     - name: Join system to AD and add the computer object in the Linux OU
       expect:
-        command: /bin/bash -c "/usr/sbin/realm join -U anssvc {{ adlab.domain }} --computer-ou='ou=Linux,ou=Resources,ou=Global Settings'"
+        command: /bin/bash -c "/usr/sbin/realm join -U {{ adlab.username }} {{ adlab.domain }} --computer-ou={{ adlab.ou }}"
         responses:
           Password for *: "{{ adlab_password }}"
       register: realm_result
       failed_when: "not realm_result.stdout is search('Already joined to this domain') and realm_result.rc != 0"
 
     - name: Allow the LinuxAdmins AD group to logon to the system
-      command: /bin/bash -c "/usr/sbin/realm permit -g LinuxAdmGrp@adlab.weizmann.ac.il"
+      command: /bin/bash -c "/usr/sbin/realm permit -g LinuxAdmGrp@{{ adlab.domain }}"
 
     - name: Add the LinuxAdmins AD Group to sudoers
       lineinfile:
         dest: /etc/sudoers
-        line: '%LinuxAdmGrp@adlab.weizmann.ac.il        ALL=(ALL)       ALL'
+        line: '%LinuxAdmGrp@{{ adlab.domain }}        ALL=(ALL)       ALL'
         insertafter: '^%wheel'
       notify:
         - restart sssd
