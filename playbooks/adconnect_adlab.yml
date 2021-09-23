@@ -108,7 +108,7 @@
       expect:
         command: /bin/bash -c "/usr/sbin/realm join -U {{ env.username }} {{ env.domain }} --computer-ou='{{ env.ou }}'"
         responses:
-          Password for *: "{{ adlab_password }}"
+          Password for *: "{{ {{ doamin }}_password }}"
       register: realm_result
       failed_when: "not realm_result.stdout is search('Already joined to this domain') and realm_result.rc != 0"
 
