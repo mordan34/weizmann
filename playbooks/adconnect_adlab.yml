@@ -116,7 +116,7 @@
     - name: Add the LinuxAdmins AD Group to sudoers
       lineinfile:
         dest: /etc/sudoers
-        line: '%LinuxAdmGrp@"{{ lookup('vars', domain)['domain'] }}"        ALL=(ALL)       ALL'
+        line: "%LinuxAdmGrp@{{ lookup('vars', domain).domain }}        ALL=(ALL)       ALL"
         insertafter: '^%wheel'
       notify:
         - restart sssd
