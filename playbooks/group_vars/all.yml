@@ -6,3 +6,9 @@ adlab:
   username: anssvc
   domain: adlab.weizmann.ac.il
   ou: 'ou=Linux,ou=Resources,ou=Global Settings'
+
+
+wismain:
+  username: uri.shimon
+  domain: wismain.weizmann.ac.il
+  ou: 'ou=Linux,ou=Resources,ou=Global Settings'
