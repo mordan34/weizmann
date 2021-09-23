@@ -91,7 +91,7 @@
       service: name=chronyd state=started enabled=yes
 
     - name: Copy krb5.conf to the client
-      template: src=../templates/krb5_"{{ env }}".conf dest=/etc/krb5.conf
+      template: src=../templates/krb5_{{ domain }}.conf dest=/etc/krb5.conf
 
     - name: Install the required packages
       yum:
