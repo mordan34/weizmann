@@ -9,6 +9,6 @@ adlab:
 
 
 wismain:
-  username: uri.shimon
+  username: urishi
   domain: wismain.weizmann.ac.il
   ou: 'ou=Linux,ou=Resources,ou=Global Settings'

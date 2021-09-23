@@ -1,7 +1,9 @@
 ---
 - name: Configure system and connect to AD
-  hosts: test
+  hosts: all
   become: true
+  vars: 
+    env: "{{ lookup('vars', domain) }}"
   vars_files:
     - ../vault/vault-pass.yml
   roles:
@@ -36,7 +38,7 @@
 
     - name: Extract SEP package contents
       unarchive:
-        src: http://antivirus.weizmann.ac.il/Information%20System%20Division%20-%20IT/Linux%20Servers/latest.zip
+        src: "{{ sep_url }}"
         dest: /tmp/sep
         remote_src: yes
       register: result
@@ -81,7 +83,7 @@
       yum: name=chrony state=installed 
  
     - name: Copy over the NTP configuration
-      template: src=../templates/chronytest.conf dest=/etc/chrony.conf
+      template: src=../templates/chrony.conf dest=/etc/chrony.conf
       notify:
       - restart chronyd
 
@@ -89,7 +91,7 @@
       service: name=chronyd state=started enabled=yes
 
     - name: Copy krb5.conf to the client
-      template: src=../templates/krb5test.conf dest=/etc/krb5.conf
+      template: src=../templates/krb5_{{ domain }}.conf dest=/etc/krb5.conf
 
     - name: Install the required packages
       yum:
@@ -102,21 +104,21 @@
       pip:
         name: pexpect
 
-    - name: Join system to AD and add the computer object in the Linux OU
+    - name: Join system to {{ env.domain }}  and add the computer object in the Linux OU
       expect:
-        command: /bin/bash -c "/usr/sbin/realm join -U administrator wis.testing.com --computer-ou='ou=Linux,ou=Resources,ou=Global Settings'"
+        command: /bin/bash -c "/usr/sbin/realm join -U {{ env.username }} {{ env.domain }} --computer-ou='{{ env.ou }}'"
         responses:
-          Password for *: "{{ wistesting_password }}"
+          Password for *: "{{ lookup('vars', domain + '_password') }}"
       register: realm_result
       failed_when: "not realm_result.stdout is search('Already joined to this domain') and realm_result.rc != 0"
 
     - name: Allow the LinuxAdmins AD group to logon to the system
-      command: /bin/bash -c "/usr/sbin/realm permit -g LinuxAdmGrp@wis.testing.com"
+      command: /bin/bash -c "/usr/sbin/realm permit -g LinuxAdmGrp@{{ env.domain }}"
 
     - name: Add the LinuxAdmins AD Group to sudoers
       lineinfile:
         dest: /etc/sudoers
-        line: '%LinuxAdmGrp@wis.testing.com        ALL=(ALL)       ALL'
+        line: "%LinuxAdmGrp@{{ env.domain }}        ALL=(ALL)       ALL"
         insertafter: '^%wheel'
       notify:
         - restart sssd
