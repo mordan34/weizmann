@@ -36,7 +36,7 @@
 
     - name: Extract SEP package contents
       unarchive:
-        src: http://antivirus.weizmann.ac.il/Information%20System%20Division%20-%20IT/Linux%20Servers/latest.zip
+        src: "{{ sep_url }}"
         dest: /tmp/sep
         remote_src: yes
       register: result
