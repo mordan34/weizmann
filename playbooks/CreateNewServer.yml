@@ -4,6 +4,6 @@
 
   tasks: 
 
-      - name: Execute Hammer script to create a new serve
+      - name: Execute Hammer script to create a new server
         command: /bin/bash -c "/root/weizmann/scripts/createhost.sh {{ hostname }} "
         delegate_to: iblstlv01.weizmann.ac.il
