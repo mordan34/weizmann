@@ -5,14 +5,15 @@
   tasks: 
 
       - name: Clone/Update repository to destination
+        hosts: satellite
         git:
             repo: 'https://github.com/mordan34/weizmann.git'
             dest: /opt/weizmann
             clone: yes
             update: yes
-        delegate_to: satellite
+
         
 
       - name: Execute Hammer script to create a new server
+        hosts: satellite
         command: /bin/bash -c "/opt/weizmann/scripts/createhost.sh {{ hostname }} "
-        delegate_to: satellite
