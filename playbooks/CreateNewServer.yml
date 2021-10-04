@@ -7,7 +7,7 @@
       - name: Clone/Update repository to destination
         git:
             repo: 'https://github.com/mordan34/weizmann.git'
-            dest: /opt
+            dest: /opt/weizmann
             clone: yes
             update: yes
         delegate_to: iblstlv01.weizmann.ac.il
