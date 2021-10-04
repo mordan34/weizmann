@@ -1,5 +1,5 @@
 ---
-- hosts: satellite
+- hosts: Satellite
   become: true
 
   tasks: 
