@@ -12,8 +12,7 @@
             clone: yes
             update: yes
 
-        
-
+      
       - name: Execute Hammer script to create a new server
         hosts: satellite
         command: /bin/bash -c "/opt/weizmann/scripts/createhost.sh {{ hostname }} "
