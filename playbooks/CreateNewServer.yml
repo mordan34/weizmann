@@ -10,6 +10,7 @@
             dest: /opt/weizmann
             clone: yes
             update: yes
+            force: yes
 
       
       - name: Execute Hammer script to create a new server
