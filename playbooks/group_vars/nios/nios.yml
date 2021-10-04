@@ -1,5 +1,5 @@
 ---
 nios_provider:
-  host: ipam.weizmann.ac.il
-  username: admin
-  password: ansible
+  host: {{ nios_hostname }}
+  username: {{ nios_user }}
+  password: {{ nios_password }}
