@@ -1,0 +1,7 @@
+---
+- hosts: nios
+  connection: local
+  tasks:
+    - name: fetch host iblvctest01
+      set_fact:
+         host: "{{ lookup('nios', 'record:host', filter={'name': 'iblvctest01.weizmann.ac.il'}, provider=nios_provider) }}"
