@@ -5,3 +5,11 @@
     - name: fetch host iblvctest01
       set_fact:
          host: "{{ lookup('nios', 'record:host', filter={'name': 'iblvctest01.weizmann.ac.il'}, provider=nios_provider) }}"
+
+    - name: check the leaf01 return variable
+      debug:
+        var: host
+
+    - name: debug specific variable (ipv4 address)
+      debug:
+        var: host.ipv4addrs[0].ipv4addr
