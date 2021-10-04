@@ -1,0 +1,3 @@
+nios_hostname: ipam.weizmann.ac.il
+nios_user: admin
+nios_password: {{ vault_nios_password }}
