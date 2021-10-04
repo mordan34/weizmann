@@ -10,7 +10,8 @@
             dest: /opt
             clone: yes
             update: yes
-
+        delegate_to: iblstlv01.weizmann.ac.il
+        
 
       - name: Execute Hammer script to create a new server
         command: /bin/bash -c "/opt/weizmann/scripts/createhost.sh {{ hostname }} "
