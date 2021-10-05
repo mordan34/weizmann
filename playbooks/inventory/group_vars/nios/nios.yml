@@ -1,5 +1,6 @@
 ---
 nios_provider:
-  host: {{ nios_hostname }}
-  username: {{ nios_user }}
-  password: {{ nios_password }}
+  host: "{{ nios_hostname }}"
+  username: "{{ nios_user }}"
+  password: "{{ nios_password }}"
+
