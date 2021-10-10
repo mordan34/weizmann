@@ -13,5 +13,5 @@
             force: yes
 
       
-      - name: Execute Hammer script to create a new server
+      - name: Execute Hammer script to create server " {{ hostname }} "
         command: /bin/bash -c "/opt/weizmann/scripts/createhost.sh {{ hostname }} "
