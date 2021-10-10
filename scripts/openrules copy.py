@@ -15,7 +15,7 @@ BASEURL =  "https://ibapvtv01.weizmann.ac.il:8443"
 TASK = BASEURL + "/api/runTask"
 LOGINURL = BASEURL + "/api/login"
 
-POST_HEADERS = {'content-type': 'application/json'}
+POST_HEADERS = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 
 # Default credentials to login to Satellite 6
 USERNAME = "ansibletest"
@@ -74,13 +74,8 @@ jar = requests.cookies.RequestsCookieJar()
 jar.set('ZNPCQ003-38363900', '2865fb5f', domain='.weizmann.ac.il')
 
 with requests.Session() as s:
-        s.headers.update(POST_HEADERS)
-        resp = s.post(LOGINURL, json.dumps(login_json), cookies=jar)
-        print(resp)
-        s.auth = (USERNAME, PASSWORD)
-        print(s.cookies)
-        result = s.post(TASK, data=payload)
-        print(result.content)
+        r = s.get(LOGINURL)
+        print(r.content)
 #result2=post_json(TASK, json.dumps( task_json ) )
 #print(result2)
 #print("Created request successfully for IP\t" + ip)
