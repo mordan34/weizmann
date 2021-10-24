@@ -1,6 +1,11 @@
 ---
-- hosts: nios
+- hosts: localhost
+  vars_files:
+    - inventory/group_vars/nios.yml
+    - inventory/group_vars/vault
+
   connection: local
+
   tasks:
     - name: fetch host iblvctest01
       set_fact:
@@ -8,8 +13,8 @@
 
     - name: check the leaf01 return variable
       debug:
-        var: host
+        var: "{{ host }}"
 
     - name: debug specific variable (ipv4 address)
       debug:
-        var: host.ipv4addrs[0].ipv4addr
+        var: "{{ host.ipv4addrs[0].ipv4addr }}"

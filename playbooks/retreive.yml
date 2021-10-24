@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  vars:
+        nios_provider:
+            host: ipam.weizmann.ac.il
+            username: mordan
+            password: mordan123
+            wapi_version: '2.9'
+
+  connection: local
+  tasks:
+        - name: get member list
+          set_fact:
+                members: "{{ lookup('nios', 'member', provider=nios_provider) }}"
+        - name: display all members
+          debug:
+                msg: "{{ members }}"
+
