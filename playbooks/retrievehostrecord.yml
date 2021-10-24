@@ -1,20 +1,21 @@
 ---
 - hosts: localhost
-  vars_files:
-    - inventory/group_vars/nios.yml
-    - inventory/group_vars/vault
+  vars:
+        nios_provider:
+            host: ipam.weizmann.ac.il
+            username: mordan
+            password: mordan123
 
   connection: local
-
   tasks:
     - name: fetch host iblvctest01
       set_fact:
-         host: "{{ lookup('nios', 'record:host', filter={'name': 'iblvctest01.weizmann.ac.il'}, provider=nios_provider) }}"
+         host: "{{ lookup('nios', 'record:a', filter={'name': 'iblvctest01.weizmann.ac.il'}, provider=nios_provider) }}"
 
-    - name: check the leaf01 return variable
+    - name: check the iblvctest01 return variable
       debug:
-        var: "{{ host }}"
+        msg: "{{ host }}"
 
     - name: debug specific variable (ipv4 address)
       debug:
-        var: "{{ host.ipv4addrs[0].ipv4addr }}"
+        msg: "{{ host.ipv4addrs[0].ipv4addr }}"
