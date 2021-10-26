@@ -6,7 +6,7 @@
 
   connection: local
   tasks:
-    - name: Add new A record to Infoblox
+    - name: Add new host record to Infoblox
       nios_host_record:
         name: "{{ hostname }}.weizmann.ac.il"
         ipv4addrs:
