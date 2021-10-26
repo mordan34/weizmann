@@ -15,5 +15,5 @@
         state: present
         provider: "{{ nios_provider }}"
       register: status
-      failed_when: "not status.stdout is search('already exists')"
+      failed_when: "not status is search('already exists')"
 
