@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  vars_files:
+    - inventory/group_vars/nios.yml
+    - inventory/group_vars/vault
+
+  connection: local
+  tasks:
+    - name: Add new A record to Infoblox
+      nios_host_record:
+        name: {{ hostname }}
+        ipv4addrs:
+          - ipv4addr:
+              "{{ lookup('nios_next_ip', '10.160.65.0/24', provider=nios_provider)[0] }}"
+      state: present
+      provider: "{{ nios_provider }}"
+
