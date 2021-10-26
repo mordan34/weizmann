@@ -1,21 +1,27 @@
 ---
 - hosts: localhost
-  vars:
-        nios_provider:
-            host: ipam.weizmann.ac.il
-            username: mordan
-            password: mordan123
+  vars_files:
+    - inventory/group_vars/nios.yml
+    - inventory/group_vars/vault
 
   connection: local
   tasks:
-    - name: fetch host iblvctest01
+    - name: Assign Variable with Single quotes
       set_fact:
-         host: "{{ lookup('nios', 'record:a', filter={'name': 'iblvctest01.weizmann.ac.il'}, provider=nios_provider) }}"
+        hostname_str:  "'{{ hostname }}'"
 
-    - name: check the iblvctest01 return variable
+    - name: Check the hostname_str Value
+      debug:
+        msg: "{{ hostname_str }}"
+   
+    - name: Fetch host {{ hostname_str }}
+      set_fact:
+        host: "{{ lookup('nios', 'record:a', filter={'name~':'poc-vrasvc-683'}, provider=nios_provider) }}"
+
+    - name: Check the {{ hostname }} return variable
       debug:
         msg: "{{ host }}"
 
-    - name: debug specific variable (ipv4 address)
+    - name: Show {{ hostname }} IPV4 address
       debug:
-        msg: "{{ host.ipv4addrs[0].ipv4addr }}"
+        msg: "{{ host.ipv4addr }}"
