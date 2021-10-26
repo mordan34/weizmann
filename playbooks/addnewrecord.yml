@@ -14,4 +14,6 @@
               "{{ lookup('nios_next_ip', '10.160.65.0/24', provider=nios_provider)[0] }}"
         state: present
         provider: "{{ nios_provider }}"
+      register: status
+      failed_when: "not status.stdout is search('already exists')"
 
