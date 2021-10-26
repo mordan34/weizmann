@@ -8,7 +8,8 @@
   tasks:
    - name: Delete Nios A record
      infoblox.nios_modules.nios_a_record:
-       name: "{{ hostname }}.weizmann.ac.il"
+       name: "{{ hostname }}.wismain.weizmann.ac.il"
+       ipv4: 10.160.65.5
        view: default
        state: absent
        provider: "{{ nios_provider }}"
