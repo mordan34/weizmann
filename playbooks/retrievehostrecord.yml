@@ -16,7 +16,7 @@
    
     - name: Fetch host {{ hostname_str }}
       set_fact:
-        host: "{{ lookup('nios', 'record:a', filter={'name~':'poc-vrasvc-683'}, provider=nios_provider) }}"
+        host: "{{ lookup('nios', 'record:a', filter={'name~':'iblvctest0'}, provider=nios_provider) }}"
 
     - name: Check the {{ hostname }} return variable
       debug:
