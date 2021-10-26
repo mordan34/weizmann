@@ -1,6 +1,7 @@
 ---
-- hosts: Satellite
+- hosts: satellite
   become: true
+  remote_user: ansible
 
   tasks: 
 
@@ -12,8 +13,8 @@
             update: yes
             force: yes
 
-      - name: Execute Hammer script to create server {{ hostname }}
-        command: "cd /root/weizmann/playbooks; /usr/bin/ansible-playbook addnewrecord.yml -e hostname={{ hostname }}"
+      - name: Add new host record in Infoblox for {{ hostname }}
+        command: "/usr/bin/ansible-playbook /root/weizmann/playbooks/addnewrecord.yml -e hostname={{ hostname }}"
         delegate_to: iblanstwtstv01t.weizmann.ac.il
       
       - name: Execute Hammer script to create server {{ hostname }}
