@@ -14,7 +14,7 @@
 
       - name: Execute Hammer script to create server {{ hostname }}
         command: "cd /root/weizmann/playbooks; /usr/bin/ansible-playbook addnewrecord.yml -e hostname={{ hostname }}"
-        delegate_to: localhost
+        delegate_to: iblanstwtstv01t.weizmann.ac.il
       
       - name: Execute Hammer script to create server {{ hostname }}
         command: /bin/bash -c "/opt/weizmann/scripts/createhost.sh {{ hostname }} "
