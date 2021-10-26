@@ -1,0 +1,14 @@
+---
+- hosts: localhost
+  vars_files:
+    - inventory/group_vars/nios.yml
+    - inventory/group_vars/vault
+
+  connection: local
+  tasks:
+   - name: Delete Nios A record
+     infoblox.nios_modules.nios_a_record:
+       name: "{{ hostname }}.weizmann.ac.il"
+       view: default
+       state: absent
+       provider: "{{ nios_provider }}"
