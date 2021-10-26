@@ -16,6 +16,7 @@
       - name: Add new host record in Infoblox for {{ hostname }}
         command: "/usr/bin/ansible-playbook /root/weizmann/playbooks/addnewrecord.yml -e hostname={{ hostname }}"
         delegate_to: iblanstwtstv01t.weizmann.ac.il
+        connection: local
       
       - name: Execute Hammer script to create server {{ hostname }}
         command: /bin/bash -c "/opt/weizmann/scripts/createhost.sh {{ hostname }} "
