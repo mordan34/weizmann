@@ -16,9 +16,4 @@
         provider: "{{ nios_provider }}"
       register: status
       failed_when: "not status is search('already exists') and status.failed == true"
-      
-
-    - name: show status variable
-      debug:
-        msg: "{{ status }}"
 
