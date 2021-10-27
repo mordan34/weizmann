@@ -16,6 +16,7 @@
       - name: Add new host record in Infoblox for {{ hostname }}
         command: "/usr/bin/ansible-playbook /root/weizmann/playbooks/addnewrecord.yml -e hostname={{ hostname }}"
         delegate_to: localhost
+        connection: local
 
       - name: Fetch host {{ hostname }}
         set_fact:
