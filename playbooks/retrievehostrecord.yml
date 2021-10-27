@@ -6,17 +6,10 @@
 
   connection: local
   tasks:
-    - name: Assign Variable with Single quotes
-      set_fact:
-        hostname_str:  "'{{ hostname }}'"
-
-    - name: Check the hostname_str Value
-      debug:
-        msg: "{{ hostname_str }}"
    
-    - name: Fetch host {{ hostname_str }}
+    - name: Fetch host {{ hostname }}
       set_fact:
-        host: "{{ lookup('nios', 'record:a', filter={'name~':'iblvctest0'}, provider=nios_provider) }}"
+              host: "{{ lookup('nios', 'record:host', filter={'name~':hostname}, provider=nios_provider) }}"
 
     - name: Check the {{ hostname }} return variable
       debug:
@@ -24,4 +17,4 @@
 
     - name: Show {{ hostname }} IPV4 address
       debug:
-        msg: "{{ host.ipv4addr }}"
+        msg: "{{ host.ipv4addrs[0].ipv4addr }}"
