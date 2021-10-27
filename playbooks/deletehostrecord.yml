@@ -6,7 +6,7 @@
 
   connection: local
   tasks:
-   - name: Delete Nios A record
+   - name: Delete Nios Host record
      infoblox.nios_modules.nios_host_record:
        name: "{{ hostname }}.weizmann.ac.il"
        state: absent
