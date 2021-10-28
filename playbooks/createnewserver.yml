@@ -15,16 +15,6 @@
             clone: yes
             update: yes
             force: yes
-
-            #- name: Fetch host {{ hostname }}
-            #set_fact:
-            #host: "{{ lookup('nios', 'record:host', filter={'name~':hostname}, provider=nios_provider) }}"
-            #delegate_to: localhost
-
-            #- name: Extract {{ hostname }} IPV4 address
-            #set_fact:
-            #IP: "{{ host.ipv4addrs[0].ipv4addr }}"
-            #delegate_to: localhost
       
       - name: Execute Hammer script to create server {{ hostname }}
         command: /bin/bash -c "/opt/weizmann/scripts/createhost.sh {{ hostname }} "
