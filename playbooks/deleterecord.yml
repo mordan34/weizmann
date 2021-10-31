@@ -1,0 +1,51 @@
+---
+- hosts: localhost
+  vars_files:
+    - inventory/group_vars/nios.yml
+    - inventory/group_vars/vault
+
+  connection: local
+  tasks:
+   - name: Fetch host {{ hostname }}
+     set_fact:
+       host: "{{ lookup('nios', 'record:a', filter={'name~':hostname}, provider=nios_provider) }}"
+
+   - name: Check the {{ hostname }} return variable
+     debug:
+       var: host
+
+   - name: Extract {{ hostname }} IPV4 address
+     set_fact:
+       IP: "{{ host.ipv4addr }}"
+
+   - name: Extract {{ hostname }} IPV4 address
+     set_fact:
+       iprecord: "{{ lookup('nios', 'fixedaddress', filter={'ipv4addr':IP}, return_fields=['mac'], provider=nios_provider) }}"
+   
+   - name: Check the {{ IP }} iprecord variable
+     debug:
+       var: iprecord
+
+   - name: Delete Nios A record
+     infoblox.nios_modules.nios_a_record:
+       name: "{{ hostname }}.weizmann.ac.il"
+       ipv4: "{{ IP }}"
+       state: absent
+       provider: "{{ nios_provider }}"
+
+
+   - name: Delete Nios PTR Record
+     infoblox.nios_modules.nios_ptr_record:
+       ipv4: "{{ IP }}"
+       ptrdname: "{{ hostname }}.weizmann.ac.il"
+       state: absent
+       provider: "{{ nios_provider }}"
+
+
+   - name: Delete Nios IPv4 Fixed address record
+     infoblox.nios_modules.nios_fixed_address:
+       name: "{{ hostname }}.weizmann.ac.il"
+       ipaddr: "{{ IP }}"
+       mac: "{{ iprecord.mac }}"
+       state: absent
+       provider: "{{ nios_provider }}"
