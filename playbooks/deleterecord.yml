@@ -14,7 +14,7 @@
      set_fact:
        IP: "{{ host.ipv4addr }}"
 
-   - name: Extract {{ hostname }} IPV4 address
+   - name: Extract {{ hostname }} IPV4 MAC address
      set_fact:
        iprecord: "{{ lookup('nios', 'fixedaddress', filter={'ipv4addr':IP}, return_fields=['mac'], provider=nios_provider) }}"
    
