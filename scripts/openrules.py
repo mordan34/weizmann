@@ -60,7 +60,11 @@ def load_data(PATH, ip):
 
 def update_data(hostname):
         ip = socket.gethostbyname(hostname+".weizmann.ac.il")
-        return PAYLOAD
+        jsonObj = json.loads(PAYLOAD)
+        jsonObj['server_name'] = hostname
+        jsonObj['system_name'] = hostname
+        jsonObj['ip_address'] = ip
+        return jsonObj
 
 # Main routine to open rules for specific Server
 print(sys.argv[1])
@@ -68,12 +72,13 @@ if len(sys.argv) == 2:
     hostname = sys.argv[1] 
     login_json = { "username": USERNAME, "password": PASSWORD }
     task_json = update_data(hostname)
+    print(task_json)
 
     with requests.Session() as s:
         response = s.post(LOGINURL, json=login_json, headers=POST_HEADERS)
         POST_HEADERS["Authorization"]=response.headers['Authorization']
         response = s.post(TASKURL, data=task_json, headers=POST_HEADERS)
-        
+
         if ( response.status_code == 200 ):
                 print("Created request successfully for server\t" + hostname)
         else:  print("Unable to invoke API request for server\t" + hostname, "\n\nDetails:" + response.content)
