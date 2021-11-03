@@ -4,6 +4,7 @@ import requests
 import socket
 import pandas
 import certifi
+import sys
 from requests.structures import CaseInsensitiveDict
 
 # Global Variables
@@ -53,35 +54,25 @@ def load_data(PATH, ip):
         inv=inventar.set_index("Ip", drop = False)
         record=inv.loc[ip, :]
         return ( get_json(record) )
-            
-# Send Post request to Cyberm8 in order to open ports for our system
-def post_json(location, json_data):
-        result=requests.post(
-            location,
-            data=json_data,
-            auth=(USERNAME, PASSWORD),
-            verify=SSL_VERIFY,
-            headers=POST_HEADERS
-        )
-        return result.json
 
 
 # Main routine to open rules for specific Server
-ip = '10.160.3.28'
+print(sys.argv[1])
+if len(sys.argv) == 2:
+    hostname = sys.argv[1]
+    ip = socket.gethostbyname(hostname+".weizmann.ac.il")
+    login_json = { "username": USERNAME, "password": PASSWORD }
+    payload="{\r\n\t\"task_id\": \"610bd0b33e167a0b0c87f176\",\r\n\t\"parameters\": {\r\n\t\t\"environment\": \"DCTest\",\r\n\t\t\"type\": \"Linux\",\r\n\t\t\"server_name\": \"hostname\",\r\n\t\t\"server_description\": \"Satellite Provisioned host\",\r\n\t\t\"server_owner\": \"MORDAN\",\r\n\t\t\"system_name\": \"hostname\",\r\n\t\t\"ip_address\": \"10.160.3.28\",\r\n\t\t\"requestor\": \"Mor Danino\"\r\n\t}\r\n}"
 
-
-task_json=load_data(PATH, ip)
-login_json = { "username": USERNAME, "password": PASSWORD }
-payload="{\r\n\t\"task_id\": \"610bd0b33e167a0b0c87f176\",\r\n\t\"parameters\": {\r\n\t\t\"environment\": \"DCTest\",\r\n\t\t\"type\": \"Linux\",\r\n\t\t\"server_name\": \"iblcasv01t\",\r\n\t\t\"server_description\": \"Casper test\",\r\n\t\t\"server_owner\": \"MLIOR\",\r\n\t\t\"system_name\": \"iblcasv01t\",\r\n\t\t\"ip_address\": \"10.160.3.28\",\r\n\t\t\"requestor\": \"Duvilanski Gur\"\r\n\t}\r\n}"
-
-with requests.Session() as s:
-        r = s.post(LOGINURL, json=login_json, headers=POST_HEADERS)
-        POST_HEADERS["Authorization"]=r.headers['Authorization']
+    with requests.Session() as s:
+        response = s.post(LOGINURL, json=login_json, headers=POST_HEADERS)
+        POST_HEADERS["Authorization"]=response.headers['Authorization']
 
         #resp=post_json(TASKURL, data=payload, headers=POST_HEADERS)
-        resp = s.post(TASKURL, data=payload, headers=POST_HEADERS)
-        print(resp)
-#print("Created request successfully for IP\t" + ip)
+        response = s.post(TASKURL, data=payload, headers=POST_HEADERS)
+        if ( response.status_code == 200 ):
+                print("Created request successfully for IP\t" + ip)
+        else:  print("Unable to invoke API request for IP\t" + ip, "\n\nDetails:" + response.content)
 
-#except:  print("Unable to invoke API request for IP\t" + ip, "\n\nDetails:" + result)
+else: print("Fatal Error! Missing hostname paramter for script execution")
 
