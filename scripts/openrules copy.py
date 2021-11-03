@@ -4,6 +4,7 @@ import requests
 import socket
 import pandas
 import certifi
+from requests.structures import CaseInsensitiveDict
 
 # Global Variables
 
@@ -12,10 +13,12 @@ PATH = os.path.abspath(os.path.join(os.path.dirname(__file__),"..")) + '/data/in
 
 # URI in the API to execute
 BASEURL =  "https://ibapvtv01.weizmann.ac.il:8443"
-TASK = BASEURL + "/api/runTask"
+TASKURL = BASEURL + "/api/runTask"
 LOGINURL = BASEURL + "/api/login"
 
-POST_HEADERS = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+POST_HEADERS = CaseInsensitiveDict()
+POST_HEADERS["Accept"] = "application/json"
+POST_HEADERS["Content-Type"] = "application/json"
 
 # Default credentials to login to Satellite 6
 USERNAME = "ansibletest"
@@ -68,16 +71,16 @@ ip = '10.160.3.28'
 
 
 task_json=load_data(PATH, ip)
-login_json = {'username': USERNAME, 'password': PASSWORD}
-payload="{\r\n\t\"task_id\": \"610bd0b33e167a0b0c87f176\",\r\n\t\"parameters\": {\r\n\t\t\"environment\": \"DCTest\",\r\n\t\t\"type\": \"Linux\",\r\n\t\t\"server_name\": \"iblsemurtstv01\",\r\n\t\t\"server_description\": \"Semur Test Server\",\r\n\t\t\"server_owner\": \"mordan\",\r\n\t\t\"system_name\": \"iblsemurtstv01\",\r\n\t\t\"ip_address\": \"10.160.1.56\",\r\n\t\t\"requestor\": \"Katya Rechav\"\r\n\t}\r\n}"
-jar = requests.cookies.RequestsCookieJar()
-jar.set('ZNPCQ003-38363900', '2865fb5f', domain='.weizmann.ac.il')
+login_json = { "username": USERNAME, "password": PASSWORD }
+payload="{\r\n\t\"task_id\": \"610bd0b33e167a0b0c87f176\",\r\n\t\"parameters\": {\r\n\t\t\"environment\": \"DCTest\",\r\n\t\t\"type\": \"Linux\",\r\n\t\t\"server_name\": \"iblcasv01t\",\r\n\t\t\"server_description\": \"Casper test\",\r\n\t\t\"server_owner\": \"MLIOR\",\r\n\t\t\"system_name\": \"iblcasv01t\",\r\n\t\t\"ip_address\": \"10.160.3.28\",\r\n\t\t\"requestor\": \"Duvilanski Gur\"\r\n\t}\r\n}"
 
 with requests.Session() as s:
-        r = s.get(LOGINURL)
-        print(r.content)
-#result2=post_json(TASK, json.dumps( task_json ) )
-#print(result2)
+        r = s.post(LOGINURL, json=login_json, headers=POST_HEADERS)
+        POST_HEADERS["Authorization"]=r.headers['Authorization']
+
+        #resp=post_json(TASKURL, data=payload, headers=POST_HEADERS)
+        resp = s.post(TASKURL, data=payload, headers=POST_HEADERS)
+        print(resp)
 #print("Created request successfully for IP\t" + ip)
 
 #except:  print("Unable to invoke API request for IP\t" + ip, "\n\nDetails:" + result)
