@@ -12,6 +12,9 @@ from requests.structures import CaseInsensitiveDict
 # Path of the .csv file to extract data from
 PATH = os.path.abspath(os.path.join(os.path.dirname(__file__),"..")) + '/data/inventar.csv'
 
+# API Task Json string with initial details
+PAYLOAD="{\r\n\t\"task_id\": \"610bd0b33e167a0b0c87f176\",\r\n\t\"parameters\": {\r\n\t\t\"environment\": \"DCTest\",\r\n\t\t\"type\": \"Linux\",\r\n\t\t\"server_name\": \"hostname\",\r\n\t\t\"server_description\": \"Satellite Provisioned host\",\r\n\t\t\"server_owner\": \"MORDAN\",\r\n\t\t\"system_name\": \"hostname\",\r\n\t\t\"ip_address\": \"10.160.3.28\",\r\n\t\t\"requestor\": \"Mor Danino\"\r\n\t}\r\n}"
+
 # URI in the API to execute
 BASEURL =  "https://ibapvtv01.weizmann.ac.il:8443"
 TASKURL = BASEURL + "/api/runTask"
@@ -55,24 +58,25 @@ def load_data(PATH, ip):
         record=inv.loc[ip, :]
         return ( get_json(record) )
 
+def update_data(hostname):
+        ip = socket.gethostbyname(hostname+".weizmann.ac.il")
+        return PAYLOAD
 
 # Main routine to open rules for specific Server
 print(sys.argv[1])
 if len(sys.argv) == 2:
-    hostname = sys.argv[1]
-    ip = socket.gethostbyname(hostname+".weizmann.ac.il")
+    hostname = sys.argv[1] 
     login_json = { "username": USERNAME, "password": PASSWORD }
-    payload="{\r\n\t\"task_id\": \"610bd0b33e167a0b0c87f176\",\r\n\t\"parameters\": {\r\n\t\t\"environment\": \"DCTest\",\r\n\t\t\"type\": \"Linux\",\r\n\t\t\"server_name\": \"hostname\",\r\n\t\t\"server_description\": \"Satellite Provisioned host\",\r\n\t\t\"server_owner\": \"MORDAN\",\r\n\t\t\"system_name\": \"hostname\",\r\n\t\t\"ip_address\": \"10.160.3.28\",\r\n\t\t\"requestor\": \"Mor Danino\"\r\n\t}\r\n}"
+    task_json = update_data(hostname)
 
     with requests.Session() as s:
         response = s.post(LOGINURL, json=login_json, headers=POST_HEADERS)
         POST_HEADERS["Authorization"]=response.headers['Authorization']
-
-        #resp=post_json(TASKURL, data=payload, headers=POST_HEADERS)
-        response = s.post(TASKURL, data=payload, headers=POST_HEADERS)
+        response = s.post(TASKURL, data=task_json, headers=POST_HEADERS)
+        
         if ( response.status_code == 200 ):
-                print("Created request successfully for IP\t" + ip)
-        else:  print("Unable to invoke API request for IP\t" + ip, "\n\nDetails:" + response.content)
+                print("Created request successfully for server\t" + hostname)
+        else:  print("Unable to invoke API request for server\t" + hostname, "\n\nDetails:" + response.content)
 
 else: print("Fatal Error! Missing hostname paramter for script execution")
 
