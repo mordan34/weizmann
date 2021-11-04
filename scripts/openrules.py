@@ -2,7 +2,6 @@ import json
 import os
 import requests
 import socket
-import certifi
 import sys
 from requests.structures import CaseInsensitiveDict
 
