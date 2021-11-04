@@ -20,4 +20,4 @@
         command: /bin/bash -c "/opt/weizmann/scripts/createhost.sh {{ hostname }} "
 
       - name: Initiate Cyberm8 Task for {{ hostname }}
-        command: /usr/bin/python "/opt/weizmann/scripts/openrules.py {{ hostname }} "
+        command: /usr/bin/python /opt/weizmann/scripts/openrules.py "{{ hostname }}"
