@@ -2,7 +2,6 @@ import json
 import os
 import requests
 import socket
-import pandas
 import certifi
 import sys
 from requests.structures import CaseInsensitiveDict
@@ -30,33 +29,6 @@ PASSWORD = "jvUFjUzkR7rM7Qdq"
 # Ignore SSL
 SSL_VERIFY = False
 
-
-# Building the task for a specific system
-def get_json(record):
-    if ( record["Status"] == 'Test' ):
-            env='DCTest'
-    elif (record["Status"] == 'Prod' ):   
-            env='DC'
-    with open(os.path.abspath(os.path.join(os.path.dirname(__file__),"..")) + '/templates/cyberm8.json') as json_file:
-        data = json.load(json_file)
-        tasks=[ (sub) for sub in data['item']]
-        task=json.dumps(tasks[1]['request']['body']['raw'], indent=4)
-        task=task.replace("DC",env)
-        task=task.replace("Server Name",record["Name"])
-        task=task.replace("Server Description",record["Description"])
-        task=task.replace("Server Owner",record["Systemowner"])
-        task=task.replace("System Name",record["Name"])
-        task=task.replace("1.8.8.7",record["Ip"])
-        task=task.replace("Requestor",record["ContactPerson"])
-        data['item'][1]['request']['body']['raw']=task
-        return data
-
-# Extract relevant data from a row in our .csv file and returns json
-def load_data(PATH, ip):
-        inventar = pandas.read_csv(PATH)
-        inv=inventar.set_index("Ip", drop = False)
-        record=inv.loc[ip, :]
-        return ( get_json(record) )
 
 def update_data(hostname):
         try:
