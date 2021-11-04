@@ -13,7 +13,7 @@ from requests.structures import CaseInsensitiveDict
 PATH = os.path.abspath(os.path.join(os.path.dirname(__file__),"..")) + '/data/inventar.csv'
 
 # API Task Json string with initial details
-PAYLOAD="{\r\n\t\"task_id\": \"610bd0b33e167a0b0c87f176\",\r\n\t\"parameters\": {\r\n\t\t\"environment\": \"DCTest\",\r\n\t\t\"type\": \"Linux\",\r\n\t\t\"server_name\": \"hostname\",\r\n\t\t\"server_description\": \"Satellite Provisioned host\",\r\n\t\t\"server_owner\": \"MORDAN\",\r\n\t\t\"system_name\": \"hostname\",\r\n\t\t\"ip_address\": \"10.160.3.28\",\r\n\t\t\"requestor\": \"Mor Danino\"\r\n\t}\r\n}"
+PAYLOAD='{"task_id":"610bd0b33e167a0b0c87f176","parameters":{"environment":"DCTest","type":"Linux","server_name":"hostname","server_description":"Satellite Provisioned host","server_owner":"mordan","system_name":"hostname","ip_address":"IP","requestor":"Mor Danino"}}'
 
 # URI in the API to execute
 BASEURL =  "https://ibapvtv01.weizmann.ac.il:8443"
@@ -59,29 +59,32 @@ def load_data(PATH, ip):
         return ( get_json(record) )
 
 def update_data(hostname):
-        ip = socket.gethostbyname(hostname+".weizmann.ac.il")
-        jsonObj = json.loads(PAYLOAD)
-        jsonObj['server_name'] = hostname
-        jsonObj['system_name'] = hostname
-        jsonObj['ip_address'] = ip
-        return jsonObj
+        try:
+            ip = socket.gethostbyname(hostname+".weizmann.ac.il")
+            jsonObj = json.loads(PAYLOAD)
+            jsonObj['parameters']['server_name'] = hostname
+            jsonObj['parameters']['system_name'] = hostname
+            jsonObj['parameters']['ip_address'] = ip
+        except: 
+            jsonObj = None
+            print("Unable to find IP address for\t" + hostname)
+        return json.dumps(jsonObj)
 
 # Main routine to open rules for specific Server
-print(sys.argv[1])
 if len(sys.argv) == 2:
     hostname = sys.argv[1] 
     login_json = { "username": USERNAME, "password": PASSWORD }
     task_json = update_data(hostname)
-    print(task_json)
 
-    with requests.Session() as s:
-        response = s.post(LOGINURL, json=login_json, headers=POST_HEADERS)
-        POST_HEADERS["Authorization"]=response.headers['Authorization']
-        response = s.post(TASKURL, data=task_json, headers=POST_HEADERS)
+    if ( task_json != None ):
+        with requests.Session() as s:
+                response = s.post(LOGINURL, json=login_json, headers=POST_HEADERS)
+                POST_HEADERS["Authorization"]=response.headers['Authorization']
+                response = s.post(TASKURL, data=task_json, headers=POST_HEADERS)
 
-        if ( response.status_code == 200 ):
-                print("Created request successfully for server\t" + hostname)
-        else:  print("Unable to invoke API request for server\t" + hostname, "\n\nDetails:" + response.content)
+                if ( response.status_code == 200 ):
+                        print("Created request successfully for server\t" + hostname)
+                else:  print("\nUnable to invoke API request for server\t" + hostname + "\n\nDetails:" + str(response))
 
 else: print("Fatal Error! Missing hostname paramter for script execution")
 
