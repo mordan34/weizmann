@@ -20,7 +20,7 @@
             force: yes
       
       - name: Execute Hammer script to create server {{ hostname }}
-        command: /bin/bash -c "/opt/weizmann/scripts/createhost.sh {{ hostname }} "
+        command: /bin/bash -c "/opt/weizmann/scripts/createhost.sh {{ hostname }}"
 
       - name: Initiate Cyberm8 Task for {{ hostname }}
-        command: /usr/bin/python /opt/weizmann/scripts/openrules.py "{{ hostname }} {{ username }} {{ password }}"
+        command: /usr/bin/python /opt/weizmann/scripts/openrules.py "{{ hostname }}"
