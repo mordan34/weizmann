@@ -43,7 +43,6 @@ if len(sys.argv) == 2:
     hostname = sys.argv[1] 
     login_json = { "username": USERNAME, "password": PASSWORD }
     task_json = update_data(hostname)
-    print("Username is:", USERNAME, "Password is:", PASSWORD)
 
     if ( task_json != None ):
         with requests.Session() as s:

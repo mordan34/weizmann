@@ -5,9 +5,6 @@
   vars_files:
     - inventory/group_vars/nios.yml
     - inventory/group_vars/vault
-  #vars:
-    #username: '{{ lookup("env","SAT_USERNAME") }}'
-    #password: '{{ lookup("env","SAT_PASSWORD") }}'
 
   tasks: 
 
