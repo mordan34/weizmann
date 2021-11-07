@@ -5,9 +5,9 @@
   vars_files:
     - inventory/group_vars/nios.yml
     - inventory/group_vars/vault
-  vars:
-    username: '{{ lookup("env","SAT_USERNAME") }}'
-    password: '{{ lookup("env","SAT_PASSWORD") }}'
+  #vars:
+    #username: '{{ lookup("env","SAT_USERNAME") }}'
+    #password: '{{ lookup("env","SAT_PASSWORD") }}'
 
   tasks: 
 
@@ -23,4 +23,7 @@
         command: /bin/bash -c "/opt/weizmann/scripts/createhost.sh {{ hostname }}"
 
       - name: Initiate Cyberm8 Task for {{ hostname }}
+        environment:
+          username: '{{ lookup("env","SAT_USERNAME") }}'
+          password: '{{ lookup("env","SAT_PASSWORD") }}'
         command: /usr/bin/python /opt/weizmann/scripts/openrules.py "{{ hostname }}"
