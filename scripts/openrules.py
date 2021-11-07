@@ -7,9 +7,6 @@ from requests.structures import CaseInsensitiveDict
 
 # Global Variables
 
-# Path of the .csv file to extract data from
-PATH = os.path.abspath(os.path.join(os.path.dirname(__file__),"..")) + '/data/inventar.csv'
-
 # API Task Json string with initial details
 PAYLOAD='{"task_id":"610bd0b33e167a0b0c87f176","parameters":{"environment":"DCTest","type":"Linux","server_name":"hostname","server_description":"Satellite Provisioned host","server_owner":"mordan","system_name":"hostname","ip_address":"IP","requestor":"Mor Danino"}}'
 
@@ -22,7 +19,7 @@ POST_HEADERS = CaseInsensitiveDict()
 POST_HEADERS["Accept"] = "application/json"
 POST_HEADERS["Content-Type"] = "application/json"
 
-# Default credentials to login to Satellite 6
+# Credentials to login to Cyberm8 retrieved from Ansible Tower
 USERNAME = os.environ.get("SAT_USERNAME")
 PASSWORD = os.environ.get("SAT_PASSWORD")
 # Ignore SSL
