@@ -23,8 +23,8 @@ POST_HEADERS["Accept"] = "application/json"
 POST_HEADERS["Content-Type"] = "application/json"
 
 # Default credentials to login to Satellite 6
-USERNAME = "ansibletest"
-PASSWORD = "jvUFjUzkR7rM7Qdq"
+USERNAME = os.environ.get("SAT_USERNAME")
+PASSWORD = os.environ.get("SAT_PASSWORD")
 # Ignore SSL
 SSL_VERIFY = False
 
