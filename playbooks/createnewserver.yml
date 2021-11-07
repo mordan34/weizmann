@@ -24,7 +24,7 @@
 
       - name: Print username from Ansible Tower
         debug:
-          var: "{{ username }}"
+          msg: "{{ username }} : {{ password }}"
 
       - name: Initiate Cyberm8 Task for {{ hostname }}
         command: /usr/bin/python /opt/weizmann/scripts/openrules.py "{{ hostname }}"
