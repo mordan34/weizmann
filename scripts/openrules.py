@@ -20,8 +20,8 @@ POST_HEADERS["Accept"] = "application/json"
 POST_HEADERS["Content-Type"] = "application/json"
 
 # Credentials to login to Cyberm8 retrieved from Ansible Tower
-USERNAME = os.environ.get("SAT_USERNAME")
-PASSWORD = os.environ.get("SAT_PASSWORD")
+USERNAME = sys.argv[2]
+PASSWORD = sys.argv[3]
 # Ignore SSL
 SSL_VERIFY = False
 
