@@ -25,7 +25,7 @@ PASSWORD = os.environ.get("password")
 # Ignore SSL
 SSL_VERIFY = False
 
-
+# This function is used to update the json object with the correct hostname and it's IP
 def update_data(hostname):
         try:
             ip = socket.gethostbyname(hostname+".weizmann.ac.il")
