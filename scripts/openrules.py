@@ -52,7 +52,9 @@ if len(sys.argv) == 2:
 
                 if ( response.status_code == 200 ):
                         print("Created request successfully for server\t" + hostname)
-                else:  print("\nUnable to invoke API request for server\t" + hostname + "\n\nDetails:" + str(response))
+                else:  
+                       print("\nUnable to invoke API request for server\t" + hostname + "\n\nDetails:" + str(response))
+                       sys.exit(1)
 
 else: print("Fatal Error! Missing hostname paramter for script execution")
 
