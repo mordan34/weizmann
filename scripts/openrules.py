@@ -46,9 +46,9 @@ if len(sys.argv) == 2:
 
     if ( task_json != None ):
         with requests.Session() as s:
-                response = s.post(LOGINURL, json=login_json, headers=POST_HEADERS)
+                response = s.post(LOGINURL, json=login_json, headers=POST_HEADERS, verify=SSL_VERIFY)
                 POST_HEADERS["Authorization"]=response.headers['Authorization']
-                response = s.post(TASKURL, data=task_json, headers=POST_HEADERS)
+                response = s.post(TASKURL, data=task_json, headers=POST_HEADERS, verify=SSL_VERIFY)
 
                 if ( response.status_code == 200 ):
                         print("Created request successfully for server\t" + hostname)
