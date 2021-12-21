@@ -1,6 +1,6 @@
 ---
 - hosts: tower
-  become: true
+  become: false
   remote_user: ansible
   vars_files:
     - inventory/group_vars/nios.yml
