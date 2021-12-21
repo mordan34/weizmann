@@ -12,7 +12,7 @@
       set_fact:
         ip_class: "{{CIDR[:-4]}}"
 
-    - name: setfact the exclude as variable
+    - name: set fact for exclude_range
       set_fact:
         exclude_range: "['{{ip_class}}1', '{{ip_class}}2', '{{ip_class}}3', '{{ip_class}}4', '{{ip_class}}5', '{{ip_class}}6', '{{ip_class}}7', '{{ip_class}}8', '{{ip_class}}9', '{{ip_class}}10']"
     
