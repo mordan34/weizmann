@@ -8,12 +8,20 @@
 
   connection: local
   tasks:
+    - name: set fact for the exclude ip class
+      set_fact:
+        ip_class: "{{CIDR[:-4]}}"
+
+    - name: setfact the exclude as variable
+      set_fact:
+        exclude_range: "['{{ip_class}}1', '{{ip_class}}2', '{{ip_class}}3', '{{ip_class}}4', '{{ip_class}}5', '{{ip_class}}6', '{{ip_class}}7', '{{ip_class}}8', '{{ip_class}}9', '{{ip_class}}10']"
+    
     - name: Add new host record to Infoblox
       nios_host_record:
         name: "{{ hostname }}.weizmann.ac.il"
         ipv4addrs:
           - ipv4addr:
-              "{{ lookup('nios_next_ip',  CIDR, provider=nios_provider)[0] }}"
+              "{{ lookup('nios_next_ip',  CIDR, exclude=exclude_range, provider=nios_provider)[0] }}"
         state: present
         comment: Created by Ansible Tower
         provider: "{{ nios_provider }}"
