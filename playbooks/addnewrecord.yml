@@ -13,7 +13,7 @@
         name: "{{ hostname }}.weizmann.ac.il"
         ipv4addrs:
           - ipv4addr:
-              "{{ lookup('nios_next_ip', {{ CIDR }}, provider=nios_provider)[0] }}"
+              "{{ lookup('nios_next_ip',  CIDR, provider=nios_provider)[0] }}"
         state: present
         comment: Created by Ansible Tower
         provider: "{{ nios_provider }}"
