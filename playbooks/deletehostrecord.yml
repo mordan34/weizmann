@@ -1,5 +1,7 @@
 ---
-- hosts: localhost
+- hosts: tower
+  become: false
+  remote_user: ansible
   vars_files:
     - inventory/group_vars/nios.yml
     - inventory/group_vars/vault
