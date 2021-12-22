@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+      - name: Configure ssh key on remote System
+        import_playbook: configurekeys.yml
+
+      - name: Apply a banner on the System
+        import_playbook: banner.yml
+
+      - name: Join the System to WISMAIN domain
+        import_playbook: adconnect.yml
