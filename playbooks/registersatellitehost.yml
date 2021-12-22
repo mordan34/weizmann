@@ -5,6 +5,12 @@
 
   tasks: 
      
+     - name: Initiate Cyberm8 Task for {{ inventory_hostname }}
+       environment:
+          username: '{{ lookup("env","SAT_USERNAME") }}'
+          password: '{{ lookup("env","SAT_PASSWORD") }}'
+       command: /usr/bin/python /opt/weizmann/scripts/openrules.py "{{ inventory_hostname }}"
+
      - name: Copy registration script to remote host
        copy:
           src: ../scripts/registerrh.sh
