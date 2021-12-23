@@ -2,7 +2,7 @@
 - name: Upgrade PHP version
   hosts: php
   vars:
-    php_version: '8.0'
+    php_version: {{ version }}
     php_versions_install_recommends: true
   remote_user: root
   roles:
