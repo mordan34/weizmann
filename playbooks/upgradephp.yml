@@ -1,8 +1,9 @@
 ---
 - name: Upgrade PHP version
-  hosts: php
+  hosts: all
+  become: true
   vars:
-    php_version: {{ version }}
+    php_version: "{{ version }}"
     php_versions_install_recommends: true
   remote_user: root
   roles:
