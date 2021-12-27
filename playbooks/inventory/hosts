@@ -6,3 +6,6 @@ ipam.weizmann.ac.il
 
 [tower]
 iblanstwtstv01t.weizmann.ac.il
+
+[php]
+phpserver01
