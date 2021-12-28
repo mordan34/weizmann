@@ -33,7 +33,7 @@
         name: unzip
         state: latest
 
-    - name: Extract SEP package contents
+    - name: Create /tmp/sep directory
       command: mkdir -p /tmp/sep
 
     - name: Extract SEP package contents
