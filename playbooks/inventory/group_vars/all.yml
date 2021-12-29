@@ -1,7 +1,7 @@
 # Global Variables
 
 sep_url: http://antivirus.weizmann.ac.il/Information%20System%20Division%20-%20IT/Linux%20Servers/LinuxInstaller.zip
-domain: adlab
+domain: wismain
 
 adlab:
   username: anssvc
@@ -10,7 +10,7 @@ adlab:
 
 
 wismain:
-  username: urishi
+  username: anssvc
   domain: wismain.weizmann.ac.il
   ou: 'ou=Linux,ou=Resources,ou=Global Settings'
 
