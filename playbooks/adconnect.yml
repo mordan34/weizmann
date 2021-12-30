@@ -30,7 +30,7 @@
 
     - name: Add {{ env.domain }} to {{ inventory_hostname }}
       command: hostnamectl set-hostname "$hostname.{{ env.domain }}"
-      when: " {{ inventory_hostname }} != *.{{ env.domain }}"
+      when: "{{ inventory_hostname }} != *.{{ env.domain }}"
 
     - name: Install unzip
       yum:
