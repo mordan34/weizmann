@@ -28,6 +28,10 @@
         - crypto_policies_reboot_ok: false
       when: policy == "FUTURE" 
 
+    - name: Add {{ env.domain }} to {{ inventory_hostname }}
+      command: hostnamectl set-hostname "$hostname.{{ env.domain }}"
+      when: " {{ inventory_hostname }} != *.{{ env.domain }}"
+
     - name: Install unzip
       yum:
         name: unzip
