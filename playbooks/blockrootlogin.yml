@@ -7,7 +7,7 @@
           lineinfile: 
             dest: /etc/ssh/sshd_config 
             regexp: '^PermitRootLogin' 
-            line: 'PermitRootLogin No'
+            line: 'PermitRootLogin no'
           notify:
             - restart sshd
 
