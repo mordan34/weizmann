@@ -16,15 +16,15 @@
         url: "https://{{ nios_hostname }}/wapi/v2.9/network?_max_results=10000"
         url_username: "{{ nios_user }}"
         url_password: "{{ nios_password }}"
-      register: networks
+      register: networks_json
       failed_when: false
 
 
     - set_fact: 
-        networks_all: "{{ networks.json | list }}"
+        networks: "{{ networks_json.json | list }}"
 
 
     - name: Prints all networks
       debug:
         msg: "{{ item }}"
-      loop: "{{ networks_all }}"
+      loop: "{{ networks }}"
