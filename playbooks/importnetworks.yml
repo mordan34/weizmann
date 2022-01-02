@@ -37,7 +37,6 @@
         dhcp_proxy: "{{ inventory_hostname }}"
         tftp_proxy: "{{ inventory_hostname }}"
         dns_proxy: "{{ inventory_hostname }}"
-        template_proxy: "{{ inventory_hostname }}"
         vlanid: 452
         mtu: 1500
         domains:
