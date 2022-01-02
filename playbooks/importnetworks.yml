@@ -14,6 +14,8 @@
         timeout: 5
         method: GET
         url: "https://{{ nios_hostname }}/wapi/v2.9/network?_max_results=10000"
+        url_username: "{{ nios_user }}"
+        url_password: "{{ nios_password }}"
       register: networks
       failed_when: false
 
