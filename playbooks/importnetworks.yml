@@ -22,5 +22,5 @@
 
     - name: Prints all networks
       debug:
-        msg: "{{ networks | json_query('*') }}"
+        msg: "{{ networks | json_query('*.network') }}"
       #loop: "{{ networks }}"
