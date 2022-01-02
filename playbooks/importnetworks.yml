@@ -30,7 +30,7 @@
         description: "{{ item.comment }}"
         network: "{{ item.network | ipaddr('network') }}"
         mask: "{{ item.network | ipaddr('netmask') }}"
-        gateway: "192.168.0.1"
+        gateway: "{% if {{ item.network | ipaddr('host/prefix') | ipaddr('prefix') }} == '24' %} '255.255.255.0' {% else  %} '255.255.255.240' {% endif %}"
         from_ip: "{{ item.start_addr }}"
         to_ip: "{{ item.end_addr }}"
         boot_mode: "Static"
