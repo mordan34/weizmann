@@ -1,6 +1,6 @@
 ---
 - name: Import all networks from ipam and creates on Satellite server
-  hosts: satellite
+  hosts: Satellite
   become: true
   vars_files:
     - inventory/group_vars/nios.yml
@@ -30,7 +30,7 @@
         description: "{{ item.comment }}"
         network: "{{ item.network | ipaddr('network') }}"
         mask: "{{ item.network | ipaddr('netmask') }}"
-        gateway: "{% if {{ item.network | ipaddr('host/prefix') | ipaddr('prefix') }} == 24 %}
+        gateway: "{% if {{ item.network | ipaddr('host/prefix') | ipaddr('prefix') }} == '24' %}
                     {{ item.network | ipaddr('net') | ipaddr('-1') }} 
                  {% endif %}"
         from_ip: "{{ item.start_addr }}"
