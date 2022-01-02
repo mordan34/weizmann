@@ -1,0 +1,24 @@
+---
+- name: Import all networks from ipam and creates on Satellite server
+  hosts: all
+  become: true
+  vars_files:
+    - inventory/group_vars/nios.yml
+    - inventory/group_vars/vault
+
+  tasks:
+    - name: Get all ipam networks
+      uri:
+        follow_redirects: none
+        validate_certs: false
+        timeout: 5
+        method: GET
+        url: "https://{{ nios_hostname }}/wapi/v2.9/network?_max_results=10000"
+      register: networks
+      failed_when: false
+
+
+    - name: Prints all networks
+      debug:
+        msg: "{{ item }}"
+      loop: "{{ networks }}"
