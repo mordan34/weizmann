@@ -19,8 +19,11 @@
       register: networks | from_json
       failed_when: false
 
+    - set_fact: 
+        networks_all: "{{ networks.json.data | list }}"
+
 
     - name: Prints all networks
       debug:
         msg: "{{ item }}"
-      loop: "{{ networks }}"
+      loop: "{{ networks_all }}"
