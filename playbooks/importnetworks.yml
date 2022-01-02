@@ -24,11 +24,6 @@
         networks: "{{ networks_json.json | list }}"
 
 
-    - name: Prints all networks
-      debug:
-        msg: "{{ item }}"
-      loop: "{{ networks }}"
-
     - name: Creates all subnets under Satellite
       redhat.satellite.subnet:
         name: "Subnet {{ item.network }}"
