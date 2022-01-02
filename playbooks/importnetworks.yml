@@ -1,6 +1,6 @@
 ---
 - name: Import all networks from ipam and creates on Satellite server
-  hosts: all
+  hosts: satellite
   become: true
   vars_files:
     - inventory/group_vars/nios.yml
