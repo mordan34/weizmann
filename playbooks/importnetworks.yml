@@ -22,5 +22,5 @@
 
     - name: Prints all networks
       debug:
-        msg: "{{ item }}"
-      loop: "{{ networks }}"
+        msg: "{{ lookup('ansible.utils.to_paths', networks) }}"
+      #loop: "{{ networks }}"
