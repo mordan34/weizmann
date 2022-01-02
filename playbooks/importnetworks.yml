@@ -30,7 +30,7 @@
         description: "{{ item.comment }}"
         network: "{{ item.network | ipaddr('network') }}"
         mask: "{{ item.network | ipaddr('netmask') }}"
-        gateway: "{% if {{ item.network | ipaddr('host/prefix') | ipaddr('prefix') }} == '24' %} {{ item.network | ipaddr('net') | ipaddr('-1') }} {% else  %} {{ item.network | ipaddr('net') | ipaddr('1') }} {% endif %}"
+        gateway: "{% if {{ item.network | ipaddr('host/prefix') | ipaddr('prefix') }} == '24' %} {{ item.network | ipaddr('net') | ipaddr('-1') }}" #{% else  %} {{ item.network | ipaddr('net') | ipaddr('1') }} {% endif %}"
         from_ip: "{{ item.start_addr }}"
         to_ip: "{{ item.end_addr }}"
         boot_mode: "Static"
