@@ -21,7 +21,7 @@
 
 
     - set_fact: 
-        networks_all: "{{ networks.json.data | list }}"
+        networks_all: "{{ networks.json | list }}"
 
 
     - name: Prints all networks
