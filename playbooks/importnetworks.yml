@@ -13,7 +13,7 @@
         validate_certs: false
         timeout: 20
         method: GET
-        url: "https://{{ nios_hostname }}/wapi/v2.9/network?_max_results=10000"
+        url: "https://{{ nios_hostname }}/wapi/v2.9/range?_max_results=10"
         url_username: "{{ nios_user }}"
         url_password: "{{ nios_password }}"
       register: networks_json
@@ -28,3 +28,31 @@
       debug:
         msg: "{{ item }}"
       loop: "{{ networks }}"
+
+    - name: Creates all subnets under Satellite
+      redhat.satellite.subnet:
+        name: "Subnet {{ item.network }}"
+        description: "{{ item.comment }}"
+        network: "{{ item.network }}"
+        mask: "255.255.255.0"
+        gateway: "192.168.0.1"
+        from_ip: "{{ item.start_addr }}"
+        to_ip: "{{ item.end_addr }}"
+        boot_mode: "Static"
+        dhcp_proxy: "{{ inventory_hostname }}"
+        tftp_proxy: "{{ inventory_hostname }}"
+        dns_proxy: "{{ inventory_hostname }}"
+        template_proxy: "{{ inventory_hostname }}"
+        vlanid: 452
+        mtu: 1500
+        domains:
+          - "weizmann.ac.il"
+        organizations:
+          - "Weizmann Institute of Science"
+        locations:
+          - "Weizmann Lan"
+        server_url: "https://{{ inventory_hostname }}"
+        username: "admin"
+        password: "ya4HeEhkAjhsdbzs"
+        state: present
+
