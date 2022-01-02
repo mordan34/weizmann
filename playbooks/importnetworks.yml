@@ -34,7 +34,7 @@
         name: "Subnet {{ item.network }}"
         description: "{{ item.comment }}"
         network: "{{ item.network }}"
-        #mask: "255.255.255.0"
+        mask: "255.255.255.0"
         gateway: "192.168.0.1"
         from_ip: "{{ item.start_addr }}"
         to_ip: "{{ item.end_addr }}"
