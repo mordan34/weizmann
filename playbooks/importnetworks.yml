@@ -11,7 +11,7 @@
       uri:
         follow_redirects: none
         validate_certs: false
-        timeout: 5
+        timeout: 20
         method: GET
         url: "https://{{ nios_hostname }}/wapi/v2.9/network?_max_results=10000"
         url_username: "{{ nios_user }}"
