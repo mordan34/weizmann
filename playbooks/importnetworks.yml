@@ -29,7 +29,7 @@
         name: "Subnet {{ item.network }}"
         description: "{{ item.comment }}"
         network: "{{ item.network }}"
-        mask: "{{ item.network | ansible.netcommon.ipaddr('netmask') }}"
+        mask: "{{ item.network | ipaddr('netmask') }}"
         gateway: "192.168.0.1"
         from_ip: "{{ item.start_addr }}"
         to_ip: "{{ item.end_addr }}"
