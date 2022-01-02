@@ -28,7 +28,7 @@
       redhat.satellite.subnet:
         name: "Subnet {{ item.network }}"
         description: "{{ item.comment }}"
-        network: "{{ item.network }}"
+        network: "{{ item.network | ipaddr('network') }}"
         mask: "{{ item.network | ipaddr('netmask') }}"
         gateway: "192.168.0.1"
         from_ip: "{{ item.start_addr }}"
