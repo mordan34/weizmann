@@ -36,6 +36,8 @@
                 # {% endif %}"
         from_ip: "{{ item.start_addr }}"
         to_ip: "{{ item.end_addr }}"
+        dns_primary: "132.77.4.1"
+        dns_secondary: "132.77.22.1"
         boot_mode: "Static"
         dhcp_proxy: "{{ inventory_hostname }}"
         tftp_proxy: "{{ inventory_hostname }}"
