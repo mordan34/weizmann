@@ -81,7 +81,7 @@
         username: '{{ lookup("env","SAT_USERNAME") }}'
         password: '{{ lookup("env","SAT_PASSWORD") }}'
         state: present
-      loop: "{{ networks }}"
+      with_items: "{{ networks }}"
       register: command_result
       when: item.comment is regex(".*'[0-9]'.*")
 
