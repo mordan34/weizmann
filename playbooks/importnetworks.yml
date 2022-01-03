@@ -21,7 +21,7 @@
 
 
     - set_fact: 
-        ranges: "{{ ranges_json | list }}"
+        ranges: "{{ ranges_json.json | list }}"
 
 
     - name: Creates all subnets under Satellite
