@@ -30,7 +30,7 @@
         description: "{{ item.comment }}"
         network: "{{ item.network | ipaddr('network') }}"
         mask: "{{ item.network | ipaddr('netmask') }}"
-        gateway: "{{ item.network | ipv4('host/prefix') | first }}"
+        gateway: "{{ item.network | ipv4('host/prefix') }}"
                 #  "{% if {{ item.network | ipaddr('host/prefix') | ipaddr('prefix') }} == '24' %}
                 #    {{ item.network | ipaddr('net') | ipaddr('-1') }} 
                 # {% endif %}"
@@ -40,7 +40,7 @@
         dhcp_proxy: "{{ inventory_hostname }}"
         tftp_proxy: "{{ inventory_hostname }}"
         dns_proxy: "{{ inventory_hostname }}"
-        vlanid: 452
+        #vlanid: 452
         mtu: 1500
         domains:
           - "weizmann.ac.il"
