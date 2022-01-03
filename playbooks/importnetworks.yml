@@ -75,7 +75,7 @@
       redhat.satellite.subnet:
         name: "Subnet {{ item.network }}"
         network: "{{ item.network | ipaddr('network') }}"
-        vlanid: "{{ item.comment | regex_search('[0-9]') }}"
+        vlanid: "{{ item.comment | regex_search('[0-9]') | int }}"
         server_url: "https://{{ inventory_hostname }}"
         username: '{{ lookup("env","SAT_USERNAME") }}'
         password: '{{ lookup("env","SAT_PASSWORD") }}'
