@@ -83,5 +83,5 @@
         state: present
       loop: "{{ networks }}"
       register: command_result
-      failed_when: "'Unexpected templating type error occurred' not in command_result.stderr"
+      failed_when: "'Unexpected templating type error occurred' not in command_result.stdout"
 
