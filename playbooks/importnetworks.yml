@@ -7,7 +7,7 @@
     - inventory/group_vars/vault
 
   tasks:
-    - name: Get all ipam networks
+    - name: Get all ipam ranges
       uri:
         follow_redirects: none
         validate_certs: false
@@ -16,12 +16,12 @@
         url: "https://{{ nios_hostname }}/wapi/v2.9/range?_max_results=10"
         url_username: "{{ nios_user }}"
         url_password: "{{ nios_password }}"
-      register: networks_json
+      register: ranges_json
       failed_when: false
 
 
     - set_fact: 
-        networks: "{{ networks_json.json | list }}"
+        ranges: "{{ ranges_json.json | list }}"
 
 
     - name: Creates all subnets under Satellite
@@ -53,5 +53,5 @@
         username: '{{ lookup("env","SAT_USERNAME") }}'
         password: '{{ lookup("env","SAT_PASSWORD") }}'
         state: present
-      loop: "{{ networks }}"
+      loop: "{{ ranges }}"
 
