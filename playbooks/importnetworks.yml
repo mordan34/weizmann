@@ -21,7 +21,7 @@
 
 
     - set_fact: 
-        ranges: "{{ ranges_json.json | list }}"
+        ranges: "{{ ranges_json | list }}"
 
 
     - name: Creates all subnets under Satellite
@@ -69,7 +69,7 @@
       failed_when: false
 
     - set_fact: 
-        networks: "{{ ranges_json.json | list }}"
+        networks: "{{ networks_json | list }}"
 
     - name: Updates VLAN ID for all networks
       redhat.satellite.subnet:
