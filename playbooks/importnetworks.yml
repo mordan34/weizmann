@@ -83,5 +83,5 @@
         state: present
       with_items: "{{ networks }}"
       register: command_result
-      when: item.comment is regex(".*'[0-9]'.*")
+      when: item.comment is regex("*[0-9]*")
 
