@@ -82,5 +82,5 @@
         password: '{{ lookup("env","SAT_PASSWORD") }}'
         state: present
       loop: "{{ networks }}"
-      #ignore_errors: true
+      when: item.comment | regex_search('[0-9]') | int  != ''
 
