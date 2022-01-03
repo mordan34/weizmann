@@ -82,5 +82,6 @@
         password: '{{ lookup("env","SAT_PASSWORD") }}'
         state: present
       loop: "{{ networks }}"
-      when: item.comment | regex_search('[0-9]') | int  != ''
+      register: command_result
+      failed_when: "'Unexpected templating type error occurred' not in command_result.stderr"
 
