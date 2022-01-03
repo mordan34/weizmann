@@ -10,7 +10,7 @@
     - name: Get all ipam ranges
       uri:
         follow_redirects: none
-        validate_certs: false
+        validate_certs: true
         timeout: 20
         method: GET
         url: "https://{{ nios_hostname }}/wapi/v2.9/range?_max_results=10"
@@ -54,4 +54,27 @@
         password: '{{ lookup("env","SAT_PASSWORD") }}'
         state: present
       loop: "{{ ranges }}"
+
+
+    - name: Get all ipam networks
+      uri:
+        follow_redirects: none
+        validate_certs: true
+        timeout: 20
+        method: GET
+        url: "https://{{ nios_hostname }}/wapi/v2.9/network?_max_results=10"
+        url_username: "{{ nios_user }}"
+        url_password: "{{ nios_password }}"
+      register: networks_json
+      failed_when: false
+
+    - set_fact: 
+        networks: "{{ ranges_json.json | list }}"
+
+    - name: Updates VLAN ID for all networks
+      redhat.satellite.subnet:
+        name: "Subnet {{ item.network }}"
+        vlanid: "{{ item.comment | regex_search('[0-9]'}}"
+        state: present
+      loop: "{{ networks }}"
 
