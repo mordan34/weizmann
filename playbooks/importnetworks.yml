@@ -48,8 +48,8 @@
         locations:
           - "Weizmann Lan"
         server_url: "https://{{ inventory_hostname }}"
-        username: "admin"
-        password: "ya4HeEhkAjhsdbzs"
+        username: '{{ lookup("env","SAT_USERNAME") }}'
+        password: '{{ lookup("env","SAT_PASSWORD") }}'
         state: present
       loop: "{{ networks }}"
 
