@@ -74,7 +74,7 @@
     - name: Updates VLAN ID for all networks
       redhat.satellite.subnet:
         name: "Subnet {{ item.network }}"
-        vlanid: "{{ item.comment | regex_search('[0-9]'}}"
+        vlanid: "{{ item.comment | regex_search('[0-9]') }}"
         state: present
       loop: "{{ networks }}"
 
