@@ -82,5 +82,5 @@
         password: '{{ lookup("env","SAT_PASSWORD") }}'
         state: present
       with_items: "{{ networks }}"
-      when: item | selectattr("comment", "defined") | string | regex_search('.*dsl.*') != none
+      when: item | selectattr("comment", "defined") | string | regex_search('sdsl') != none
 
