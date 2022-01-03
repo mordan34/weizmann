@@ -74,7 +74,11 @@
     - name: Updates VLAN ID for all networks
       redhat.satellite.subnet:
         name: "Subnet {{ item.network }}"
+        network: "{{ item.network | ipaddr('network') }}"
         vlanid: "{{ item.comment | regex_search('[0-9]') }}"
+        server_url: "https://{{ inventory_hostname }}"
+        username: '{{ lookup("env","SAT_USERNAME") }}'
+        password: '{{ lookup("env","SAT_PASSWORD") }}'
         state: present
       loop: "{{ networks }}"
 
