@@ -30,7 +30,7 @@
         description: "{{ item.comment }}"
         network: "{{ item.network | ipaddr('network') }}"
         mask: "{{ item.network | ipaddr('netmask') }}"
-        gateway: "{{ item.network | ipaddr('net') | ipaddr('-1') }}"
+        gateway: "{{ item.network | unique | ipv4('host/prefix') | first }}"
                 #  "{% if {{ item.network | ipaddr('host/prefix') | ipaddr('prefix') }} == '24' %}
                 #    {{ item.network | ipaddr('net') | ipaddr('-1') }} 
                 # {% endif %}"
