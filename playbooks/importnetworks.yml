@@ -13,7 +13,7 @@
         validate_certs: true
         timeout: 20
         method: GET
-        url: "https://{{ nios_hostname }}/wapi/v2.9/range?_max_results=10"
+        url: "https://{{ nios_hostname }}/wapi/v2.9/range?_max_results=100"
         url_username: "{{ nios_user }}"
         url_password: "{{ nios_password }}"
       register: ranges_json
@@ -26,7 +26,7 @@
 
     - name: Creates all subnets under Satellite
       redhat.satellite.subnet:
-        name: "Subnet {{ item.network }}"
+        name: "Range-Subnet {{ item.network }}"
         description: "{{ item.comment }}"
         network: "{{ item.network | ipaddr('network') }}"
         mask: "{{ item.network | ipaddr('netmask') }}"
@@ -62,7 +62,7 @@
         validate_certs: true
         timeout: 20
         method: GET
-        url: "https://{{ nios_hostname }}/wapi/v2.9/network?_max_results=10"
+        url: "https://{{ nios_hostname }}/wapi/v2.9/network?_max_results=100"
         url_username: "{{ nios_user }}"
         url_password: "{{ nios_password }}"
       register: networks_json
