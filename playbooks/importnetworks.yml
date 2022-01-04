@@ -84,7 +84,7 @@
         name: "Subnet {{ item.network }}"
         network: "{{ item.network | ipaddr('network') }}"
         mask: "{{ item.network | ipaddr('netmask') }}"
-        vlanid: "{{ item.comment | regex_search('[0-9]') }}"
+        vlanid: "{{ item.comment | regex_search('^[0-9]+$' | string ) }}"
         server_url: "https://{{ inventory_hostname }}"
         username: '{{ lookup("env","SAT_USERNAME") }}'
         password: '{{ lookup("env","SAT_PASSWORD") }}'
@@ -92,5 +92,5 @@
       with_items: "{{ networks }}"
       when: 
          - item.comment is defined
-         - "{{ item.comment | regex_search('[0-9]' | string )  != none }}"
+         - "{{ item.comment | regex_search('^[0-9]+$' | string )  != none }}"
 
