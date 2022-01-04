@@ -71,6 +71,10 @@
     - set_fact: 
         networks: "{{ networks_json.json | list }}"
 
+    - debug:
+        msg: "{{ item }}"
+      loop: "{{ networks.results }}"
+
     - name: Updates VLAN ID for all networks
       redhat.satellite.subnet:
         name: "Subnet {{ item.network }}"
