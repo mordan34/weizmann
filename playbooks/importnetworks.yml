@@ -26,7 +26,7 @@
 
     - name: Creates all subnets under Satellite
       redhat.satellite.subnet:
-        name: "Range-Subnet {{ item.network }}"
+        name: "Subnet {{ item.network }}"
         description: "{{ item.comment }}"
         network: "{{ item.network | ipaddr('network') }}"
         mask: "{{ item.network | ipaddr('netmask') }}"
