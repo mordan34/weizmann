@@ -74,7 +74,10 @@
     - debug:
         msg: "{{ item.comment }}"
       loop: "{{ networks }}"
-      when: item.comment is defined
+      when: 
+          - item.comment is defined
+          - "{{ item.comment | regex_search('[0-9]' | string )  != none }}"
+
 
     - name: Updates VLAN ID for all networks
       redhat.satellite.subnet:
