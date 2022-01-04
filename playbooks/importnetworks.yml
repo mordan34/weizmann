@@ -81,12 +81,12 @@
         name: "Subnet {{ item.network }}"
         network: "{{ item.network | ipaddr('network') }}"
         mask: "{{ item.network | ipaddr('netmask') }}"
-        vlanid: "{{ item.comment | regex_search('[0-9]') | int }}"
+        vlanid: "{{ item.comment | regex_search('[0-9]') }}"
         server_url: "https://{{ inventory_hostname }}"
         username: '{{ lookup("env","SAT_USERNAME") }}'
         password: '{{ lookup("env","SAT_PASSWORD") }}'
         state: present
       with_items: "{{ networks }}"
       when: 
-         - item | selectattr("comment", "defined")
+         - item.comment is defined
 
