@@ -27,7 +27,7 @@
     - name: Creates all subnets under Satellite
       redhat.satellite.subnet:
         name: "Subnet {{ item.network }}"
-        description: "{{ item.comment | ternary(item.comment, '')}}"
+        description: "{{ item | selectattr('comment', 'defined')}}"
         network: "{{ item.network | ipaddr('network') }}"
         mask: "{{ item.network | ipaddr('netmask') }}"
         gateway: "{{ item.network | ipaddr('net') | ipaddr('-2') | ipaddr('host/prefix') | ipaddr('address') }}"
