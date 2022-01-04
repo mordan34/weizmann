@@ -74,6 +74,7 @@
     - debug:
         msg: "{{ item.comment }}"
       loop: "{{ networks }}"
+      when: item | selectattr("comment", "defined")
 
     - name: Updates VLAN ID for all networks
       redhat.satellite.subnet:
@@ -86,5 +87,6 @@
         password: '{{ lookup("env","SAT_PASSWORD") }}'
         state: present
       with_items: "{{ networks }}"
-      when: item['comment'] is search("VL143")
+      when: 
+         - item | selectattr("comment", "defined")
 
