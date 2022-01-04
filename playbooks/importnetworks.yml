@@ -68,15 +68,9 @@
       register: networks_json
       failed_when: false
 
+
     - set_fact: 
         networks: "{{ networks_json.json | list }}"
-
-    - debug:
-        msg: "{{ item.comment }}"
-      loop: "{{ networks }}"
-      when: 
-          - item.comment is defined
-          - item.comment | regex_search('[0-9]+', ignorecase=True)  != none
 
 
     - name: Updates VLAN ID for all networks
