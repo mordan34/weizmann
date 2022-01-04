@@ -72,8 +72,8 @@
         networks: "{{ networks_json.json | list }}"
 
     - debug:
-        msg: "{{ item }}"
-      loop: "{{ networks.results }}"
+        msg: "{{ item.comment }}"
+      loop: "{{ networks }}"
 
     - name: Updates VLAN ID for all networks
       redhat.satellite.subnet:
