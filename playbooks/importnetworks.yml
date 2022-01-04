@@ -74,7 +74,7 @@
     - debug:
         msg: "{{ item.comment }}"
       loop: "{{ networks }}"
-      when: item | selectattr("comment", "defined")
+      when: item.comment is defined
 
     - name: Updates VLAN ID for all networks
       redhat.satellite.subnet:
