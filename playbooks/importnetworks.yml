@@ -92,4 +92,5 @@
       with_items: "{{ networks }}"
       when: 
          - item.comment is defined
+         - "{{ item.comment | regex_search('[0-9]' | string )  != none }}"
 
