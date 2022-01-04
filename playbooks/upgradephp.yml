@@ -6,17 +6,6 @@
     php_version: "{{ version }}"
     php_versions_install_recommends: true
   remote_user: root
-
-  tasks:
-      - name: Update package ca-certificates
-        yum:
-          name: ca-certificates
-          state: latest
-
-      - name: Remove PHP packages
-        yum:
-          name: php*
-          state: absent
           
   roles:
     - role: geerlingguy.repo-remi
