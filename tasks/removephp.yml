@@ -1,0 +1,11 @@
+---
+- name: Remove all PHP packages
+  hosts: all
+  become: true
+
+  tasks:
+
+      - name: Remove PHP packages
+        yum:
+          name: php*
+          state: absent

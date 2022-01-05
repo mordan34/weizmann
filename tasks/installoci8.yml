@@ -1,0 +1,44 @@
+---
+- name: Install PHP OCI8 Oracle module    # https://access.redhat.com/solutions/3600451#PHPRHEL
+  hosts: php
+  become: true
+
+  tasks:
+      - name: Install Oracle basic
+        uri:
+          url: "{{ lookup('vars', orainst_ver.oracle_basic) }}"
+
+      - name: Install Oracle devel
+        uri:
+          url: "{{ lookup('vars', orainst_ver.oracle_devel) }}"
+
+      - name: Update /etc/environment with Variables
+        blockinfile:
+          marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+          insertafter: EOF
+          path: /etc/environment
+          block:   |
+                 export PHP_DTRACE=yes
+                 export ORACLE_HOME="{{ lookup('vars', orainst_ver.oraclelib_path) }}"
+                 export LD_LIBRARY_PATH="{{ lookup('vars', orainst_ver.oraclelib_path) }}"
+              # export PATH=$PATH:"{{ lookup('vars', orainst_ver.oracle_path) }}"
+
+      - name: Update /etc/bashrc to load Variables from /etc/environment
+        blocinfile:     
+          marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+          insertafter: EOF
+          path: /etc/bashrc
+          block:   |
+             # Load Environment Variables 
+             source /etc/environment
+
+      - name: Install pecl
+        command: /bin/sh -c "pecl install {{ php_ver.oci8 }}"
+
+      - name: create OCI8 .ini file
+        command: /bin/sh -c "echo 'extension=oci8.so' > /etc/php.d/90-oci8.ini"
+
+        
+
+           
+         

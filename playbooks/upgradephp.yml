@@ -1,14 +1,40 @@
 ---
 - name: Upgrade PHP version
-  hosts: all
+  hosts: php
   become: true
   vars:
     php_version: "{{ version }}"
     php_versions_install_recommends: true
-  remote_user: root
+    php_use_managed_ini: false
+    php_packages_extra:
+       - php-mysqlnd
+       - php-bcmath
+       - php-soap
+       - php-pecl-json-post
+       - php-pecl-mcrypt
+       - php-pecl-zip
+
+
+  pre_tasks:
+    - include: 
+        - ../tasks/updatecacer.yml
+        - ../tasks/removephp.yml
+
+        - name: Backup important files
+          command: /bin/sh -c "mkdir ~/phpbackup/; 
+                               cp /etc/php.ini ~/phpbackup/php.ini; 
+                               php -m 2>&1 >> ~/phpbackup/php_m.log; 
+                               rpm -qa | grep php 2>&1 >> ~/phpbackup/php_rpm.log"
           
   roles:
     - role: geerlingguy.repo-remi
       when: ansible_os_family == 'RedHat'
     - geerlingguy.php-versions
     - geerlingguy.php
+
+  post_tasks:
+    - name: Copy all modules from remi's install location to module dir target
+      commmand: /bin/sh -c "cp  -n {{ php_ver.remi_modulepath }}/*.so {{ php_ver.modulepath }}"
+
+    - include: installoci8.yml
+      
