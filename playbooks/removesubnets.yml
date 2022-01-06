@@ -12,7 +12,7 @@
         validate_certs: true
         timeout: 20
         method: GET
-        url: "https://{{ nios_hostname }}/wapi/v{{ nios_provider.wapi_version }}/network?_max_results=1000"
+        url: "https://{{ nios_hostname }}/wapi/v{{ nios_provider.wapi_version }}/network?_max_results=10"
         url_username: "{{ nios_user }}"
         url_password: "{{ nios_password }}"
       register: networks_json
@@ -21,6 +21,9 @@
 
     - set_fact: 
         networks: "{{ networks_json | list }}"
+
+    - debug: 
+        msg: "{{ networks }}"
 
 
     - name: Creates all subnets under Satellite
