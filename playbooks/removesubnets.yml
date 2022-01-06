@@ -23,7 +23,7 @@
         networks: "{{ networks_json | list }}"
 
     - debug: 
-        msg: "{{ item }}"
+        msg: "{{ item.stderr }}"
       loop: "{{ networks }}"
 
 
