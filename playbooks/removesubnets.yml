@@ -6,7 +6,7 @@
     - inventory/group_vars/vault
 
   tasks:
-  - name: Get all ipam networks
+    - name: Get all ipam networks
       uri:
         follow_redirects: none
         validate_certs: true
