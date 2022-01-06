@@ -13,6 +13,7 @@
        - php-pecl-json-post
        - php-pecl-mcrypt
        - php-pecl-zip
+       - php-oci8
 
 
   pre_tasks:
