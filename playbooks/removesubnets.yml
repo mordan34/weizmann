@@ -46,4 +46,4 @@
         password: 'ya4HeEhkAjhsdbzs'
         state: absent
       loop: "{{ networks }}"
-      when: networks is defined
+      when: networks | length > 0
