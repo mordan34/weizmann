@@ -30,7 +30,7 @@
         dhcp_proxy: "{{ inventory_hostname }}"
         tftp_proxy: "{{ inventory_hostname }}"
         dns_proxy: "{{ inventory_hostname }}"
-        domain: ""
+        domains: ""
         server_url: "https://{{ inventory_hostname }}"
         username: 'admin'
         password: 'ya4HeEhkAjhsdbzs'
