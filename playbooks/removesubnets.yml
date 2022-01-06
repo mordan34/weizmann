@@ -29,6 +29,9 @@
         description: "{{ item | selectattr('comment', 'defined')}}"
         network: "{{ item.network | ipaddr('network') }}"
         mask: "{{ item.network | ipaddr('netmask') }}"
+        dhcp_proxy: "{{ inventory_hostname }}"
+        tftp_proxy: "{{ inventory_hostname }}"
+        dns_proxy: "{{ inventory_hostname }}"
         domains:
           - "weizmann.ac.il"
         organizations:
