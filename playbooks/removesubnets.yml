@@ -23,7 +23,8 @@
         networks: "{{ networks_json | list }}"
 
     - debug: 
-        msg: "{{ networks }}"
+        msg: "{{ item }}"
+      loop: "{{ networks }}"
 
 
     - name: Creates all subnets under Satellite
