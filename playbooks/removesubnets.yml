@@ -19,10 +19,7 @@
       failed_when: false
 
     - set_fact: 
-        networks: "{{ networks_json | list }}"
-
-    - debug: 
-        msg: "{{ networks_json }}"
+        networks: "{{ networks_json.json | list }}"
 
     - name: Creates all subnets under Satellite
       redhat.satellite.subnet:

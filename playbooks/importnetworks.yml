@@ -3,8 +3,8 @@
   hosts: satellite
   become: true
   vars_files:
-    - inventory/group_vars/nios.yml
-    - inventory/group_vars/vault
+    - ../group_vars/nios.yml
+    - ../group_vars/vault
 
   tasks:
     - name: Get all ipam networks
@@ -21,7 +21,7 @@
 
 
     - set_fact: 
-        networks: "{{ networks_json | list }}"
+        networks: "{{ networks_json.json | list }}"
 
 
     - name: Creates all subnets under Satellite
