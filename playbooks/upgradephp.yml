@@ -37,4 +37,7 @@
       commmand: /bin/sh -c "cp  -n {{ php_ver.remi_modulepath }}/*.so {{ php_ver.modulepath }}"
 
     - include: installoci8.yml
+
+    - include: imagemagick.yml
       
+    

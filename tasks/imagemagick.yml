@@ -1,0 +1,20 @@
+---
+- name: Upgrade PHP version
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Install ImageMagick
+      yum:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - ImageMagick
+        - ImageMagick-devel
+        - ImageMagick-perl
+
+    - name: Install pecl-imagick
+      command: /bin/sh -c "pecl install imagick"
+
+    - name: Create .ini for imagick extension
+      command: /bin/sh -c "echo 'extension=imagick' > /etc/php.d/20-imagick.ini"
