@@ -31,7 +31,7 @@
         tftp_proxy: "{{ inventory_hostname }}"
         dns_proxy: "{{ inventory_hostname }}"
         domains:
-          - "weizmann.ac.il"
+          - ""
         organizations:
           - "Weizmann Institute of Science"
         locations:
