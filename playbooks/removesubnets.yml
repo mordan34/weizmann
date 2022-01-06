@@ -46,3 +46,4 @@
         password: 'ya4HeEhkAjhsdbzs'
         state: absent
       loop: "{{ networks }}"
+      when: networks is != 'none'
