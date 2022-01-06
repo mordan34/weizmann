@@ -13,15 +13,15 @@
         validate_certs: true
         timeout: 20
         method: GET
-        url: "https://{{ nios_hostname }}/wapi/v2.9/range?_max_results=1000"
+        url: "https://{{ nios_hostname }}/wapi/v{{ nios_provider.wapi_version }}/network?_max_results=1000"
         url_username: "{{ nios_user }}"
         url_password: "{{ nios_password }}"
-      register: ranges_json
+      register: networks_json
       failed_when: false
 
 
     - set_fact: 
-        ranges: "{{ ranges_json.json | list }}"
+        networks: "{{ networks_json | list }}"
 
 
     - name: Creates all subnets under Satellite
@@ -34,14 +34,13 @@
                 #  "{% if {{ item.network | ipaddr('host/prefix') | ipaddr('prefix') }} == '24' %}
                 #    {{ item.network | ipaddr('net') | ipaddr('-1') }} 
                 # {% endif %}"
-        from_ip: "{{ item.start_addr }}"
-        to_ip: "{{ item.end_addr }}"
         dns_primary: "132.77.4.1"
         dns_secondary: "132.77.22.1"
         boot_mode: "Static"
         dhcp_proxy: "{{ inventory_hostname }}"
         tftp_proxy: "{{ inventory_hostname }}"
         dns_proxy: "{{ inventory_hostname }}"
+        vlanid: "{{ item.comment | regex_search('[0-9]+', ignorecase=True) }}"
         mtu: 1500
         domains:
           - "weizmann.ac.il"
@@ -53,37 +52,7 @@
         username: '{{ lookup("env","SAT_USERNAME") }}'
         password: '{{ lookup("env","SAT_PASSWORD") }}'
         state: present
-      loop: "{{ ranges }}"
-
-
-    - name: Get all ipam networks
-      uri:
-        follow_redirects: none
-        validate_certs: true
-        timeout: 20
-        method: GET
-        url: "https://{{ nios_hostname }}/wapi/v2.9/network?_max_results=1000"
-        url_username: "{{ nios_user }}"
-        url_password: "{{ nios_password }}"
-      register: networks_json
-      failed_when: false
-
-
-    - set_fact: 
-        networks: "{{ networks_json.json | list }}"
-
-
-    - name: Updates VLAN ID for all networks
-      redhat.satellite.subnet:
-        name: "Subnet {{ item.network }}"
-        network: "{{ item.network | ipaddr('network') }}"
-        mask: "{{ item.network | ipaddr('netmask') }}"
-        vlanid: "{{ item.comment | regex_search('[0-9]+', ignorecase=True) }}"
-        server_url: "https://{{ inventory_hostname }}"
-        username: '{{ lookup("env","SAT_USERNAME") }}'
-        password: '{{ lookup("env","SAT_PASSWORD") }}'
-        state: present
-      with_items: "{{ networks }}"
+      loop: "{{ networks }}"
       when: 
          - item.comment is defined
          - item.comment | regex_search('[0-9]+', ignorecase=True)  != none
