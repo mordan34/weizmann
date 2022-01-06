@@ -1,5 +1,4 @@
----
-- name: Import all networks from ipam and creates on Satellite server
+- name: Remove all networks from ipam and creates on Satellite server
   hosts: satellite
   become: true
   vars_files:
@@ -7,7 +6,7 @@
     - inventory/group_vars/vault
 
   tasks:
-    - name: Get all ipam networks
+  - name: Get all ipam networks
       uri:
         follow_redirects: none
         validate_certs: true
@@ -30,15 +29,6 @@
         description: "{{ item | selectattr('comment', 'defined')}}"
         network: "{{ item.network | ipaddr('network') }}"
         mask: "{{ item.network | ipaddr('netmask') }}"
-        gateway: "{{ item.network | ipaddr('net') | ipaddr('-11') | ipaddr('host/prefix') | ipaddr('address') }}"
-        dns_primary: "132.77.4.1"
-        dns_secondary: "132.77.22.1"
-        boot_mode: "Static"
-        dhcp_proxy: "{{ inventory_hostname }}"
-        tftp_proxy: "{{ inventory_hostname }}"
-        dns_proxy: "{{ inventory_hostname }}"
-        vlanid: "{{ item.comment | regex_search('[0-9]+', ignorecase=True) }}"
-        mtu: 1500
         domains:
           - "weizmann.ac.il"
         organizations:
@@ -46,11 +36,7 @@
         locations:
           - "Weizmann Lan"
         server_url: "https://{{ inventory_hostname }}"
-        username: '{{ lookup("env","SAT_USERNAME") }}'
-        password: '{{ lookup("env","SAT_PASSWORD") }}'
-        state: present
+        username: 'admin'
+        password: 'ya4HeEhkAjhsdbzs'
+        state: absent
       loop: "{{ networks }}"
-      when: 
-         - item.comment is defined
-         - item.comment | regex_search('[0-9]+', ignorecase=True)  != none
-
