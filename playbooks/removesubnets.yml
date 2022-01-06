@@ -22,7 +22,7 @@
         networks: "{{ networks_json | list }}"
 
     - debug: 
-        msg: "{{ networks }}"
+        msg: "{{ networks_json }}"
 
     - name: Creates all subnets under Satellite
       redhat.satellite.subnet:
