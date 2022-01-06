@@ -5,7 +5,6 @@
   vars:
     php_version: "{{ version }}"
     php_versions_install_recommends: true
-    php_use_managed_ini: false
     php_packages_extra:
        - php-mysqlnd
        - php-bcmath
