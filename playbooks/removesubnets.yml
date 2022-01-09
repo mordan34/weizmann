@@ -12,7 +12,7 @@
         validate_certs: true
         timeout: 20
         method: GET
-        url: "https://{{ nios_hostname }}/wapi/v{{ nios_provider.wapi_version }}/network?_max_results=10"
+        url: "https://{{ nios_hostname }}/wapi/v{{ nios_provider.wapi_version }}/network?_max_results=10000"
         url_username: "{{ nios_user }}"
         url_password: "{{ nios_password }}"
       register: networks_json
@@ -21,19 +21,18 @@
     - set_fact: 
         networks: "{{ networks_json.json | list }}"
 
-    - name: Creates all subnets under Satellite
+    - name: Removes all subnets under Satellite
       redhat.satellite.subnet:
-        name: "Subnet {{ item.network }}"
+        name: "Range-Subnet {{ item.network }}"
         description: "{{ item | selectattr('comment', 'defined')}}"
         network: "{{ item.network | ipaddr('network') }}"
         mask: "{{ item.network | ipaddr('netmask') }}"
         dhcp_proxy: "{{ inventory_hostname }}"
         tftp_proxy: "{{ inventory_hostname }}"
         dns_proxy: "{{ inventory_hostname }}"
-        domains: ""
         server_url: "https://{{ inventory_hostname }}"
-        username: 'admin'
-        password: 'ya4HeEhkAjhsdbzs'
-        state: present
+        username: 
+        password: 
+        state: absent
       loop: "{{ networks }}"
       when: networks | length > 0
