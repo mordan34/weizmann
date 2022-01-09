@@ -31,8 +31,8 @@
         tftp_proxy: "{{ inventory_hostname }}"
         dns_proxy: "{{ inventory_hostname }}"
         server_url: "https://{{ inventory_hostname }}"
-        username: 
-        password: 
+        username: '{{ lookup("env","SAT_USERNAME") }}' 
+        password: '{{ lookup("env","SAT_PASSWORD") }}'
         state: absent
       loop: "{{ networks }}"
       when: networks | length > 0
