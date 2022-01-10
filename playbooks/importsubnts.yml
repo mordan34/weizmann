@@ -40,7 +40,7 @@
         vlanid: "{{ item.comment | regex_search('[0-9]+', ignorecase=True) }}"
         mtu: 1500
         domains:
-          - "weizmann.ac.il"
+          - "wismain.weizmann.ac.il"
         organizations:
           - "Weizmann Institute of Science"
         locations:
