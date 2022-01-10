@@ -21,10 +21,10 @@
         - ../tasks/removephp.yml
 
         - name: Backup important files
-          command: /bin/sh -c "mkdir ~/phpbackup/; 
-                               cp /etc/php.ini ~/phpbackup/php.ini; 
-                               php -m 2>&1 >> ~/phpbackup/php_m.log; 
-                               rpm -qa | grep php 2>&1 >> ~/phpbackup/php_rpm.log"
+          command: /bin/sh -c "mkdir /opt/phpbackup/; 
+                               cp /etc/php.ini /opt/phpbackup/php.ini; 
+                               php -m 2>&1 >> /opt/phpbackup/php_m.log; 
+                               rpm -qa | grep php 2>&1 >> /opt/phpbackup/php_rpm.log"
           
   roles:
     - role: geerlingguy.repo-remi
