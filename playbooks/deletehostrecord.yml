@@ -10,6 +10,6 @@
   tasks:
    - name: Delete Nios Host record
      infoblox.nios_modules.nios_host_record:
-       name: "{{ hostname }}.wismain.weizmann.ac.il"
+       name: "{{ hostname }}.weizmann.ac.il"
        state: absent
        provider: "{{ nios_provider }}"
