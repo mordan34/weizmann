@@ -1,0 +1,30 @@
+---
+- hosts: tower
+  become: false
+  remote_user: ansible
+  vars_files:
+    - ../group_vars/nios.yml
+    - ../group_vars/vault
+
+  connection: local
+  tasks:
+    - name: set fact for the exclude ip class
+      set_fact:
+        ip_class: "{{CIDR[:-4]}}"
+
+    - name: set fact for exclude_range
+      set_fact:
+        exclude_range: "['{{ip_class}}1', '{{ip_class}}2', '{{ip_class}}3', '{{ip_class}}4', '{{ip_class}}5', '{{ip_class}}6', '{{ip_class}}7', '{{ip_class}}8', '{{ip_class}}9', '{{ip_class}}10']"
+    
+    - name: Add new host record to Infoblox
+      nios_host_record:
+        name: "{{ hostname }}.weizmann.ac.il"
+        ipv4addrs:
+          - ipv4addr:
+              "{{ ipv4 }}"
+        state: present
+        comment: Created by Ansible Tower
+        provider: "{{ nios_provider }}"
+      register: status
+      failed_when: "not status is search('already exists') and status.failed == true"
+
