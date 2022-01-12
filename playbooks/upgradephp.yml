@@ -34,7 +34,9 @@
 
   post_tasks:
     - name: Copy all modules from remi's install location to module dir target
-      command: /bin/sh -c "cp  -n {{ currentphp.remi_modulepath }}/*.so {{ currentphp.modulepath }}"
+      copy:
+        src: "{{ currentphp.remi_modulepath }}/*.so"
+        dest: "{{ currentphp.modulepath }}"
 
     - include: ../tasks/installoci8.yml
 
