@@ -1,10 +1,5 @@
 ---
-- name: Update ca-certificates
-  hosts: all
-  become: true
-
-  tasks:
-      - name: Update package ca-certificates
-        yum:
-          name: ca-certificates
-          state: latest
+- name: Update package ca-certificates
+  yum:
+    name: ca-certificates
+    state: latest

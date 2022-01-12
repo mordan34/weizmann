@@ -16,12 +16,14 @@
 
 
   pre_tasks:
-    - include: 
-        - ../tasks/updatecacer.yml
-        - ../tasks/removephp.yml
+    - include: ../tasks/updatecacer.yml
+    #- name: Update Packages and remove existing php installation
+     # include_tasks: 
+      #   - ../tasks/updatecacer.yml
+        # - ../tasks/removephp.yml
 
-        - name: Backup important files
-          command: /bin/sh -c "mkdir /opt/phpbackup/; 
+    - name: Backup important files
+      command: /bin/sh -c "mkdir /opt/phpbackup/; 
                                cp /etc/php.ini /opt/phpbackup/php.ini; 
                                php -m 2>&1 >> /opt/phpbackup/php_m.log; 
                                rpm -qa | grep php 2>&1 >> /opt/phpbackup/php_rpm.log"
@@ -36,8 +38,8 @@
     - name: Copy all modules from remi's install location to module dir target
       command: /bin/sh -c "cp  -n {{ php_ver.remi_modulepath }}/*.so {{ php_ver.modulepath }}"
 
-    - include: installoci8.yml
+    #- include: ../tasks/installoci8.yml
 
-    - include: imagemagick.yml
+    #- include: ../tasks/imagemagick.yml
       
     
