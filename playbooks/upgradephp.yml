@@ -40,7 +40,6 @@
         remote_src: yes
       ignore_errors: true
 
-
     - include: ../tasks/installoci8.yml
 
     - include: ../tasks/imagemagick.yml
