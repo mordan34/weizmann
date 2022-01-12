@@ -8,12 +8,12 @@
     currentphp: "{{ lookup('vars', php_ver) }}"
 
 - name: Install Oracle basic
-  uri:
-    url: "{{ current_oracle.oracle_basic }}"
+  yum: 
+    name: "{{ current_oracle.oracle_basic }}"
 
 - name: Install Oracle devel
-  uri:
-    url: "{{ current_oracle.oracle_devel }}"
+  yum:
+    name: "{{ current_oracle.oracle_devel }}"
 
 - name: Update /etc/environment with Variables
   blockinfile:
