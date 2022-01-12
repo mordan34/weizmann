@@ -3,7 +3,7 @@
   hosts: php
   become: true
   vars:
-    currentphp: "{{ lookup('vars', 'v' + version) }}"
+    currentphp: "{{ lookup('vars', php_ver) }}"
     php_version: "{{ version }}"
     php_versions_install_recommends: true
     php_packages_extra:
@@ -14,7 +14,6 @@
        - php-pecl-mcrypt
        - php-pecl-zip
        - php-oci8
-
 
   pre_tasks:
     
