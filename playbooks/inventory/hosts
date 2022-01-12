@@ -8,8 +8,7 @@ ipam.weizmann.ac.il
 iblanstwtstv01t.weizmann.ac.il
 
 [php]
-phpserver01
-rhel7-php
+localhost ansible_connection=local
 
 [wpad]
 iblwpadnv01
