@@ -41,8 +41,6 @@
       ignore_errors: true
 
     - include: ../tasks/installoci8.yml
-      vars:
-        - php_ver: "{{ currentphp }}"
 
     - include: ../tasks/imagemagick.yml
       
