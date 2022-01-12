@@ -1,11 +1,15 @@
 ---
+- name: Load Oracle Installation version
+  set_fact:
+    current_oracle: "{{ lookup('vars', orainst_ver) }}"
+
 - name: Install Oracle basic
   uri:
-    url: "{{ lookup('vars', orainst_ver.oracle_basic) }}"
+    url: "{{ lookup('vars', current_oracle.oracle_basic) }}"
 
 - name: Install Oracle devel
   uri:
-    url: "{{ lookup('vars', orainst_ver.oracle_devel) }}"
+    url: "{{ lookup('vars', current_oracle.oracle_devel) }}"
 
 - name: Update /etc/environment with Variables
   blockinfile:
@@ -14,9 +18,9 @@
     path: /etc/environment
     block:   |
                export PHP_DTRACE=yes
-               export ORACLE_HOME="{{ lookup('vars', orainst_ver.oraclelib_path) }}"
-               export LD_LIBRARY_PATH="{{ lookup('vars', orainst_ver.oraclelib_path) }}"
-          # export PATH=$PATH:"{{ lookup('vars', orainst_ver.oracle_path) }}"
+               export ORACLE_HOME="{{ lookup('vars', current_oracle.oraclelib_path) }}"
+               export LD_LIBRARY_PATH="{{ lookup('vars', current_oracle.oraclelib_path) }}"
+          # export PATH=$PATH:"{{ lookup('vars', current_oracle.oracle_path) }}"
 
 - name: Update /etc/bashrc to load Variables from /etc/environment
   blockinfile:     
