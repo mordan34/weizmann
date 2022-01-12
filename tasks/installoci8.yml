@@ -17,7 +17,7 @@
 
 - name: Update /etc/environment with Variables
   blockinfile:
-    marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+    marker: "#<!-- {mark} ANSIBLE MANAGED BLOCK -->"
     insertafter: EOF
     path: /etc/environment
     block:   |
@@ -28,7 +28,7 @@
 
 - name: Update /etc/bashrc to load Variables from /etc/environment
   blockinfile:     
-    marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+    marker: "#<!-- {mark} ANSIBLE MANAGED BLOCK -->"
     insertafter: EOF
     path: /etc/bashrc
     block:   |
