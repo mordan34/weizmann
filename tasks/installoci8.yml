@@ -19,7 +19,7 @@
           # export PATH=$PATH:"{{ lookup('vars', orainst_ver.oracle_path) }}"
 
 - name: Update /etc/bashrc to load Variables from /etc/environment
-  blocinfile:     
+  blockinfile:     
     marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
     insertafter: EOF
     path: /etc/bashrc

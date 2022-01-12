@@ -17,10 +17,8 @@
 
   pre_tasks:
     
-    - name: Update Packages and remove existing php installation
-      include: 
-      - ../tasks/updatecacer.yml
-      - ../tasks/removephp.yml
+    - include: ../tasks/updatecacer.yml
+    - include: ../tasks/removephp.yml
 
     - name: Backup important files
       command: /bin/sh -c "mkdir /opt/phpbackup/; 
