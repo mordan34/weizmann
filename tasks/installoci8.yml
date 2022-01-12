@@ -24,7 +24,7 @@
                export PHP_DTRACE=yes
                export ORACLE_HOME="{{ current_oracle.oraclelib_path }}"
                export LD_LIBRARY_PATH="{{ current_oracle.oraclelib_path }}"
-          # export PATH=$PATH:"{{ lookup('vars', current_oracle.oracle_path) }}"
+          # export PATH=$PATH:"{{ current_oracle.oracle_path }}"
 
 - name: Update /etc/bashrc to load Variables from /etc/environment
   blockinfile:     
