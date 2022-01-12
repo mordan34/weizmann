@@ -37,6 +37,9 @@
       copy:
         src: "{{ currentphp.remi_modulepath }}/*.so"
         dest: "{{ currentphp.modulepath }}"
+        remote_src: yes
+      ignore_errors: true
+
 
     - include: ../tasks/installoci8.yml
 
