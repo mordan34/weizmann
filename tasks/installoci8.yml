@@ -7,6 +7,11 @@
   set_fact:
     currentphp: "{{ lookup('vars', php_ver) }}"
 
+- name: Remove Existing Oracle basic
+  yum: 
+    name: oracle-instantclient19*
+    state: absent
+
 - name: Install Oracle basic
   yum: 
     name: "{{ current_oracle.oracle_basic }}"
