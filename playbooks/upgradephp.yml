@@ -46,7 +46,7 @@
       notify: Restart apache
 
 
-      handlers:
+  handlers:
     - name: Restart apache
       ansible.builtin.service:
         name: httpd
