@@ -43,5 +43,13 @@
     - include: ../tasks/installoci8.yml
 
     - include: ../tasks/imagemagick.yml
+      notify: restart httpd
+
+
+      handlers:
+    - name: Restart apache
+      ansible.builtin.service:
+        name: httpd
+        state: restarted
       
     
