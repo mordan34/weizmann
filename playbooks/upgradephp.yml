@@ -43,7 +43,7 @@
     - include: ../tasks/installoci8.yml
 
     - include: ../tasks/imagemagick.yml
-      notify: restart httpd
+      notify: Restart apache
 
 
       handlers:
