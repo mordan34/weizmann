@@ -3,9 +3,9 @@
   set_fact:
     current_oracle: "{{ lookup('vars', orainst_ver) }}"
 
-- name: Load PHP Installation version
-  set_fact:
-    currentphp: "{{ lookup('vars', php_ver) }}"
+# - name: Load PHP Installation version
+#   set_fact:
+#     currentphp: "{{ lookup('vars', php_ver) }}"
 
 - name: Remove Existing Oracle basic
   yum: 
