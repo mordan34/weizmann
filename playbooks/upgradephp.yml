@@ -16,15 +16,14 @@
        - php-oci8
 
   pre_tasks:
-    
-    - include: ../tasks/updatecacer.yml
-    - include: ../tasks/removephp.yml
-
     - name: Backup important files
       command: /bin/sh -c "mkdir /opt/phpbackup/; 
                                cp /etc/php.ini /opt/phpbackup/php.ini; 
                                php -m 2>&1 >> /opt/phpbackup/php_m.log; 
                                rpm -qa | grep php 2>&1 >> /opt/phpbackup/php_rpm.log"
+
+    - include: ../tasks/updatecacer.yml
+    - include: ../tasks/removephp.yml
           
   roles:
     - role: geerlingguy.repo-remi
