@@ -14,6 +14,7 @@
        - php-pecl-mcrypt
        - php-pecl-zip
        - php-oci8
+       - php-intl
 
   pre_tasks:
     - name: Backup important files
