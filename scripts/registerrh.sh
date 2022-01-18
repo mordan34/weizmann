@@ -10,7 +10,7 @@ osver_pos=$(cat /etc/redhat-release | grep -aob release | cut -d: -f1)
 release=${os:osver_pos+8:3}
 
 # Download and install Satellite's CA certificate
-curl --output katello-ca-consumer-latest.noarch.rpm https://iblstlv01.weizmann.ac.il/pub/katello-ca-consumer-latest.noarch.rpm
+curl --output katello-ca-consumer-latest.noarch.rpm https://iblstllv01.weizmann.ac.il/pub/katello-ca-consumer-latest.noarch.rpm
 yum -y localinstall katello-ca-consumer-latest.noarch.rpm 
 
 # Choosing correct activation key
