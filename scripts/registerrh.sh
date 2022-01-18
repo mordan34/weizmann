@@ -1,9 +1,6 @@
 #!/bin/sh
 
-
 # This script registers a system into Satellite server
-
-
 
 os=$(cat /etc/redhat-release)
 osver_pos=$(cat /etc/redhat-release | grep -aob release | cut -d: -f1)
@@ -18,15 +15,7 @@ if [[ "$release" == "8"* ]];   then
 				key="RHEL 8"
 elif [[ "$release" == "7"* ]]; then            
 				key="RHEL 7"
-				release="7Server"
 fi
 
 subscription-manager register --org="Weizmann_Institute_of_Science" --activationkey="$key"
-subscription-manager release --set=$release
-yum -y install katello-host-tools
-yum -y install katello-host-tools-tracer
-yum -y install katello-agent
-
-#curl -O https://iblstlv01.weizmann.ac.il/pub/bootstrap.py
-#chmod +x bootstrap.py
-#/usr/libexec/platform-python bootstrap.py --login=admin --server iblstlv01.weizmann.ac.il --release=$release --location="Weizmann Lan" --organization="Weizmann_Institute_of_Science" --hostgroup="VXRail_VC" --activationkey=Dev --force --download-method https --skip 'foreman' --install-katello-agent
+yum -y install katello-host-tools katello-host-tools-tracer katello-agent
