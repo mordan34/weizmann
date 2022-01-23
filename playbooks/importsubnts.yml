@@ -53,5 +53,5 @@
       when: 
          - item.comment is defined
          - item.comment | regex_search('[0-9]+', ignorecase=True)  != none
-         - item.network is not in search {{ environment }}
+         - item.network is in search environment["DC"]
 
