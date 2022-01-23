@@ -44,7 +44,7 @@
         organizations:
           - "Weizmann Institute of Science"
         locations:
-          - "Weizmann Lan"
+          - "Weizmann DC"
         server_url: "https://{{ inventory_hostname }}"
         username: '{{ lookup("env","SAT_USERNAME") }}'
         password: '{{ lookup("env","SAT_PASSWORD") }}'
