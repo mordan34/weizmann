@@ -13,7 +13,7 @@
         validate_certs: true
         timeout: 20
         method: GET
-        url: "https://{{ nios_hostname }}/wapi/v{{ nios_provider.wapi_version }}/network?_max_results=10"
+        url: "https://{{ nios_hostname }}/wapi/v{{ nios_provider.wapi_version }}/network?_max_results=100"
         url_username: "{{ nios_user }}"
         url_password: "{{ nios_password }}"
       register: networks_json
