@@ -1,4 +1,4 @@
-environment:
+environments:
    - DC:
       - 10.140.0.0/16
       - 10.145.0.0/16
