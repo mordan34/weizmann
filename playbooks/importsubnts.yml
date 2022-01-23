@@ -23,6 +23,9 @@
     - set_fact: 
         networks: "{{ networks_json.json | list }}"
 
+    - set_fact:
+        subnets: "{{ environments | subelements('subnets') | list }}"
+
 
     - name: Creates all subnets under Satellite
       redhat.satellite.subnet:
@@ -53,9 +56,11 @@
       when: 
          - item.comment is defined
          - item.comment | regex_search('[0-9]+', ignorecase=True)  != none
-         - item.network in environment
+         - item.network in subnetsval
 
     - name: output the nested 'env.foo.bar' variable
       debug:
-        msg: "{{ lookup('vars', environment)['DC'] }}"
+        msg: "{{ item.1 }}"
+      loop: "{{ subnets }}"
+      register: subnetsval
 
