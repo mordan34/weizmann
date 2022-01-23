@@ -55,3 +55,7 @@
          - item.comment | regex_search('[0-9]+', ignorecase=True)  != none
          - item.network in environment
 
+    - name: output the nested 'env.foo.bar' variable
+      debug:
+        msg: "{{ lookup('vars', environment)['DC'] }}"
+
