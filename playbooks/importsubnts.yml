@@ -32,7 +32,7 @@
       loop: "{{ subnets }}"
       register: subnetsval
 
-    - name: output the nested 'subnets' variable
+    - name: output the nested 'subnetsval' variable
       debug:
         msg: "{{ subnetsval }}"
 
@@ -66,5 +66,5 @@
       when: 
          - item.comment is defined
          - item.comment | regex_search('[0-9]+', ignorecase=True)  != none
-         - item.network in subnetsval
+         - item.network in subnets
 
