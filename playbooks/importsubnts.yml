@@ -13,7 +13,7 @@
         validate_certs: true
         timeout: 20
         method: GET
-        url: "https://{{ nios_hostname }}/wapi/v{{ nios_provider.wapi_version }}/network?_max_results=100"
+        url: "https://{{ nios_hostname }}/wapi/v{{ nios_provider.wapi_version }}/network?_max_results=1"
         url_username: "{{ nios_user }}"
         url_password: "{{ nios_password }}"
       register: networks_json
@@ -23,19 +23,21 @@
     - set_fact: 
         networks: "{{ networks_json.json | list }}"
 
+
     - set_fact:
         subnets: "{{ environments | subelements('subnets') | list }}"
 
+
+    - name: Create a new list
+      set_fact:
+        subnetsval: "{{ (subnetsval | default()) + ',' + item.1 }}"
+      loop: "{{ subnets }}"
+
+
     - name: output the nested 'subnets' variable
       debug:
-        msg: "{{ item.1 }}"
-      loop: "{{ subnets }}"
-      register: subnetsval
-
-    - name: output the nested 'subnetsval' variable
-      debug:
-        msg: "{{ subnetsval }}"
-
+        msg: "{{ item }}"
+      loop: "{{ lookup('dict', subnets) }}"
 
     - name: Creates all subnets under Satellite
       redhat.satellite.subnet:
@@ -48,7 +50,6 @@
         dns_secondary: "132.77.22.1"
         boot_mode: "Static"
         dhcp_proxy: "{{ inventory_hostname }}"
-        tftp_proxy: "{{ inventory_hostname }}"
         dns_proxy: "{{ inventory_hostname }}"
         vlanid: "{{ item.comment | regex_search('[0-9]+', ignorecase=True) }}"
         mtu: 1500
@@ -59,12 +60,12 @@
         locations:
           - "Weizmann DC"
         server_url: "https://{{ inventory_hostname }}"
-        username: '{{ lookup("env","SAT_USERNAME") }}'
-        password: '{{ lookup("env","SAT_PASSWORD") }}'
+        username: 'admin'  #'{{ lookup("env","SAT_USERNAME") }}'
+        password: '83EDDA3C4A514B6FA312DD54027A0079'  #'{{ lookup("env","SAT_PASSWORD") }}'
         state: present
       loop: "{{ networks }}"
       when: 
          - item.comment is defined
          - item.comment | regex_search('[0-9]+', ignorecase=True)  != none
-         - item.network in subnets
+         - item.network in subnetsval
 
