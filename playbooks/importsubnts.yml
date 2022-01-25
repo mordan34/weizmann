@@ -34,10 +34,10 @@
       loop: "{{ subnets }}"
 
 
-    - name: output the nested 'subnets' variable
-      debug:
-        msg: "{{ item }}"
-      loop: "{{ lookup('dict', subnets) }}"
+    #- name: output the nested 'subnets' variable
+     # debug:
+      #  msg: "{{ item }}"
+      #loop: "{{ lookup('dict', subnets) }}"
 
     - name: Creates all subnets under Satellite
       redhat.satellite.subnet:
