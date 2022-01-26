@@ -11,6 +11,8 @@
           username: '{{ lookup("env","SAT_USERNAME") }}'
           password: '{{ lookup("env","SAT_PASSWORD") }}'
        command: /usr/bin/python /opt/weizmann/scripts/openrules.py "{{ inventory_hostname }}"
+       delegate_to: 127.0.0.1
+
 
      - name: Copy registration script to remote host
        copy:
