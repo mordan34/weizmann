@@ -28,7 +28,7 @@ SSL_VERIFY = False
 # This function is used to update the json object with the correct hostname and it's IP
 def update_data(hostname):
         try:
-            ip = socket.gethostbyname(hostname+".weizmann.ac.il")
+            ip = socket.gethostbyname(hostname)
             jsonObj = json.loads(PAYLOAD)
             jsonObj['parameters']['server_name'] = hostname
             jsonObj['parameters']['system_name'] = hostname
