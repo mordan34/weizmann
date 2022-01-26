@@ -1,5 +1,5 @@
 environments:
-   - name: DC
+  DC:
      subnets:
       - 10.140.0.0/16
       - 10.145.0.0/16
@@ -14,7 +14,7 @@ environments:
       - 132.76.78.0/24
       - 132.76.79.0/24
 
-   - name: DMZ
+  DMZ:
      subnets:
       - 10.150.0.0/16
       - 10.155.0.0/16
@@ -32,11 +32,11 @@ environments:
       - 132.77.150.0/24
       - 132.77.151.0/24
 
-   - name: DCTest
+  DCTest:
      subnets:
       - 10.160.0.0/16
 
-   - name: DMZTest
+  DMZTest:
      subnets:
       - 10.151.0.0/16
       
