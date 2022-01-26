@@ -16,3 +16,6 @@ iblwpadnv02
 
 [local]
 localhost ansible_connection=local
+
+[semur]
+iblsemurv01.weizmann.ac.il
