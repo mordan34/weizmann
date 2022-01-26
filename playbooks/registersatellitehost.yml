@@ -14,6 +14,8 @@
        args:
           executable: python3
        delegate_to: 127.0.0.1
+       connection: local
+       remote_user: root
 
 
      - name: Copy registration script to remote host
