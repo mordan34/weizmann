@@ -10,7 +10,9 @@
        environment:
           username: '{{ lookup("env","SAT_USERNAME") }}'
           password: '{{ lookup("env","SAT_PASSWORD") }}'
-       command: "/usr/bin/python /opt/weizmann/scripts/openrules.py {{ inventory_hostname }}"
+       ansible.builtin.script: /opt/weizmann/scripts/openrules.py "{{ inventory_hostname }}"
+       args:
+          executable: python3
        delegate_to: 127.0.0.1
 
 
