@@ -18,7 +18,7 @@
         register: script_results
 
       - name: Try to run pkexec on {{ inventory_hostname }}
-        comamnd: /bin/bash -c "sudo pkexec"
+        comamnd: /bin/bash -c "pkexec"
         ignore_errors: true
         register: pkexec_results
 
