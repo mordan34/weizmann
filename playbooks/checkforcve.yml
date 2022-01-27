@@ -18,11 +18,11 @@
         register: script_results
 
       - name: Try to run pkexec on {{ inventory_hostname }}
-        comamnd: /bin/bash -c "pkexec"
+        command: /bin/bash -c "pkexec"
         ignore_errors: true
         register: pkexec_results
 
       - name: Check for stap_pkexec_block in Kernel
-        comamnd: /bin/bash -c "lsmod | grep stap_pkexec_block"
+        command: /bin/bash -c "lsmod | grep stap_pkexec_block"
         register: lsmod_results
         failed_when: "script_results.rc != 0 and not pkexec_results.stdout is search('Killed') and not lsmod_results.stdout is search('stap_pkexec_block')"
