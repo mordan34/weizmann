@@ -15,6 +15,8 @@ if [[ "$release" == "8"* ]];   then
 				key="RHEL 8"
 elif [[ "$release" == "7"* ]]; then            
 				key="RHEL 7"
+elif [[ "$release" == "6"* ]]; then            
+				key="RHEL 6"
 fi
 
 subscription-manager register --org="Weizmann_Institute_of_Science" --activationkey="$key"
