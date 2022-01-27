@@ -5,7 +5,7 @@ iblstllv01.weizmann.ac.il
 ipam.weizmann.ac.il
 
 [tower]
-iblanstwtstv01t.weizmann.ac.il
+ibltowerv01.weizmann.ac.il
 
 [php]
 localhost ansible_connection=local
