@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+      - name: Copy the script to "{{ inventory_hostname }}"
+        copy:
+          src: ../scripts/cve-2021-4034--2022-01-25-0936.sh
+          dest: /tmp/cve-2021-4034--2022-01-25-0936.sh
+          owner: root
+          group: root
+          mode: '0750'
+
+      - name: Run Diagnose on "{{ inventory_hostname }}"
+        ansible.builtin.script: /tmp/cve-2021-4034--2022-01-25-0936.sh

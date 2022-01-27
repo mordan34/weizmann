@@ -72,8 +72,8 @@
         locations:
           - "Weizmann DC"
         server_url: "https://{{ inventory_hostname }}"
-        username: 'admin' #'{{ lookup("env","SAT_USERNAME") }}'
-        password: '83EDDA3C4A514B6FA312DD54027A0079'  #'{{ lookup("env","SAT_PASSWORD") }}'
+        username: '{{ lookup("env","SAT_USERNAME") }}'
+        password: '{{ lookup("env","SAT_PASSWORD") }}'
         state: present
       loop: "{{ networks }}"
       when: 
