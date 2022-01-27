@@ -1,9 +1,10 @@
 ---
-- hosts: all
+- name: Run Diagnoses on remote hosts for cve-2021-4034
+  hosts: all
   become: true
   tasks:
 
-      - name: Copy the script to "{{ inventory_hostname }}"
+      - name: Copy the script to {{ inventory_hostname }}
         copy:
           src: ../scripts/cve-2021-4034--2022-01-25-0936.sh
           dest: /tmp/cve-2021-4034--2022-01-25-0936.sh
@@ -11,5 +12,5 @@
           group: root
           mode: '0750'
 
-      - name: Run Diagnose on "{{ inventory_hostname }}"
-        ansible.builtin.script: /tmp/cve-2021-4034--2022-01-25-0936.sh
+      - name: Run Diagnose on {{ inventory_hostname }}
+        ansible.builtin.script: sudo /tmp/cve-2021-4034--2022-01-25-0936.sh
