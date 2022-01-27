@@ -13,4 +13,4 @@
           mode: '0750'
 
       - name: Run Diagnose on {{ inventory_hostname }}
-        ansible.builtin.script: sudo /tmp/cve-2021-4034--2022-01-25-0936.sh
+        command: /bin/bash -c "/tmp/cve-2021-4034--2022-01-25-0936.sh"
