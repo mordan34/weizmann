@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  become: true
+  become: false
   vars:
       pubkey: "{{ lookup('file', '{{ ansible_env.HOME }}/.ssh/id_rsa.pub') }}"
 
