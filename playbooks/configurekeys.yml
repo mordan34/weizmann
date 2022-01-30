@@ -17,7 +17,7 @@
 
         - name: Set authorized key for user ansible copying it from current user
           authorized_key:
-             user: root
+             user: ansible
              state: present
              key: "{{ pubkey }}"
 
