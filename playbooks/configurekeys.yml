@@ -1,7 +1,6 @@
 ---
 - hosts: all
   become: true
-  remote_user: mordan
   gather_facts: no
   vars:
       admin_ssh_public_key: "{{ ssh_public_key | d(admin_public_sshkey) }}"
