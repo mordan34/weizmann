@@ -4,7 +4,7 @@
   remote_user: mordan
   gather_facts: no
   vars:
-      pubkey: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+      pubkey: "{{ lookup('file', ssh_public_key) }}"
 
   tasks:
 
