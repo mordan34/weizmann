@@ -14,15 +14,21 @@
 
       - name: Run Diagnose on {{ inventory_hostname }}
         command: /bin/bash -c "/tmp/cve-2021-4034--2022-01-25-0936.sh"
+        async: 20
+        poll: 0
         ignore_errors: true
         register: script_results
 
       - name: Try to run pkexec on {{ inventory_hostname }}
         command: /bin/bash -c "pkexec"
+        async: 10
+        poll: 0
         ignore_errors: true
         register: pkexec_results
 
       - name: Check for stap_pkexec_block in Kernel
         command: /bin/bash -c "lsmod | grep stap_pkexec_block"
+        async: 10
+        poll: 0
         register: lsmod_results
         failed_when: script_results.rc != 0 and (not pkexec_results.stdout is search('Killed') or not lsmod_results.stdout is search('stap_pkexec_block') )
