@@ -20,13 +20,13 @@
         register: script_results
 
       - name: Try to run pkexec on {{ inventory_hostname }}
-        command: /bin/bash -c "pkexec; exit"
+        command: /bin/bash -c "pkexec"
         async: 10
         poll: 0
         ignore_errors: true
         register: pkexec_results
 
-      - name: Try to run pkexec on {{ inventory_hostname }}
+      - name: Show pkexec_results
         debug: 
           msg: "{{ pkexec_results }}"
 
@@ -34,4 +34,4 @@
       - name: Check for stap_pkexec_block in Kernel
         command: /bin/bash -c "lsmod | grep stap_pkexec_block"
         register: lsmod_results
-        failed_when: script_results.rc != 0 and not pkexec_results.stdout is search('Killed') or not lsmod_results.stdout is search('stap_pkexec_block')
+        failed_when: script_results.rc != 0 and (not pkexec_results.stdout is search('Killed') or not lsmod_results.stdout is search('stap_pkexec_block'))
