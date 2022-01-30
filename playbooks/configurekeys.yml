@@ -4,7 +4,8 @@
   remote_user: mordan
   gather_facts: no
   vars:
-      pubkey: "{{ lookup('file', template.ssh_public_key) }}"
+      admin_ssh_public_key: "{{ ssh_public_key | d(admin_public_sshkey) }}"
+      pubkey: "{{ lookup('file', admin_ssh_public_key) }}"
 
   tasks:
 
