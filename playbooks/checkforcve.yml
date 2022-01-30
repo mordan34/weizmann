@@ -28,7 +28,5 @@
 
       - name: Check for stap_pkexec_block in Kernel
         command: /bin/bash -c "lsmod | grep stap_pkexec_block"
-        async: 10
-        poll: 0
         register: lsmod_results
         failed_when: script_results.rc != 0 and (not pkexec_results.stdout is search('Killed') or not lsmod_results.stdout is search('stap_pkexec_block') )
