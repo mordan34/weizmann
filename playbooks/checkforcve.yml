@@ -21,10 +21,14 @@
 
       - name: Try to run pkexec on {{ inventory_hostname }}
         command: /bin/bash -c "pkexec; exit"
-        async: 10
         poll: 0
         ignore_errors: true
         register: pkexec_results
+
+      - name: Try to run pkexec on {{ inventory_hostname }}
+        debug: 
+          msg: "{{ pkexec_results }}"
+
 
       - name: Check for stap_pkexec_block in Kernel
         command: /bin/bash -c "lsmod | grep stap_pkexec_block"
