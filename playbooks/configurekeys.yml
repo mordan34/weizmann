@@ -1,6 +1,7 @@
 ---
 - hosts: all
-  become: false
+  become: true
+  remote_user: mordan
   vars:
       pubkey: "{{ lookup('file', '{{ ansible_env.HOME }}/.ssh/id_rsa.pub') }}"
 
