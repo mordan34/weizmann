@@ -22,7 +22,7 @@
       - name: Try to run pkexec on {{ inventory_hostname }}
         command: /bin/bash -c "pkexec"
         async: 10
-        poll: 0
+        poll: 5
         ignore_errors: true
         register: pkexec_results
 
