@@ -4,7 +4,7 @@
   remote_user: mordan
   gather_facts: no
   vars:
-      pubkey: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+      pubkey: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
 
   tasks:
 
@@ -17,7 +17,7 @@
 
         - name: Set authorized key for user ansible copying it from current user
           authorized_key:
-             user: ansible
+             user: root
              state: present
              key: "{{ pubkey }}"
 
