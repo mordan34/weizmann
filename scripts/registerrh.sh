@@ -19,5 +19,5 @@ elif [[ "$release" == "6"* ]]; then
 				key="RHEL 6"
 fi
 
-subscription-manager register --org="Weizmann_Institute_of_Science" --activationkey="$key"
+subscription-manager register --force --org="Weizmann_Institute_of_Science" --activationkey="$key"
 yum -y install katello-host-tools katello-host-tools-tracer katello-agent
