@@ -26,11 +26,6 @@
         ignore_errors: true
         register: pkexec_results
 
-      - name: Show pkexec_results
-        debug: 
-          msg: "{{ pkexec_results }}"
-
-
       - name: Check for stap_pkexec_block in Kernel
         command: /bin/bash -c "lsmod | grep stap_pkexec_block"
         register: lsmod_results
