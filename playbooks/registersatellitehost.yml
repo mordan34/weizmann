@@ -2,18 +2,9 @@
 - name: Add existing hosts to Satellite server
   hosts: all
   become: true
-  when:  ansible_facts["os_family"] == "RedHat"
 
   tasks: 
      
-     - name: Copy registration script to remote host
-       copy:
-          src: ../scripts/registerrh.sh
-          dest: /tmp/registerrh.sh
-          owner: ansible
-          group: ansible
-          mode: 0770
-
-     - name: Register host with Satellite
-       command: /tmp/registerrh.sh
-     
+     - include: ../tasks/register.yml
+       name: Register Red Hat hosts to Satellite
+       when:  ansible_facts["os_family"] == "RedHat"
