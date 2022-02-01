@@ -9,7 +9,7 @@
     - ImageMagick-perl
 
 - name: Install pecl-imagick
-  command: /bin/sh -c "pecl install imagick"
+  command: /bin/bash -c "pecl install imagick"
 
 - name: Create .ini for imagick extension
   command: /bin/sh -c "echo 'extension=imagick' > /etc/php.d/20-imagick.ini"
