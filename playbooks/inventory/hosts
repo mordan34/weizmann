@@ -9,6 +9,9 @@ ibltowerv01.weizmann.ac.il
 
 [php]
 localhost ansible_connection=local
+wws1v
+wws2v
+wws3v
 
 [wpad]
 iblwpadnv01
