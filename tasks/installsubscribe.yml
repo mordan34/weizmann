@@ -1,6 +1,6 @@
 ---
 - name: Prepare list of packages
-  command: ls ../packages/subscription-manager/*
+  command: ls ../packages/subscription-manager/
   register: package_list
 
 - name: Install subscription-manager
