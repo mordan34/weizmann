@@ -1,3 +1,10 @@
 ---
+- name: Prepare list of packages
+  command: ls ../packages/subscription-manager/*
+  register: package_list
+
 - name: Install subscription-manager
-  command: yum -y localinstall ../packages/subscription-manager/*.rpm
+  yum: 
+    name: ../packages/subscription-manager/"{{ item }}"
+    state: present
+  loop: package_list
