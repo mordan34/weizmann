@@ -2,3 +2,4 @@
 - name: "Check if listed package is installed or not on Red Hat Linux family"
   command: rpm -q "{{ package_name }}"
   when: ansible_facts['os_family'] == "RedHat"
+  ignore_errors: true
