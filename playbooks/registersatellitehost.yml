@@ -8,7 +8,7 @@
      - include_tasks: ../tasks/checkpackage.yml
        name: Check subscription-manager is installed
        vars:
-         package_names: subscription-manager
+         package_name: subscription-manager
        register: package_check
        when:  'inventory_hostname == "iblbist01"'
 
