@@ -1,0 +1,5 @@
+---
+- name: Install subscription-manager
+  yum:
+    name: ../packages/subscription-manager/*
+    state: latest
