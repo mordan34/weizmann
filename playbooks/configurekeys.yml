@@ -36,7 +36,7 @@
             groups: wheel
 
         - name: Configure wheel sudo access for RHEL6
-          command: sed -i 's/# %wheel  ALL=(ALL)       ALL/%wheel  ALL=(ALL)       ALL' /etc/sudoers
+          command: sed -i 's/# %wheel  ALL=(ALL)       ALL/%wheel  ALL=(ALL)       ALL/' /etc/sudoers
           when:  
                 - 'ansible_facts["os_family"] == "RedHat"'
                 - 'ansible_facts["distribution_major_version"] == "6"'
