@@ -7,7 +7,7 @@
      
      - include_tasks: ../tasks/installsubscribe.yml
        name: Installing subscription-manager package and dependencies
-       when:  {{ inventory_hostname }} == "iblbist01"
+       when:  "{{ inventory_hostname }}" == "iblbist01"
 
      - include_tasks: ../tasks/register.yml
        name: Register Red Hat hosts to Satellite
