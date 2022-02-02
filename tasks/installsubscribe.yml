@@ -1,10 +1,16 @@
 ---
-- name: Prepare list of packages
-  command: /bin/ls ../packages/subscription-manager/
-  register: package_list
-
 - name: Install subscription-manager
   yum: 
-    name: ../packages/subscription-manager/"{{ item }}"
+    name: "../packages/subscription-manager/{{ item }}"
     state: present
-  loop: package_list
+  when: 
+    - ansible_facts["os_family"] == "RedHat"
+    - 'ansible_facts["distribution_major_version"] == "7"'
+  with_items:
+    - python-dmidecode-3.12.2-4.el7.x86_64.rpm
+    - python-inotify-0.9.4-4.el7.noarch.rpm
+    - python-six-1.9.0-2.el7.noarch.rpm
+    - python-syspurpose-1.24.50-1.el7_9.x86_64.rpm
+    - subscription-manager-1.24.50-1.el7_9.x86_64.rpm
+    - subscription-manager-rhsm-1.24.50-1.el7_9.x86_64.rpm
+    - subscription-manager-rhsm-certificates-1.24.50-1.el7_9.x86_64.rpm
