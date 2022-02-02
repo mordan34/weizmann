@@ -27,3 +27,9 @@
             dest: /etc/sudoers
             line: 'ansible       ALL=(ALL)       NOPASSWD: ALL'
             insertafter: '^%wheel'
+
+        - name: Change user password for admin user
+          user:
+            name: '{{ lookup("env","SAT_USERNAME") }}'
+            update_password: always
+            password: '{{ lookup("env","SAT_PASSWORD") }}'
