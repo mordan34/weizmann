@@ -31,9 +31,9 @@
             username: '{{ lookup("env","SAT_USERNAME") }}'
             password: '{{ lookup("env","SAT_PASSWORD") }}'
           user:
-            name: 
+            name: username
             update_password: always
-            password: "{{ password | password_hash('sha512') }}"
+            password: "{{ password | password_hash('sha512', username) }}"
             groups: wheel
 
         - name: Configure wheel sudo access for RHEL6
