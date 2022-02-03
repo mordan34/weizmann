@@ -14,19 +14,21 @@
              password: $6$testing$Dsf3AUPPMRquaHjogzFHUx5jzqP2o8oEB1Yju5hTHFN74Clztb8ZEEpjlsyDdKpiGuSbcqmgNSMcRiyeyINcE.
              state: present
 
-
         - name: Set authorized key for user ansible copying it from current user
           authorized_key:
              user: ansible
              state: present
              key: "{{ pubkey }}"
 
-
         - name: Add the LinuxAdmins AD Group to sudoers
           lineinfile:
             dest: /etc/sudoers
             line: 'ansible       ALL=(ALL)       NOPASSWD: ALL'
             insertafter: '%wheel'
+
+        - name: Show pass
+          debug:
+            msg: '{{ lookup("env","SAT_PASSWORD") }}'
 
         - name: Change user password for admin user
           user:
