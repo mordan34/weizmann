@@ -1,7 +1,7 @@
 ---
 - hosts: all
   become: true
-  #gather_facts: no
+  gather_facts: no
   vars:
       admin_ssh_public_key: "{{ ssh_public_key | d(admin_public_sshkey) }}"
       pubkey: "{{ lookup('file', admin_ssh_public_key) }}"
