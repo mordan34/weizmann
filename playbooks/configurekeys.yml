@@ -26,15 +26,14 @@
             line: 'ansible       ALL=(ALL)       NOPASSWD: ALL'
             insertafter: '%wheel'
 
-        - name: Show pass
-          debug:
-            msg: '{{ lookup("env","SAT_PASSWORD") }}'
-
         - name: Change user password for admin user
+          vars:
+            username: '{{ lookup("env","SAT_USERNAME") }}'
+            password: '{{ lookup("env","SAT_PASSWORD") }}'
           user:
-            name: '{{ lookup("env","SAT_USERNAME") }}'
+            name: 
             update_password: always
-            password: "{{ lookup("env","SAT_PASSWORD") }} | password_hash('sha512')"
+            password: "password | password_hash('sha512', username)"
             groups: wheel
 
         - name: Configure wheel sudo access for RHEL6
