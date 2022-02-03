@@ -31,7 +31,7 @@
             username: '{{ lookup("env","SAT_USERNAME") }}'
             password: '{{ lookup("env","SAT_PASSWORD") }}'
           user:
-            name: username
+            name: "{{ username }}"
             update_password: always
             password: "{{ password | password_hash('sha512', username) }}"
             groups: wheel
