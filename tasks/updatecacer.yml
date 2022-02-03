@@ -1,5 +1,0 @@
----
-- name: Update package ca-certificates
-  yum:
-    name: ca-certificates
-    state: latest

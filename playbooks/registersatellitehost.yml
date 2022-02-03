@@ -5,12 +5,12 @@
 
   tasks: 
      
-     - include_tasks: ../tasks/updatecacer.yml
+     - include_tasks: ../tasks/updatessl.yml
 
      - include_tasks: ../tasks/checkpackage.yml
        name: Check subscription-manager is installed
        vars:
-         package_name: subscription-manager
+         package_name: 'subscription-manager'
        register: package_check
        when:  'inventory_hostname == "iblbist01"'
 

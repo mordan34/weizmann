@@ -1,0 +1,9 @@
+---
+- name: Update ssl packages for curl
+  yum:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - ca-certificates
+    - nss
+    - curl
