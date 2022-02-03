@@ -33,7 +33,7 @@
           user:
             name: 
             update_password: always
-            password: "{{ password | password_hash('sha512', username) }}"
+            password: "{{ password | password_hash('sha512') }}"
             groups: wheel
 
         - name: Configure wheel sudo access for RHEL6
