@@ -11,7 +11,7 @@ subscription-manager clean
 yum clean all
 
 # Download and install Satellite's CA certificate
-curl --output katello-ca-consumer-latest.noarch.rpm https://iblstllv01.weizmann.ac.il/pub/katello-ca-consumer-latest.noarch.rpm
+curl --insecure --output katello-ca-consumer-latest.noarch.rpm https://iblstllv01.weizmann.ac.il/pub/katello-ca-consumer-latest.noarch.rpm
 yum -y localinstall katello-ca-consumer-latest.noarch.rpm 
 
 # Choosing correct activation key
