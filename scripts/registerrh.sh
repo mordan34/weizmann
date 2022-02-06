@@ -7,6 +7,7 @@ osver_pos=$(cat /etc/redhat-release | grep -aob release | cut -d: -f1)
 release=${os:osver_pos+8:3}
 
 # Clean older registrations
+subscription-manager repos --disable "*"
 subscription-manager clean
 yum clean all
 
