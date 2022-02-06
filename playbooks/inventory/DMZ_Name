@@ -14,12 +14,12 @@ iblgitsrv02
 iblshalev01
 iblplntv01
 davidson-web-int
-davidson-db-new
+davidson-db
 davidson-web
 iblstwdbv01
-blstwpsv01
+iblstwpsv01
 iblstdrpv01
-blmdlwdv01
+iblmdlwdv01
 iblmdlddv01
 iblmdlvdv01
 iblnirrsrv01
@@ -76,7 +76,7 @@ ibllstv03
 iblsmrtdv01
 iblsmrtwv01
 iblgitsrv03_2
-blsmrtwv02
+iblsmrtwv02
 iblsmrtdv02
 ibllmdmzv01
 ibldvdhtmlv02
