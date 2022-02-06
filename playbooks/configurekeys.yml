@@ -20,7 +20,7 @@
              state: present
              key: "{{ pubkey }}"
 
-        - name: Add the LinuxAdmins AD Group to sudoers
+        - name: Add ansible user to sudoers
           lineinfile:
             dest: /etc/sudoers
             line: 'ansible       ALL=(ALL)       NOPASSWD: ALL'
