@@ -6,6 +6,7 @@
   tasks: 
      
      - include_tasks: ../tasks/updatessl.yml
+       ignore_errors: true
 
      - include_tasks: ../tasks/checkpackage.yml
        name: Check subscription-manager is installed
