@@ -7,8 +7,8 @@
      
      - include_tasks: ../tasks/updatessl.yml
        ignore_errors: true
-       async: 40
-       poll: 0
+       retries: 5
+       delay: 4
 
      - include_tasks: ../tasks/checkpackage.yml
        name: Check subscription-manager is installed
@@ -29,5 +29,5 @@
      - include_tasks: ../tasks/register.yml
        when:  ansible_facts["os_family"] == "RedHat"
        ignore_errors: true
-       async: 40
-       poll: 0
+       retries: 5
+       delay: 4
