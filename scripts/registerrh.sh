@@ -11,6 +11,7 @@ subscription-manager unregister
 subscription-manager repos --disable "*"
 subscription-manager clean
 yum clean all
+rm -rf /var/cache/yum
 
 # Download and install Satellite's CA certificate
 curl --insecure --output katello-ca-consumer-latest.noarch.rpm https://iblstllv01.weizmann.ac.il/pub/katello-ca-consumer-latest.noarch.rpm
