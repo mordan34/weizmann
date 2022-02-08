@@ -27,3 +27,4 @@
      - include_tasks: ../tasks/register.yml
        name: Register Red Hat hosts to Satellite
        when:  ansible_facts["os_family"] == "RedHat"
+       ignore_errors: true
