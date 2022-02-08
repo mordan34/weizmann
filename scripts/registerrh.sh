@@ -28,3 +28,4 @@ fi
 
 subscription-manager register --force --org="Weizmann_Institute_of_Science" --activationkey="$key"
 yum -y install katello-host-tools katello-host-tools-tracer katello-agent
+sed -i 's/proxy_hostname =.*/proxy_hostname =/' /etc/rhsm/rhsm.conf
