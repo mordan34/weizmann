@@ -3,6 +3,8 @@
   yum:
     name: "{{ item }}"
     state: latest
+  async: 40
+  poll: 0
   loop:
     - ca-certificates
     - nss
