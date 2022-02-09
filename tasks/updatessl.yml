@@ -4,7 +4,7 @@
     name: "{{ item }}"
     state: latest
   async: 40
-  poll: 0
+  poll: 5
   loop:
     - ca-certificates
     - nss
