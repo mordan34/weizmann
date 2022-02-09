@@ -8,7 +8,7 @@
     mode: 0770
 
 - name: Register host with Satellite
-  command: /tmp/registerrh.sh   &> /tmp/register.log
+  command: /tmp/registerrh.sh   # &> /tmp/register.log
   async: 60
   poll: 10
      
