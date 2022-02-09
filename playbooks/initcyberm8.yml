@@ -1,6 +1,7 @@
 ---
 - name: Initiate Cyberm8 Task
   hosts: all
+  gather_facts: no
 
   tasks:
    
