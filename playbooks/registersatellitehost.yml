@@ -8,22 +8,6 @@
      - include_tasks: ../tasks/updatessl.yml
        ignore_errors: true
 
-     - include_tasks: ../tasks/checkpackage.yml
-       name: Check subscription-manager is installed
-       vars:
-         package_name: 'subscription-manager'
-       register: package_check
-       when:  'inventory_hostname == "iblbist01"'
-
-     - name: Show package_check
-       debug: 
-         msg: "{{ package_check }}"
-       when:  'inventory_hostname == "iblbist01"'
-
-     - include_tasks: ../tasks/installsubscribe.yml
-       name: Installing subscription-manager package and dependencies
-       when:  'inventory_hostname == "iblbist01"'
-
      - include_tasks: ../tasks/register.yml
        when:  ansible_facts["os_family"] == "RedHat"
        ignore_errors: true
