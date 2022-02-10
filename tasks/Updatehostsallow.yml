@@ -1,0 +1,20 @@
+---
+- name: Check if hosts.allow exists
+  command: ls /etc/hosts.allow
+  ignore_errors: true
+  register: exists
+
+- name: Check if any hosts are configured in hosts.allow
+  when: exists.rc == 0
+  command: cat /etc/hosts.allow | egrep -v '^$|^#' | grep sshd | wc -l
+  ignore_errors: true
+  register: configuredhosts
+
+- name: Add Satellite hostname to hosts.allow
+  when: exists.rc == 0 and configuredhosts > 0
+  blockinfile:
+      marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+      path: /etc/hosts.allow
+      block: |
+          # Satellite
+          sshd : iblstllv01.weizmann.ac.il : allow
