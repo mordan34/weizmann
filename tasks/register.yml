@@ -9,6 +9,6 @@
 
 - name: Register host with Satellite
   command: /tmp/registerrh.sh
-  async: 60
+  async: 300
   poll: 10
      
