@@ -1,0 +1,15 @@
+---
+- hosts: all
+  gather_facts: no
+
+  tasks:
+   
+     - name: Start CyberM8 API Request
+       environment:
+            username: '{{ lookup("env","SAT_USERNAME") }}'
+            password: '{{ lookup("env","SAT_PASSWORD") }}'
+       ansible.builtin.script: ../scripts/openrules.py "{{ inventory_hostname }}"
+       args:
+        executable: python3
+       delegate_to: 127.0.0.1
+       connection: local
