@@ -33,10 +33,15 @@ def update_data(hostname):
             jsonObj['parameters']['server_name'] = hostname
             jsonObj['parameters']['system_name'] = hostname
             jsonObj['parameters']['ip_address'] = ip
+            jsonObj['parameters']['environment'] = get_env(ip)
         except: 
             jsonObj = None
             print("Unable to find IP address for\t" + hostname)
         return json.dumps(jsonObj)
+    
+def get_env(ip):
+        
+
 
 # Main routine to open rules for specific Server
 if len(sys.argv) == 2:
