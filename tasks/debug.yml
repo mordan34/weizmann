@@ -1,0 +1,4 @@
+---
+- name: Show ansible_facts
+  debug:
+     var: ansible_facts 

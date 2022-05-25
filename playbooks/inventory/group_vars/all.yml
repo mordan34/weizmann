@@ -3,6 +3,8 @@
 sep_url: http://antivirus.weizmann.ac.il/Information%20System%20Division%20-%20IT/Linux%20Servers/LinuxInstaller.zip
 domain: wismain
 
+satellite_fqdn: iblstllv01.weizmann.ac.il
+
 adlab:
   username: anssvc
   domain: adlab.weizmann.ac.il

@@ -1,0 +1,60 @@
+---
+- name: Update hosts's settings under Foreman
+  hosts: all
+  become: true
+  gather_facts: false
+
+  tasks:
+
+    # Save the current hostgroup of the host
+     - name: Register hostgroup
+       command: /bin/sh -c "hammer host info --fields 'Host group' --name {{ ansible_facts['fqdn'] }}"
+       register: hostgroup
+       delegate_to: "{{ satellite_fqdn }}"
+
+    # Save the current Hardware of the host
+     - name: Register Additional info
+       command: /bin/sh -c "hammer host info --fields 'Additional info' --name {{ ansible_facts['fqdn'] }}"
+       register: info
+       delegate_to: "{{ satellite_fqdn }}" 
+
+    # Associate VMs before Updating their hostgroup
+     - name: Execute associate-vms on compute-resource
+       command: /bin/sh -c "hammer compute-resource associate-vms --name 'VC Prod'"
+       ignore_errors: true
+       run_once: true
+       delegate_to: "{{ satellite_fqdn }}"
+
+     - include_tasks: ../tasks/getos.yml
+
+     - include_tasks: ../tasks/getenv.yml
+
+    # Update hostgroup for virtual host if it's incorrect
+     - name: Update hostgroup for VMware Hosts
+       vars:
+          group: "{{ environ }}_HostGroup_{{ os }}"
+       command: /bin/sh -c "hammer host update --hostgroup {{ group }} --name {{ ansible_facts['fqdn'] }} --build false"
+       when: not hostgroup.stdout is search("group") and info.stdout is search("VMware")
+       delegate_to: "{{ satellite_fqdn }}"
+
+    # Update hostgroup for physical host if it's incorrect
+     - name: Update hostgroup for Physical Hosts
+       vars:
+          group: "{{ environ }}_HostGroup_{{ os }}_Physical"
+       command: /bin/sh -c "hammer host update --hostgroup {{ group }} --name {{ ansible_facts['fqdn'] }} --build false"
+       when: not hostgroup.stdout is search("group") and not info.stdout is search("VMware")
+       delegate_to: "{{ satellite_fqdn }}"
+
+    # Update host's location in Satellite environment
+     - name: Update Host's Location
+       vars:
+          location: "Weizmann {{ environ }}"
+       command: /bin/sh -c "hammer host update --new-location '{{ location }}' --name {{ ansible_facts['fqdn'] }}"
+       delegate_to: "{{ satellite_fqdn }}"
+
+     # Update host's Subnet in Satellite environment
+     - name: Update Host's Subnet
+       vars:
+          subnet: "Subnet {{ ip | ipsubnet(24, 0) }}"
+       command: /bin/sh -c "hammer host update --subnet '{{ subnet }}' --name {{ ansible_facts['fqdn'] }}"
+       delegate_to: "{{ satellite_fqdn }}"

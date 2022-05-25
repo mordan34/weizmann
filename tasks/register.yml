@@ -6,9 +6,10 @@
     owner: ansible
     group: ansible
     mode: 0770
+    force: yes
 
-- name: Register host with Satellite
-  command: /tmp/registerrh.sh
-  async: 300
+- name: Register host with {{ capsule_fqdn }}
+  command: /bin/bash -c "/tmp/registerrh.sh {{ capsule_fqdn }} > /tmp/registerrh.log"
+  async: 120
   poll: 10
      

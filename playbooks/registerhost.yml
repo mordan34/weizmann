@@ -1,0 +1,27 @@
+---
+- name: Add existing hosts to Satellite server
+  hosts: all
+  become: true
+
+  pre_tasks:
+    
+    # Gather specific information regarding remote Host's Operating System
+     - include_tasks: ../tasks/getos.yml
+
+  tasks:
+
+    # Update packages required for registration
+     - include_tasks: ../tasks/updatessl.yml
+
+    # Checking whether subscription-manager is installed 
+     - name: Check subscription-manager installation
+       command: /bin/sh -c "subscription-manager version > /dev/null 2>&1"
+       ignore_errors: true
+       register: checksubscribe
+
+    # Install subscription-manager for non RHEL
+     - include_tasks: ../tasks/installsubscribe.yml
+       when:  not release is search('RedHat') and checksubscribe.rc != 0
+
+    # Start the registration process
+     - include_tasks: ../tasks/register.yml

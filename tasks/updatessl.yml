@@ -1,11 +1,14 @@
 ---
 - name: Update ssl packages for curl
+  ignore_errors: true
   yum:
     name: "{{ item }}"
     state: latest
-  async: 40
-  poll: 5
+    update_cache: yes
+  async: 50
+  poll: 10
   loop:
     - ca-certificates
     - nss
     - curl
+    - subscription-manager

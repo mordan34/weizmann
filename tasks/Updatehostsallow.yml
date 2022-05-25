@@ -6,15 +6,15 @@
 
 - name: Check if any hosts are configured in hosts.allow
   when: exists.rc == 0
-  command: cat /etc/hosts.allow | egrep -v '^$|^#' | grep sshd | wc -l
+  command: /bin/bash -c "(cat /etc/hosts.allow | grep ^sshd) | wc -l"
   ignore_errors: true
   register: configuredhosts
 
-- name: Add Satellite hostname to hosts.allow
-  when: exists.rc == 0 and configuredhosts > 0
+- name: Add "{{ capsule_fqdn }}" to hosts.allow
+  when: exists.rc == 0 and (configuredhosts.stdout | int) > 0
   blockinfile:
       marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
       path: /etc/hosts.allow
       block: |
           # Satellite
-          sshd : iblstllv01.weizmann.ac.il : allow
+          sshd : {{ capsule_fqdn }} : allow

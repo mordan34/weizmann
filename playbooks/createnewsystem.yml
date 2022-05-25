@@ -1,0 +1,59 @@
+---
+- hosts: newhosts
+  become: true
+  gather_facts: false
+
+  pre_tasks: 
+      # Creates a new host record for the server
+      #- include_tasks: ./addnewrecord.yml
+       # vars:
+        #  hostname: "{{ inventory_hostname }}"
+
+      # Returns server's environment and register it in 'env' var
+      - include_tasks: ../tasks/getenv.yml
+        vars:
+          ansible_hostname: "{{ inventory_hostname }}"
+
+      # Start post request to CyberM8 to open required ports for the new server
+      - include_tasks: ../tasks/initcyberm8.yml
+
+  post_tasks:
+
+      - name: Creates new Server using Satellite API
+        vars:
+          scenario: "{{ lookup('vars', env) }}"
+        redhat.satellite.host:
+          username: '{{ lookup("env","SAT_USERNAME") }}'
+          password: '{{ lookup("env","SAT_PASSWORD") }}'
+          server_url: "https://{{ satellite_fqdn }}"
+          name: "{{ inventory_hostname }}"
+          hostgroup: DC_HostGroup_RHEL8
+          compute_resource: "VC Prod"
+          provision_method: image
+          image: RHEL8-DC-tmpl
+          enabled: true
+          build: true
+          compute_profile: 2-Medium
+          subnet: "Subnet {{ CIDR }}"
+          organization: "{{ organization }}"
+          location: "{{ scenario.location }}"
+          domain: "{{ scenario.domains[0] }}"
+          interfaces_attributes:
+          - domain: "{{ scenario.domains[0] }}"
+          - type: "interface"
+            primary: true
+            managed: true
+            provision: true
+            #name: "{{ inventory_hostname }}"
+            ip: "{{ ip }}"
+            identifier: 'ens192'
+            compute_attributes:
+              network: 'VLAN78_DC_MOM'
+              name: 'ens192'
+              interface: 'vmxnet3'
+          compute_attributes:
+            start: "1"    
+          state: present
+
+
+      

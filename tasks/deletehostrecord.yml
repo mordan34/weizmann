@@ -1,0 +1,8 @@
+---
+- name: Delete Nios Host record for {{ hostname }}
+  vars_files: ./inventory/group_vars/nios.yml
+  infoblox.nios_modules.nios_host_record:
+      name: "{{ hostname }}"
+      state: absent
+      provider: "{{ nios_provider }}"
+  delegate_to: localhost

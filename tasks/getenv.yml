@@ -1,0 +1,14 @@
+---
+- include_tasks: ./getip.yml
+
+- name:  Get Environment of IP
+  ansible.builtin.script: ../scripts/getenv.py "{{ ip }}"
+  args:
+      executable: python3
+  delegate_to: "{{ satellite_fqdn }}"
+  register: checkenv
+
+- name: Keep environment as variable
+  set_fact:
+      environ: "{{ checkenv.stdout | regex_replace('[\\r\\n\\t]+','') }}"
+  

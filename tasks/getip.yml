@@ -1,0 +1,8 @@
+---
+- name: Install dnspython
+  command: /bin/bash -c "python -m pip install dnspython"
+  delegate_to: localhost
+
+- name: Resolve hostname to IP
+  set_fact:
+      ip: "{{ lookup('dig', ansible_hostname) }}"

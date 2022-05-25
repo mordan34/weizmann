@@ -1,0 +1,11 @@
+---
+- name: Maps Microscope folder to a Semur user
+  hosts: semur
+  become: true
+
+  tasks:
+
+      # Executes Microscope mapping script on remote Semur server
+      - name: Map {{ micro }} to {{ user }}
+        command: /bin/bash -c "../scripts/mapmicro.sh"
+        when: micro is defined and user is defined

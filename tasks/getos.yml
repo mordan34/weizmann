@@ -1,0 +1,27 @@
+---
+- name:  Register host's major version for RHEL
+  set_fact:
+      major: "{{ ansible_facts['distribution_major_version'] }}"
+
+- name:  Register host's distribution
+  set_fact:
+      release: "{{ ansible_facts['distribution'] }}"
+
+- name: Register distribution if it's CentOS
+  when: release is match("CentOS")
+  set_fact:
+      distribution_type: "CentOS"
+
+- name: Register distribution if it's Red Hat
+  when: release is match("RedHat")
+  set_fact:
+      distribution_type: "RHEL"
+
+- name: Register distribution if it's Oracle Linux
+  when: release is match("Oracle")
+  set_fact:
+      distribution_type: "ORACLE"
+
+- name: Register host's OS version
+  set_fact:
+      os: "{{ distribution_type }}{{ major }}"

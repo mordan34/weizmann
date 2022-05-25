@@ -458,8 +458,8 @@ def main():
     )
 
     # additional param validation
-    if '.' not in module.foreman_params['name']:
-        module.fail_json(msg="The hostname must be FQDN")
+    #if '.' not in module.foreman_params['name']:
+     #   module.fail_json(msg="The hostname must be FQDN")
 
     if not module.desired_absent:
         if 'build' in module.foreman_params and module.foreman_params['build']:

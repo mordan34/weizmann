@@ -1,0 +1,88 @@
+---
+- name: Import all networks from ipam and creates on Satellite server
+  hosts: satellite:!newhosts
+  become: true
+  vars_files:
+    - ./inventory/group_vars/nios.yml
+
+  tasks:
+   # Retrieves all networks from IPAM
+    - name: Get all ipam networks
+      uri:
+        follow_redirects: none
+        validate_certs: true
+        timeout: 20
+        method: GET
+        url: "https://{{ nios_hostname }}/wapi/v{{ nios_provider.wapi_version }}/network?_return_fields%2B=extattrs&*VlanID~=.%2B&_max_results=10000"
+        url_username: "{{ nios_provider.username }}"
+        url_password: "{{ nios_provider.password }}"
+      register: networks_json
+      failed_when: false
+
+   # Convert json to list format
+    - set_fact: 
+        networks: "{{ networks_json.json | list }}"
+
+    - name: Copy satellite.json to {{ satellite_fqdn }}
+      copy:
+        src: ./inventory/group_vars/satellite.json
+        dest: /tmp
+        owner: ansible
+        group: ansible
+        mode: 0550
+
+   # Query the environment for each network
+    - name: Register Environment for all subnets
+      ansible.builtin.script: ../scripts/getenv.py "{{ firstaddr }}"
+      vars:
+        firstaddr: "{{ item.network | ipaddr('net') | ipaddr('1') | ipaddr('host/prefix') | ipaddr('address') }}"
+      args:
+        executable: python3
+      register: env
+      loop: "{{ networks }}"
+      loop_control:
+        label: "{{ firstaddr }}"
+
+    # Combine networks list with the corresponding environment
+    - name: Create new list with 'env' key
+      vars:
+        net: "{{ item[0] | combine({ 'env' : item[1].stdout | regex_replace('[\\r\\n\\t]+','') }) }}"
+      set_fact:
+        env_networks: "{{ env_networks | default([]) + [net] }}"
+      loop: "{{ networks|zip(env.results)|list }}"
+      loop_control:
+        label: "{{ item[0].network }}"
+
+    # Filter and import the relevant networks into Satellite
+    - name: Creates all subnets under Satellite
+      vars:
+        scenario: "{{ lookup('vars', item.env) }}"
+      redhat.satellite.subnet:
+        name: "Subnet {{ item.network }}"
+        description: "{{ item | selectattr('comment', 'defined')}}"
+        network: "{{ item.network | ipaddr('network') }}"
+        mask: "{{ item.network | ipaddr('netmask') }}"
+        gateway: "{{ item.network | ipaddr('net') | ipaddr('-11') | ipaddr('host/prefix') | ipaddr('address') }}"
+        dns_primary:    "{{ dns.primary }}"
+        dns_secondary:  "{{ dns.secondary }}"
+        boot_mode: "Static"
+        dhcp_proxy: "{{ scenario.fqdn }}"
+        dns_proxy: "{{ scenario.fqdn }}"
+        remote_execution_proxies: "{{ scenario.fqdn }}"
+        vlanid: "{{ item.extattrs | json_query('VlanID') | json_query('value') }}"
+        mtu: 1500
+        domains: "{{ scenario.domains }}"
+        organizations:
+          - "{{ organization }}"
+        locations:
+          - "{{ scenario.location }}"
+        server_url: "https://{{ satellite_fqdn }}"
+        username: '{{ lookup("env","SAT_USERNAME") }}'
+        password: '{{ lookup("env","SAT_PASSWORD") }}'
+        state: present
+      loop: "{{ env_networks }}"
+      loop_control:
+        label: "{{ item.extattrs | json_query('VlanID') | json_query('value') }}"
+      when: 
+         - item.env is not search("None")
+

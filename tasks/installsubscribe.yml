@@ -1,16 +1,32 @@
 ---
+- name: Copy subscription-manager packages
+  copy:
+    src:  "{{ item }}"
+    dest: /tmp/rhsm/
+  with_fileglob:
+    - "../packages/subscription-manager/*.rpm"
+
+- name: Remove old rhn packages
+  command: rpm -e rhn-client-tools rhn-check rhn-setup rhn-setup-gnome yum-plugin-ulninfo yum-rhn-plugin --nodeps
+  ignore_errors: true
+
 - name: Install subscription-manager
-  yum: 
-    name: "../packages/subscription-manager/{{ item }}"
-    state: present
+  command: "yum -y localinstall /tmp/rhsm/{{ item }}"
+  ignore_errors: true
+  with_items: "{{ list_of_packages }}"
+  async: 120
+  poll: 10
   when: 
     - ansible_facts["os_family"] == "RedHat"
     - 'ansible_facts["distribution_major_version"] == "7"'
-  with_items:
-    - python-dmidecode-3.12.2-4.el7.x86_64.rpm
-    - python-inotify-0.9.4-4.el7.noarch.rpm
-    - python-six-1.9.0-2.el7.noarch.rpm
-    - python-syspurpose-1.24.50-1.el7_9.x86_64.rpm
-    - subscription-manager-1.24.50-1.el7_9.x86_64.rpm
-    - subscription-manager-rhsm-1.24.50-1.el7_9.x86_64.rpm
-    - subscription-manager-rhsm-certificates-1.24.50-1.el7_9.x86_64.rpm
+  vars:
+    list_of_packages:
+      - python-dmidecode-3.12.2-4.el7.x86_64.rpm
+      - python-inotify-0.9.4-4.el7.noarch.rpm
+      - python-six-1.9.0-2.el7.noarch.rpm
+      - python-dateutil-1.5-7.el7.noarch.rpm
+      - python-syspurpose-1.24.50-1.el7_9.x86_64.rpm
+      - subscription-manager-rhsm-certificates-1.24.50-1.el7_9.x86_64.rpm
+      - subscription-manager-rhsm-1.24.50-1.el7_9.x86_64.rpm
+      - subscription-manager-1.24.50-1.el7_9.x86_64.rpm
+  

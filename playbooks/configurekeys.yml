@@ -1,31 +1,35 @@
 ---
 - hosts: all
   become: true
-  gather_facts: no
+  gather_facts: false
   vars:
       admin_ssh_public_key: "{{ ssh_public_key | d(admin_public_sshkey) }}"
       pubkey: "{{ lookup('file', admin_ssh_public_key) }}"
 
   tasks:
 
+        # Creates user 'ansible' for running all future jobs
         - name: Create a new user - 'ansible'
           user: 
              name: ansible
              password: $6$testing$Dsf3AUPPMRquaHjogzFHUx5jzqP2o8oEB1Yju5hTHFN74Clztb8ZEEpjlsyDdKpiGuSbcqmgNSMcRiyeyINcE.
              state: present
 
+        # Import user's public key from Ansible Automation into the destination
         - name: Set authorized key for user ansible copying it from current user
           authorized_key:
              user: ansible
              state: present
              key: "{{ pubkey }}"
 
+        # Grants ansible user administrative priviliges without password prompt
         - name: Add ansible user to sudoers
           lineinfile:
             dest: /etc/sudoers
             line: 'ansible       ALL=(ALL)       NOPASSWD: ALL'
             insertafter: '%wheel'
 
+        # Sets the password for the administrative account used initially during this playbook's run
         - name: Change user password for admin user
           vars:
             username: '{{ lookup("env","SAT_USERNAME") }}'
@@ -36,15 +40,18 @@
             password: "{{ password | password_hash('sha512', username) }}"
             groups: wheel
 
+        # Register the release version of the target Operating System
         - name: Obtain OS release version
           command: /bin/bash -c "os=$(cat /etc/redhat-release) ;      
                                  osver_pos=$(cat /etc/redhat-release | grep -aob release | cut -d':' -f1) ;
                                  release=${os:osver_pos+8:3}"
           register: release
 
+        # Enable sudo access for wheel group under RHEL6 systems
         - name: Configure wheel sudo access for RHEL6
           command: sed -i 's/# %wheel  ALL=(ALL)       ALL/%wheel  ALL=(ALL)       ALL/' /etc/sudoers
           when: release == "6.*"
 
+        # If needed adds the relevant Capsule server into /etc/hosts.allow
         - include_tasks: ../tasks/Updatehostsallow.yml
          

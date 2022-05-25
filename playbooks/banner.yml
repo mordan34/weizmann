@@ -4,6 +4,7 @@
 
   tasks: 
 
+    # Copy Banner to remote host
       - name: Copy Banner to ssh daemon folder
         copy: 
           src: ../templates/sshd-banner
@@ -12,6 +13,7 @@
           group: root
           mode: '0644'
 
+    # Update sshd configuration
       - name: Add Banner configuration to sshd_config
         lineinfile:
           path: /etc/ssh/sshd_config
@@ -19,6 +21,7 @@
           insertafter: '# no default banner path'
           line: 'Banner /etc/ssh/sshd-banner'
 
+    # Reload sshd service
       - name: Reload sshd.service
         service:
           state: reloaded

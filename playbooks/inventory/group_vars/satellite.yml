@@ -1,42 +1,30 @@
-environments:
-  DC:
-     subnets:
-      - 10.140.0.0/16
-      - 10.145.0.0/16
-      - 132.76.70.0/24
-      - 132.76.71.0/24
-      - 132.76.72.0/24
-      - 132.76.73.0/24
-      - 132.76.74.0/24
-      - 132.76.75.0/24
-      - 132.76.76.0/24
-      - 132.76.77.0/24
-      - 132.76.78.0/24
-      - 132.76.79.0/24
+organization: "Weizmann Institute of Science"
 
-  DMZ:
-     subnets:
-      - 10.150.0.0/16
-      - 10.155.0.0/16
-      - 132.76.60.0/24
-      - 132.76.61.0/24
-      - 132.76.62.0/24
-      - 132.76.63.0/24
-      - 132.76.64.0/24
-      - 132.76.65.0/24
-      - 132.76.66.0/24
-      - 132.76.67.0/24
-      - 132.76.68.0/24
-      - 132.76.69.0/24
-      - 132.76.150.0/24
-      - 132.77.150.0/24
-      - 132.77.151.0/24
+dns:
+  primary:   "132.77.4.1"
+  secondary: "132.77.22.1"
 
-  DCTest:
-     subnets:
-      - 10.160.0.0/16
 
-  DMZTest:
-     subnets:
-      - 10.151.0.0/16
+DMZ:
+  fqdn:     iblcapsulev01.weizmann.ac.il
+  location: "Weizmann DMZ"
+  domains:  "weizmann.ac.il"
+
+DC:
+  fqdn:     "{{ satellite_fqdn }}"
+  location: "Weizmann DC"
+  domains:
+      - "weizmann.ac.il"
+      - "wismain.weizmann.ac.il"
+
+DCTest:
+  fqdn:     iblcapsulev02.weizmann.ac.il 
+  location: "Weizmann DCTest"
+  domains:
+      - "weizmann.ac.il"
+      - "adlab.weizmann.ac.il"
       
+DMZTest:
+  fqdn:     iblcapsulev03.weizmann.ac.il 
+  location: "Weizmann DMZTest"
+  domains:  "weizmann.ac.il"

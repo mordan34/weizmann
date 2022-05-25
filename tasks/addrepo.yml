@@ -1,0 +1,19 @@
+---
+- name: Create repo file
+  file:
+    path: /etc/yum.repos.d/public.repo
+    state: touch
+    owner: "{{ ansible_ssh_user }}"
+    group: "{{ ansible_ssh_user }}"
+    mode: '0644'
+
+- name: Add repo for updating packages
+  blockinfile:
+    path: /etc/yum.repos.d/public.repo
+    block: |
+            [PublicRepo]
+            name=Red Hat Enterprise Linux 7 Latest
+            baseurl=https://{{ capsule_fqdn }}/pub/rhel-7-server-rpms
+            metadata_expire=-1
+            gpgcheck=0
+            cost=500

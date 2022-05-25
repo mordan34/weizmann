@@ -1,24 +1,24 @@
 [satellite]
 iblstllv01.weizmann.ac.il
 
+[satellite:children]
+newhosts
+
+[newhosts]
+iblvctestprodv01
+
 [nios]
 ipam.weizmann.ac.il
 
 [tower]
 ibltowerv01.weizmann.ac.il
-
-[php]
-localhost ansible_connection=local
-wws1v
-wws2v
-wws3v
-
-[wpad]
-iblwpadnv01
-iblwpadnv02
+iblmeshv01.weizmann.ac.il
 
 [local]
 localhost ansible_connection=local
 
 [semur]
-iblsemurv01.weizmann.ac.il
+iblsemurv01.wismain.weizmann.ac.il
+
+[template]
+rhel8-dc-tmpl

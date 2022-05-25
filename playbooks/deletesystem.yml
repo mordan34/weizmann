@@ -1,0 +1,22 @@
+---
+- hosts: localhost
+  become: true
+  gather_facts: no
+  vars_files: ./inventory/group_vars/vcenter_vars.yml
+  tasks:
+
+      - name: Delete {{ vm_name }} from VCenter
+        alancoding.vmware.vmware_guest:
+          hostname: "{{ vcenter_server }}"
+          username: "{{ vcenter_user }}@wismain.weizmann.ac.il"
+          password: "{{ vcenter_pass }}"
+          validate_certs: yes
+          cluster: "DMZ_PROD_G8"
+          name: "{{ vm_name }}"
+          state: absent
+        delegate_to: localhost
+        register: facts
+
+      - include_tasks: ../tasks/deletehostrecord.yml
+        vars:
+          hostname: "{{ vm_name }}.weizmann.ac.il"
