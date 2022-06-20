@@ -5,6 +5,6 @@ nios_provider:
   password: "{{ nios_password }}"
   wapi_version: '2.9.1'
 
-nios_hostname: ipam.weizmann.ac.il
+nios_hostname: ipam.domain.com
 nios_user: '{{ lookup("env","SAT_USERNAME") }}'
 nios_password: '{{ lookup("env","SAT_PASSWORD") }}'
