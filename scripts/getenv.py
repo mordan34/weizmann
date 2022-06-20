@@ -14,7 +14,7 @@ def get_env(ip):
                     envname=env.get('name')           
         return envname
     
-# Main routine to Check Network/IP Environment
+# Main routine to Check Network/IP and return the related Environment
 if len(sys.argv) == 2:
     env=get_env(sys.argv[1])
     if not env is None:

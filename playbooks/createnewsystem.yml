@@ -5,9 +5,9 @@
 
   pre_tasks: 
       # Creates a new host record for the server
-      #- include_tasks: ./addnewrecord.yml
-       # vars:
-        #  hostname: "{{ inventory_hostname }}"
+      - include_tasks: ./addnewrecord.yml
+        vars:
+          hostname: "{{ inventory_hostname }}"
 
       # Returns server's environment and register it in 'env' var
       - include_tasks: ../tasks/getenv.yml

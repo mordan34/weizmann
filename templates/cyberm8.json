@@ -35,7 +35,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \"username\": \"ansibletest\", \"password\": \"jvUFjUzkR7rM7Qdq\" }",
+					"raw": "{ \"username\": \"\", \"password\": \"\" }",
 					"options": {
 						"raw": {
 							"language": "json"

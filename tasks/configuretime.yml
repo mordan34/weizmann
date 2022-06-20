@@ -1,0 +1,22 @@
+---
+  # Setting the timezone to Jerusalem
+- name: set timezone
+  shell: mv /etc/localtime /etc/localtime.backup; ln -s /usr/share/zoneinfo/Asia/Jerusalem /etc/localtime
+
+  # Install chrony service
+- name: Install Chrony
+  yum: name=chrony state=installed 
+ 
+  # Copy NTP configuration for DC servers
+- name: Copy over the NTP configuration
+  template: src=../templates/chrony.conf dest=/etc/chrony.conf
+  notify:
+    - restart chronyd
+
+  # Start and enable chrony service
+- name: Make sure Chrony service is up
+  service: name=chronyd state=started enabled=yes
+
+  handlers:
+      - name: restart chronyd
+        service: name=chronyd state=restarted

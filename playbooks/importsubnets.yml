@@ -66,6 +66,7 @@
         dns_primary:    "{{ dns.primary }}"
         dns_secondary:  "{{ dns.secondary }}"
         boot_mode: "Static"
+        ipam: None
         dhcp_proxy: "{{ scenario.fqdn }}"
         dns_proxy: "{{ scenario.fqdn }}"
         remote_execution_proxies: "{{ scenario.fqdn }}"
