@@ -5,6 +5,6 @@ nios_provider:
   password: "{{ nios_password }}"
   wapi_version: '2.9.1'
 
-nios_hostname: ipam.weizmann.ac.il
+nios_hostname: ipam.domain.com
 nios_user: "{{ vault_nios_user }}"
 nios_password: "{{ vault_nios_password }}"
