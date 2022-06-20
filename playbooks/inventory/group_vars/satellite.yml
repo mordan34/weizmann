@@ -1,30 +1,30 @@
 organization: "Weizmann Institute of Science"
 
 dns:
-  primary:   "132.77.4.1"
-  secondary: "132.77.22.1"
+  primary:   "132.82.4.1"
+  secondary: "132.82.22.1"
 
 
 DMZ:
-  fqdn:     iblcapsulev01.weizmann.ac.il
+  fqdn:     capsule01.domain.com
   location: "Weizmann DMZ"
-  domains:  "weizmann.ac.il"
+  domains:  "domain.com"
 
 DC:
   fqdn:     "{{ satellite_fqdn }}"
   location: "Weizmann DC"
   domains:
-      - "weizmann.ac.il"
-      - "wismain.weizmann.ac.il"
+      - "domain.com"
+      - "wismain.domain.com"
 
 DCTest:
   fqdn:     iblcapsulev02.weizmann.ac.il 
   location: "Weizmann DCTest"
   domains:
-      - "weizmann.ac.il"
-      - "adlab.weizmann.ac.il"
+      - "domain.com"
+      - "adlab.domain.com"
       
 DMZTest:
-  fqdn:     iblcapsulev03.weizmann.ac.il 
+  fqdn:     capsule03.domain.com 
   location: "Weizmann DMZTest"
-  domains:  "weizmann.ac.il"
+  domains:  "domain.com"
