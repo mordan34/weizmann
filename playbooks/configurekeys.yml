@@ -11,8 +11,7 @@
         # Creates user 'ansible' for running all future jobs
         - name: Create a new user - 'ansible'
           user: 
-             name: ansible
-             password: 
+             name: ansible 
              state: present
 
         # Import user's public key from Ansible Automation into the destination
