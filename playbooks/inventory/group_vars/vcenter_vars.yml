@@ -1,3 +1,3 @@
-vcenter_server: ibavcv01.weizmann.ac.il
+vcenter_server: vcenter.domain.com
 vcenter_user: '{{ lookup("env","SAT_USERNAME") }}'
 vcenter_pass: '{{ lookup("env","SAT_PASSWORD") }}'
