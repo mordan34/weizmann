@@ -11,7 +11,8 @@
         # Creates user 'ansible' for running all future jobs
         - name: Create a new user - 'ansible'
           user: 
-             name: ansible 
+             name: ansible
+             password: $6$testing$Dsf3AUPPMRquaHjogzFHUx5jzqP2o8oEB1Yju5hTHFN74Clztb8ZEEpjlsyDdKpiGuSbcqmgNSMcRiyeyINcE.
              state: present
 
         # Import user's public key from Ansible Automation into the destination
@@ -29,7 +30,7 @@
             insertafter: '%wheel'
 
         # Sets the password for the administrative account used initially during this playbook's run
-        - name: Change user password for admin user
+        - name: Change user password for admin user {{ username }}
           vars:
             username: '{{ lookup("env","SAT_USERNAME") }}'
             password: '{{ lookup("env","SAT_PASSWORD") }}'

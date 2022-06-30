@@ -11,7 +11,7 @@
   tasks:
 
     # Update packages required for registration
-     - include_tasks: ../tasks/updatessl.yml
+     #- include_tasks: ../tasks/updatessl.yml
 
     # Checking whether subscription-manager is installed 
      - name: Check subscription-manager installation

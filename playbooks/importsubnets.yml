@@ -83,7 +83,7 @@
         state: present
       loop: "{{ env_networks }}"
       loop_control:
-        label: "{{ item.extattrs | json_query('VlanID') | json_query('value') }}"
+        label: "VLAN {{ item.extattrs | json_query('VlanID') | json_query('value') }}"
       when: 
          - item.env is not search("None")
 

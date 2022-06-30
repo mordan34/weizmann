@@ -1,0 +1,11 @@
+---
+# Gather all subnets from all environments using Hammer
+     - name: Register all subnets on Satellite API
+       command: /bin/sh -c "hammer subnet list --fields name"
+       register: hammer_output
+       delegate_to: "{{ satellite_fqdn }}"
+       run_once: true
+
+     - name: Extract Subnets
+       set_fact:
+          subnets: "{{ hammer_output.stdout.splitlines() | select('match','^Subnet ') | regex_replace('Subnet ') | regex_replace(' ') }}"

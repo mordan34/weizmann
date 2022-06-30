@@ -19,21 +19,22 @@
 
   post_tasks:
 
+      # Starts Provisioning process in Satellite
       - name: Creates new Server using Satellite API
         vars:
-          scenario: "{{ lookup('vars', env) }}"
+          scenario: "{{ lookup('vars', environ) }}"
         redhat.satellite.host:
           username: '{{ lookup("env","SAT_USERNAME") }}'
           password: '{{ lookup("env","SAT_PASSWORD") }}'
           server_url: "https://{{ satellite_fqdn }}"
           name: "{{ inventory_hostname }}"
-          hostgroup: DC_HostGroup_RHEL8
+          hostgroup: "{{ environ }}_HostGroup_RHEL8"
           compute_resource: "VC Prod"
           provision_method: image
           image: RHEL8-DC-tmpl
           enabled: true
           build: true
-          compute_profile: 2-Medium
+          #compute_profile: "{{ environ }} - Medium"
           subnet: "Subnet {{ CIDR }}"
           organization: "{{ organization }}"
           location: "{{ scenario.location }}"

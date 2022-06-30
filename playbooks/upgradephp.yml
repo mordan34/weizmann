@@ -1,7 +1,9 @@
 ---
 - name: Upgrade PHP version
-  hosts: php
+  hosts: all
   become: true
+  vars_files:
+    - ./inventory/group_vars/php.yml
   vars:
     currentphp: "{{ lookup('vars', php_ver) }}"
     php_version: "{{ version }}"
@@ -23,14 +25,15 @@
                                php -m 2>&1 >> /opt/phpbackup/php_m.log; 
                                rpm -qa | grep php 2>&1 >> /opt/phpbackup/php_rpm.log"
 
-    - include: ../tasks/updatecacer.yml
-    - include: ../tasks/removephp.yml
+    - include_tasks: ../tasks/updatessl.yml
+    - include_tasks: ../tasks/removephp.yml
           
   roles:
     - role: geerlingguy.repo-remi
       when: ansible_os_family == 'RedHat'
     - geerlingguy.php-versions
-    - geerlingguy.php
+    - role: geerlingguy.php
+
 
   post_tasks:
     - name: Copy all modules from remi's install location to module dir target
@@ -40,16 +43,16 @@
         remote_src: yes
       ignore_errors: true
 
-    - include: ../tasks/installoci8.yml
+    - include_tasks: ../tasks/installoci8.yml
 
-    - include: ../tasks/imagemagick.yml
-      notify: Restart apache
+    - include_tasks: ../tasks/imagemagick.yml
+      notify: Restart webserver
 
 
   handlers:
-    - name: Restart apache
+    - name: Restart webserver
       ansible.builtin.service:
-        name: httpd
+        name:  "{{ php_webserver_daemon }}"
         state: restarted
       
     

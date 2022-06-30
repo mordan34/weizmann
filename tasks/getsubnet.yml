@@ -1,0 +1,9 @@
+---
+# Find The subnet of the Host
+- name: Find the Subnet the Host is part of
+  vars:
+    result: "{{ ip | ipaddr(item)  }}"
+  loop: "{{ subnets }}"
+  set_fact:
+    subnet: "Subnet {{ item }}"
+  when: result == ip

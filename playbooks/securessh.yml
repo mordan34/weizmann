@@ -1,0 +1,30 @@
+---
+- hosts: all
+  become: true
+
+  roles:
+    # Using sshd system role to harden sshd_config settings
+    - role: rhel-system-roles.sshd
+      vars:
+        sshd_config_owner: root
+        sshd_config_group: root
+        sshd_config_mode: 0600
+        sshd:
+          MaxAuthTries: 4
+          ClientAliveInterval: 300
+          LoginGraceTime: 60
+          PermitRootLogin: no
+          MaxStartups: 10:30:60  
+
+
+  post_tasks:
+
+    # Sets the password for the root user
+    - name: Change user password for root user
+      vars:
+        username: '{{ lookup("env","SAT_USERNAME") }}'
+        password: '{{ lookup("env","SAT_PASSWORD") }}'
+      user:
+        name: "{{ username }}"
+        update_password: always
+        password: "{{ password | password_hash('sha512', username) }}"

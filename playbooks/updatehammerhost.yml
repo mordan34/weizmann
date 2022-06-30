@@ -3,18 +3,30 @@
   hosts: all
   become: true
   gather_facts: false
+  vars:
+    host_fqdn: "{{ ansible_facts['fqdn'] }}"
+    host_nodename: "{{ ansible_facts['nodename'] }}"
+  
+  pre_tasks:
+    - include_tasks: ../tasks/gathersubnets.yml
 
   tasks:
 
+    # Checks which variable is the longest and chooses it as the fqdn for Hammer 
+     - name: Choose the longest variable string as the host's fqdn
+       set_fact:
+            host_fqdn: "{{ host_nodename }}"
+       when: host_nodename | length | int  > host_fqdn | length | int
+
     # Save the current hostgroup of the host
      - name: Register hostgroup
-       command: /bin/sh -c "hammer host info --fields 'Host group' --name {{ ansible_facts['fqdn'] }}"
+       command: /bin/sh -c "hammer host info --fields 'Host group' --name {{ host_fqdn }}"
        register: hostgroup
        delegate_to: "{{ satellite_fqdn }}"
 
     # Save the current Hardware of the host
      - name: Register Additional info
-       command: /bin/sh -c "hammer host info --fields 'Additional info' --name {{ ansible_facts['fqdn'] }}"
+       command: /bin/sh -c "hammer host info --fields 'Additional info' --name {{ host_fqdn }}"
        register: info
        delegate_to: "{{ satellite_fqdn }}" 
 
@@ -25,15 +37,16 @@
        run_once: true
        delegate_to: "{{ satellite_fqdn }}"
 
+    # Gather information from the Host
      - include_tasks: ../tasks/getos.yml
-
      - include_tasks: ../tasks/getenv.yml
+     - include_tasks: ../tasks/getsubnet.yml
 
     # Update hostgroup for virtual host if it's incorrect
      - name: Update hostgroup for VMware Hosts
        vars:
           group: "{{ environ }}_HostGroup_{{ os }}"
-       command: /bin/sh -c "hammer host update --hostgroup {{ group }} --name {{ ansible_facts['fqdn'] }} --build false"
+       command: /bin/sh -c "hammer host update --hostgroup {{ group }} --name {{ host_fqdn }} --build false"
        when: not hostgroup.stdout is search("group") and info.stdout is search("VMware")
        delegate_to: "{{ satellite_fqdn }}"
 
@@ -41,7 +54,7 @@
      - name: Update hostgroup for Physical Hosts
        vars:
           group: "{{ environ }}_HostGroup_{{ os }}_Physical"
-       command: /bin/sh -c "hammer host update --hostgroup {{ group }} --name {{ ansible_facts['fqdn'] }} --build false"
+       command: /bin/sh -c "hammer host update --hostgroup {{ group }} --name {{ host_fqdn }} --build false"
        when: not hostgroup.stdout is search("group") and not info.stdout is search("VMware")
        delegate_to: "{{ satellite_fqdn }}"
 
@@ -49,12 +62,10 @@
      - name: Update Host's Location
        vars:
           location: "Weizmann {{ environ }}"
-       command: /bin/sh -c "hammer host update --new-location '{{ location }}' --name {{ ansible_facts['fqdn'] }}"
+       command: /bin/sh -c "hammer host update --new-location '{{ location }}' --name {{ host_fqdn }}"
        delegate_to: "{{ satellite_fqdn }}"
 
      # Update host's Subnet in Satellite environment
      - name: Update Host's Subnet
-       vars:
-          subnet: "Subnet {{ ip | ipsubnet(24, 0) }}"
-       command: /bin/sh -c "hammer host update --subnet '{{ subnet }}' --name {{ ansible_facts['fqdn'] }}"
+       command: /bin/sh -c "hammer host update --subnet '{{ subnet }}' --name {{ host_fqdn }}"
        delegate_to: "{{ satellite_fqdn }}"
