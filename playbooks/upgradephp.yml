@@ -17,18 +17,23 @@
        - php-pecl-zip
        - php-oci8
        - php-intl
+       - php-pecl-imagick
 
   pre_tasks:
+    # Keep track of previous packages before uninstallation
     - name: Backup important files
       command: /bin/sh -c "mkdir /opt/phpbackup/; 
                                cp /etc/php.ini /opt/phpbackup/php.ini; 
                                php -m 2>&1 >> /opt/phpbackup/php_m.log; 
                                rpm -qa | grep php 2>&1 >> /opt/phpbackup/php_rpm.log"
 
+    # Update Required packages for PHP installation
     - include_tasks: ../tasks/updatessl.yml
+    # Remove old PHP packages
     - include_tasks: ../tasks/removephp.yml
           
   roles:
+    # Start PHP installation
     - role: geerlingguy.repo-remi
       when: ansible_os_family == 'RedHat'
     - geerlingguy.php-versions
@@ -36,6 +41,7 @@
 
 
   post_tasks:
+    # Copy PHP extension files
     - name: Copy all modules from remi's install location to module dir target
       copy:
         src: "{{ currentphp.remi_modulepath }}/*.so"
@@ -43,10 +49,11 @@
         remote_src: yes
       ignore_errors: true
 
+    # Initiate OCI8 installation
     - include_tasks: ../tasks/installoci8.yml
 
+    # Initiate ImageMagick installation
     - include_tasks: ../tasks/imagemagick.yml
-      notify: Restart webserver
 
 
   handlers:
