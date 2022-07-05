@@ -11,7 +11,7 @@ from requests.structures import CaseInsensitiveDict
 # Global Variables
 
 # API Task Json string with initial details
-PAYLOAD_Test='{"task_id":"610bd0b33e167a0b0c87f176","parameters":{"environment":"DCTest","type":"Linux","server_name":"hostname","server_description":"Satellite Provisioned host","server_owner":"mordan","system_name":"hostname","ip_address":"IP","requestor":"mordan"}}'
+PAYLOAD_Test='{"task_id":"62af06eb3e167a1b8f44d4cb","parameters":{"environment":"DCTest","type":"Linux","server_name":"hostname","server_description":"Satellite Provisioned host","server_owner":"mordan","system_name":"hostname","ip_address":"IP","requestor":"mordan"}}'
 NEW_SERVER='{"task_id":"621bea3d3e167a0908c58c53","parameters":{"environment":"DCTest","type":"Linux","server_name":"hostname","server_description":"Satellite Provisioned host","server_owner":"mordan","system_name":"hostname","ip_address":"IP","requestor":"mordan"}}'
 
 # URI in the API to execute

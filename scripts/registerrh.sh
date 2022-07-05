@@ -48,7 +48,10 @@ elif [[ "$release" == "6"* ]]; then
 				key="RHEL 6"
 fi
 
+# Start the activation process
 subscription-manager register --force --org="Weizmann_Institute_of_Science" --activationkey="$key"
+
+# Install additional packages for Red-Hat systems
 if [[ "$os" == "RHEL" ]]; then
 		yum -y install katello-host-tools katello-host-tools-tracer
 fi
