@@ -1,0 +1,1285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.10" />
+<title></title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+pre {
+  white-space: pre-wrap;
+}
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; vertical-align: text-bottom; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+@media screen {
+  body {
+    max-width: 50em; /* approximately 80 characters wide */
+    margin-left: 16em;
+  }
+
+  #toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 13em;
+    padding: 0.5em;
+    padding-bottom: 1.5em;
+    margin: 0;
+    overflow: auto;
+    border-right: 3px solid #f8f8f8;
+    background-color: white;
+  }
+
+  #toc .toclevel1 {
+    margin-top: 0.5em;
+  }
+
+  #toc .toclevel2 {
+    margin-top: 0.25em;
+    display: list-item;
+    color: #aaaaaa;
+  }
+
+  #toctitle {
+    margin-top: 0.5em;
+  }
+}
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install(2);
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<div id="toc">
+  <div id="toctitle">Table of Contents</div>
+  <noscript><p><b>JavaScript must be enabled in your browser to display the table of contents.</b></p></noscript>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="openssh-server">OpenSSH Server</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><a href="https://travis-ci.org/willshersystems/ansible-sshd">image:https://travis-ci.org/willshersystems/ansible-sshd.svg?branch=master[Build
+Status</a>]
+<a href="https://galaxy.ansible.com/willshersystems/sshd/">image:http://img.shields.io/badge/galaxy-willshersystems.sshd-660198.svg?style=flat[Ansible
+Galaxy</a>]</p></div>
+<div class="paragraph"><p>This role configures the OpenSSH daemon. It:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+By default configures the SSH daemon with the normal OS defaults.
+</p>
+</li>
+<li>
+<p>
+Works across a variety of <code>UN*X</code> distributions
+</p>
+</li>
+<li>
+<p>
+Can be configured by dict or simple variables
+</p>
+</li>
+<li>
+<p>
+Supports Match sets
+</p>
+</li>
+<li>
+<p>
+Supports all <code>sshd_config</code> options. Templates are programmatically
+generated. (see <a href="meta/make_option_list"><code>meta/make_option_list</code></a>)
+</p>
+</li>
+<li>
+<p>
+Tests the <code>sshd_config</code> before reloading sshd.
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p><strong>WARNING</strong> Misconfiguration of this role can lock you out of your server!
+Please test your configuration and its interaction with your users
+configuration before using in production!</p></div>
+<div class="paragraph"><p><strong>WARNING</strong> Digital Ocean allows root with passwords via SSH on Debian and
+Ubuntu. This is not the default assigned by this module - it will set
+<code>PermitRootLogin without-password</code> which will allow access via SSH key
+but not via simple password. If you need this functionality, be sure to
+set <code>sshd_PermitRootLogin yes</code> for those hosts.</p></div>
+<div class="sect2">
+<h3 id="requirements">Requirements</h3>
+<div class="paragraph"><p>Tested on:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Ubuntu precise, trusty, xenial, bionic, focal
+</p>
+</li>
+<li>
+<p>
+Debian wheezy, jessie, stretch, buster
+</p>
+</li>
+<li>
+<p>
+FreeBSD 10.1
+</p>
+</li>
+<li>
+<p>
+EL 6, 7, 8, 9 derived distributions
+</p>
+</li>
+<li>
+<p>
+Fedora 31, 32, 33, 34
+</p>
+</li>
+<li>
+<p>
+OpenBSD 6.0
+</p>
+</li>
+<li>
+<p>
+AIX 7.1, 7.2
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>It will likely work on other flavours and more direct support via
+suitable vars/ files is welcome.</p></div>
+</div>
+<div class="sect2">
+<h3 id="role-variables">Role variables</h3>
+<div class="paragraph"><p>Unconfigured, this role will provide a <code>sshd_config</code> that matches the OS
+default, minus the comments and in a different order.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_enable</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>If set to <em>false</em>, the role will be completely disabled. Defaults to
+<em>true</em>.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_skip_defaults</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>If set to <em>true</em>, don&#8217;t apply default values. This means that you must
+have a complete set of configuration defaults via either the <code>sshd</code>
+dict, or <code>sshd_Key</code> variables. Defaults to <em>false</em> unless
+<code>sshd_config_namespace</code> is set.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_manage_service</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>If set to <em>false</em>, the service/daemon won&#8217;t be <strong>managed</strong> at all, i.e.
+will not try to enable on boot or start or reload the service. Defaults
+to <em>true</em> unless: Running inside a docker container (it is assumed
+ansible is used during build phase) or AIX (Ansible <code>service</code> module
+does not currently support <code>enabled</code> for AIX)</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_allow_reload</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>If set to <em>false</em>, a reload of sshd wont happen on change. This can help
+with troubleshooting. You&#8217;ll need to manually reload sshd if you want to
+apply the changed configuration. Defaults to the same value as
+<code>sshd_manage_service</code>. (Except on AIX, where <code>sshd_manage_service</code> is
+default <em>false</em>, but <code>sshd_allow_reload</code> is default <em>true</em>)</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_install_service</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>If set to <em>true</em>, the role will install service files for the ssh
+service. Defaults to <em>false</em>.</p></div>
+<div class="paragraph"><p>The templates for the service files to be used are pointed to by the
+variables</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_service_template_service</code> (<strong>default</strong>:
+<code>templates/sshd.service.j2</code>)
+</p>
+</li>
+<li>
+<p>
+<code>sshd_service_template_at_service</code> (<strong>default</strong>:
+<code>templates/sshd@.service.j2</code>)
+</p>
+</li>
+<li>
+<p>
+<code>sshd_service_template_socket</code> (<strong>default</strong>: <code>templates/sshd.socket.j2</code>)
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Using these variables, you can use your own custom templates. With the
+above default templates, the name of the installed ssh service will be
+provided by the <code>sshd_service</code> variable.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>A dict containing configuration. e.g.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code><span style="color:#000000; font-weight:bold">sshd:</span>
+  <span style="color:#000000; font-weight:bold">Compression:</span> delayed
+  <span style="color:#000000; font-weight:bold">ListenAddress:</span>
+    - <span style="color:#b07e00">0.0.0.0</span></code></pre>
+</div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_...</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Simple variables can be used rather than a dict. Simple values override
+dict values. e.g.:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code><span style="color:#000000; font-weight:bold">sshd_Compression:</span> off</code></pre>
+</div></div>
+<div class="paragraph"><p>In all cases, booleans are correctly rendered as yes and no in sshd
+configuration. Lists can be used for multiline configuration items. e.g.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code><span style="color:#000000; font-weight:bold">sshd_ListenAddress:</span>
+  - <span style="color:#b07e00">0.0.0.0</span>
+  - <span style="color:#bf0303">&apos;::&apos;</span></code></pre>
+</div></div>
+<div class="paragraph"><p>Renders as:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>ListenAddress 0.0.0.0
+ListenAddress ::</code></pre>
+</div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_match</code>, <code>sshd_match_1</code> through <code>sshd_match_9</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>A list of dicts or just a dict for a Match section. Note, that these
+variables do not override match blocks as defined in the <code>sshd</code> dict.
+All of the sources will be reflected in the resulting configuration
+file.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_backup</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>When set to <em>false</em>, the original <code>sshd_config</code> file is not backed up.
+Default is <em>true</em>.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_sysconfig</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>On RHEL-based systems, sysconfig is used for configuring more details of
+sshd service. If set to <em>true</em>, this role will manage also the
+<code>/etc/sysconfig/sshd</code> configuration file based on the following
+configuration. Default is <em>false</em>.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_sysconfig_override_crypto_policy</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>In RHEL8-based systems, this can be used to override system-wide crypto
+policy by setting to <em>true</em>. Defaults to <em>false</em>.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_sysconfig_use_strong_rng</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>In RHEL-based systems, this can be used to force sshd to reseed openssl
+random number generator with the given amount of bytes as an argument.
+The default is <em>0</em>, which disables this functionality. It is not
+recommended to turn this on if the system does not have hardware random
+number generator.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_config_file</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>The path where the openssh configuration produced by this role should be
+saved. This is useful mostly when generating configuration snippets to
+Include.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_config_namespace</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>By default (<em>null</em>), the role defines whole content of the configuration
+file including system defaults. You can use this variable to invoke this
+role from other roles or from multiple places in a single playbook on
+systems that do not support drop-in directory. The <code>sshd_skip_defaults</code>
+is ignored and no system defaults are used in this case.</p></div>
+<div class="paragraph"><p>When this variable is set, the role places the configuration that you
+specify to configuration snippets in a existing configuration file under
+the given namespace. You need to select different namespaces when
+invoking the role several times.</p></div>
+<div class="paragraph"><p>Note that limitations of the openssh configuration file still apply. For
+example, only the first option specified in a configuration file is
+effective for most of the variables.</p></div>
+<div class="paragraph"><p>Technically, the role places snippets in <code>Match all</code> blocks, unless they
+contain other match blocks, to ensure they are applied regardless of the
+previous match blocks in the existing configuration file. This allows
+configuring any non-conflicting options from different roles
+invocations.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_config_owner</code>, <code>sshd_config_group</code>, <code>sshd_config_mode</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Use these variables to set the ownership and permissions for the openssh
+config file that this role produces.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_verify_hostkeys</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>By default (<em>auto</em>), this list contains all the host keys that are
+present in the produced configuration file. The paths are checked for
+presence and generated if missing. Additionally, permissions and file
+owners are set to sane defaults. This is useful if the role is used in
+deployment stage to make sure the service is able to start on the first
+attempt. To disable this check, set this to empty list.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_hostkey_owner</code>, <code>sshd_hostkey_group</code>, <code>sshd_hostkey_mode</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Use these variables to set the ownership and permissions for the host
+keys from the above list.</p></div>
+<div class="sect3">
+<h4 id="secondary-role-variables">Secondary role variables</h4>
+<div class="paragraph"><p>These variables are used by the role internals and can be used to
+override the defaults that correspond to each supported platform.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_packages</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Use this variable to override the default list of packages to install.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_binary</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>The path to the openssh executable</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_service</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>The name of the openssh service. By default, this variable contains the
+name of the ssh service that the target platform uses. But it can also
+be used to set the name of the custom ssh service when the
+<code>sshd_install_service</code> variable is used.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_sftp_server</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Default path to the sftp server binary.</p></div>
+</div>
+<div class="sect3">
+<h4 id="variables-exported-by-the-role">Variables Exported by the Role</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>sshd_has_run</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>This variable is set to <em>true</em> after the role was successfully executed.</p></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dependencies">Dependencies</h3>
+<div class="paragraph"><p>None</p></div>
+</div>
+<div class="sect2">
+<h3 id="example-playbook">Example Playbook</h3>
+<div class="paragraph"><p><strong>DANGER!</strong> This example is to show the range of configuration this role
+provides. Running it will likely break your SSH access to the server!</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>---
+- <span style="color:#000000; font-weight:bold">hosts:</span> all
+  <span style="color:#000000; font-weight:bold">vars:</span>
+    <span style="color:#000000; font-weight:bold">sshd_skip_defaults:</span> true
+    <span style="color:#000000; font-weight:bold">sshd:</span>
+      <span style="color:#000000; font-weight:bold">Compression:</span> true
+      <span style="color:#000000; font-weight:bold">ListenAddress:</span>
+        - <span style="color:#bf0303">&quot;0.0.0.0&quot;</span>
+        - <span style="color:#bf0303">&quot;::&quot;</span>
+      <span style="color:#000000; font-weight:bold">GSSAPIAuthentication:</span> no
+      <span style="color:#000000; font-weight:bold">Match:</span>
+        - <span style="color:#000000; font-weight:bold">Condition:</span> <span style="color:#bf0303">&quot;Group user&quot;</span>
+          <span style="color:#000000; font-weight:bold">GSSAPIAuthentication:</span> yes
+    <span style="color:#000000; font-weight:bold">sshd_UsePrivilegeSeparation:</span> no
+    <span style="color:#000000; font-weight:bold">sshd_match:</span>
+        - <span style="color:#000000; font-weight:bold">Condition:</span> <span style="color:#bf0303">&quot;Group xusers&quot;</span>
+          X<span style="color:#b07e00">11</span><span style="color:#000000; font-weight:bold">Forwarding:</span> yes
+  <span style="color:#000000; font-weight:bold">roles:</span>
+    - <span style="color:#000000; font-weight:bold">role:</span> rhel-system-<span style="color:#000000; font-weight:bold">roles</span>.sshd</code></pre>
+</div></div>
+<div class="paragraph"><p>Results in:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code># Ansible managed: ...
+Compression yes
+GSSAPIAuthentication no
+UsePrivilegeSeparation no
+Match Group user
+  GSSAPIAuthentication yes
+Match Group xusers
+  X11Forwarding yes</code></pre>
+</div></div>
+<div class="paragraph"><p>Since Ansible 2.4, the role can be invoked using <code>include_role</code> keyword,
+for example:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>---
+- <span style="color:#000000; font-weight:bold">hosts:</span> all
+  <span style="color:#000000; font-weight:bold">become:</span> true
+  <span style="color:#000000; font-weight:bold">tasks:</span>
+  - <span style="color:#000000; font-weight:bold">name:</span> <span style="color:#bf0303">&quot;Configure sshd&quot;</span>
+    <span style="color:#000000; font-weight:bold">include_role:</span>
+      <span style="color:#000000; font-weight:bold">name:</span> rhel-system-<span style="color:#000000; font-weight:bold">roles</span>.sshd
+    <span style="color:#000000; font-weight:bold">vars:</span>
+      <span style="color:#000000; font-weight:bold">sshd_skip_defaults:</span> true
+      <span style="color:#000000; font-weight:bold">sshd:</span>
+        <span style="color:#000000; font-weight:bold">Compression:</span> true
+        <span style="color:#000000; font-weight:bold">ListenAddress:</span>
+          - <span style="color:#bf0303">&quot;0.0.0.0&quot;</span>
+          - <span style="color:#bf0303">&quot;::&quot;</span>
+        <span style="color:#000000; font-weight:bold">GSSAPIAuthentication:</span> no
+        <span style="color:#000000; font-weight:bold">Match:</span>
+          - <span style="color:#000000; font-weight:bold">Condition:</span> <span style="color:#bf0303">&quot;Group user&quot;</span>
+            <span style="color:#000000; font-weight:bold">GSSAPIAuthentication:</span> yes
+      <span style="color:#000000; font-weight:bold">sshd_UsePrivilegeSeparation:</span> no
+      <span style="color:#000000; font-weight:bold">sshd_match:</span>
+          - <span style="color:#000000; font-weight:bold">Condition:</span> <span style="color:#bf0303">&quot;Group xusers&quot;</span>
+            X<span style="color:#b07e00">11</span><span style="color:#000000; font-weight:bold">Forwarding:</span> yes</code></pre>
+</div></div>
+<div class="paragraph"><p>You can just add a configuration snippet with the
+<code>sshd_config_namespace</code> option:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>---
+- hosts: all
+  tasks:
+  - name: Configure sshd to accept some useful environment variables
+    include_role:
+      name: ansible-sshd
+    vars:
+      sshd_config_namespace: accept-env
+      sshd:
+        # there are some handy environment variables to accept
+        AcceptEnv:
+          LANG
+          LS_COLORS
+          EDITOR</code></pre>
+</div></div>
+<div class="paragraph"><p>The following snippet will be added to the default configuration file
+(if not yet present):</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code># BEGIN sshd system role managed block: namespace accept-env
+Match all
+  AcceptEnv LANG LS_COLORS EDITOR
+# END sshd system role managed block: namespace accept-env</code></pre>
+</div></div>
+<div class="paragraph"><p>More example playbooks can be found in <a href="examples/"><code>examples/</code></a>
+directory.</p></div>
+</div>
+<div class="sect2">
+<h3 id="template-generation">Template Generation</h3>
+<div class="paragraph"><p>The <a href="templates/sshd_config.j2"><code>sshd_config.j2</code></a> template is
+programatically generated by the scripts in meta. New options should be
+added to the <code>options_body</code> or <code>options_match</code>.</p></div>
+<div class="paragraph"><p>To regenerate the template, from within the meta/ directory run:
+<code>./make_option_lists</code></p></div>
+</div>
+<div class="sect2">
+<h3 id="license">License</h3>
+<div class="paragraph"><p>LGPLv3</p></div>
+</div>
+<div class="sect2">
+<h3 id="author">Author</h3>
+<div class="paragraph"><p>Matt Willsher <a href="mailto:matt@willsher.systems">matt@willsher.systems</a></p></div>
+<div class="paragraph"><p>© 2014,2015 Willsher Systems Ltd.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+</div>
+</body>
+</html>

@@ -1,37 +1,36 @@
 ---
     - name: Install unzip
-      yum:
+      dnf:
         name: unzip
         state: latest
 
     - name: Create /tmp/sep directory
-      command: mkdir -p /tmp/sep
+      command: mkdir -p /tmp/sep/installation
+
+    - name: Download SEP package
+      uri:
+        url: "{{ sep_url }}"
+        dest: /tmp/sep
+        method: GET
 
     - name: Extract SEP package contents
       unarchive:
-        src: "{{ sep_url }}"
-        dest: /tmp/sep
-        remote_src: yes
-      register: result
-      failed_when:  (result == 10)
+        src:  /tmp/sep/LinuxInstaller.zip
+        dest: /tmp/sep/installation
+        remote_src: no
 
     - name: Find LinuxInstaller executable file
       find:
-        paths: "/tmp/sep"
+        paths: "/tmp/sep/installation"
         patterns: "LinuxInstaller"
         recurse: "yes"
       register: exec
-
-    - name: Copy the sep executable file to /tmp
-      copy: 
-        src: "{{ exec.files[0].path }}"
-        dest: /tmp/sep
-        owner: root
-        mode: 0744
-        remote_src: yes
+      failed_when: exec.files[0].matched == 0
 
     - name: Install SEP AntiVirus
-      command: /tmp/sep/LinuxInstaller
+      vars:
+        path: "{{ exec.files[0].path }}"
+      command: "{{ path }}"
       register: sep_result
       ignore_errors: True
 

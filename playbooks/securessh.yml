@@ -14,7 +14,7 @@
           ClientAliveInterval: 300
           LoginGraceTime: 60
           PermitRootLogin: no
-          MaxStartups: 10:30:60  
+          MaxStartups: 10:30:60
 
 
   post_tasks:

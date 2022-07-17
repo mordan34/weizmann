@@ -20,9 +20,11 @@
           regexp: '^Banner'
           insertafter: '# no default banner path'
           line: 'Banner /etc/ssh/sshd-banner'
+        notify: Reload sshd.service
 
-    # Reload sshd service
-      - name: Reload sshd.service
-        service:
-          state: reloaded
-          name: sshd.service
+  handlers:
+    - import_tasks: ../handlers/main.yml
+
+  
+
+    

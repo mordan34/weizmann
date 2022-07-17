@@ -4,22 +4,27 @@
   become: true
   vars: 
     env: "{{ lookup('vars', domain) }}"
-  vars_files:
-    - ../vault/vault-pass.yml
+
   roles:
-    - { role: linux-system-roles.crypto_policies,
-        when:  'ansible_facts["os_family"] == "RedHat"' , 
-               'ansible_facts["distribution_major_version"] == "8"' }
+    - role: linux-system-roles.crypto_policies
+      when:  
+          - 'ansible_facts["os_family"] == "RedHat"' 
+          - 'ansible_facts["distribution_major_version"] == "8"'
     
   tasks:
-
+    
     # Keeping current crypto Policy for RHEL8
     - name: Save current Policy
       set_fact: 
         policy: "{{ crypto_policies_active }}"
       when:  
          - 'ansible_facts["os_family"] == "RedHat"'
-         - 'ansible_facts["distribution_major_version"] == "8"' 
+         - 'ansible_facts["distribution_major_version"] == "8"'
+
+    - name: Set policy fact for non RHEL8
+      set_fact: 
+        policy: "DEFAULT"
+      when: ('ansible_facts["os_family"] != "RedHat"') or ('ansible_facts["distribution_major_version"] != "8"')
 
     # Change crypto policy to a weaker one so that Symantec AV could be installed from repo
     - name: Configure crypto policy to DEFAULT
@@ -28,7 +33,7 @@
       vars:
         - crypto_policies_policy: DEFAULT
         - crypto_policies_reboot_ok: false
-      when: policy == "FUTURE" 
+      when: policy != "DEFAULT" 
 
     # Modify hostname to include domain fqdn
     - name: configure domain name and domain search
@@ -45,7 +50,7 @@
       vars:
         - crypto_policies_policy: "{{ policy }}"
         - crypto_policies_reboot_ok: False
-      when: policy == "FUTURE"
+      when: policy != "DEFAULT"
 
     # Configuring Chrony time service for DC Servers
     - include_tasks: ../tasks/configuretime.yml
@@ -64,13 +69,16 @@
     - name: Install pexpect using pip
       pip:
         name: pexpect
+        executable: pip3
 
     # Joining the system to AD under the correct OU
     - name: Join system to {{ env.domain }}  and add the computer object in the Linux OU
+      vars:
+         ansible_python_interpreter: /bin/python3
       expect:
-        command: /bin/bash -c "/usr/sbin/realm join -U {{ env.username }} {{ env.domain }} --computer-ou='{{ env.ou }}'"
+        command: "/usr/sbin/realm join -U {{ env.username }} {{ env.domain }} --computer-ou='{{ env.ou }}'"
         responses:
-          Password for *: "{{ lookup('vars', domain + '_password') }}"
+          Password for *: '{{ lookup("env","SAT_PASSWORD") }}'
       register: realm_result
       failed_when: "not realm_result.stdout is search('Already joined to this domain') and realm_result.rc != 0"
 
@@ -88,9 +96,4 @@
         - restart sssd
 
   handlers:
-
-      - name: restart sssd
-        service: name=sssd state=restarted
-
-      - name: restart realmd
-        service: name=realmd state=restarted
+    - import_tasks: ../handlers/main.yml

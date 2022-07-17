@@ -16,7 +16,3 @@
   # Start and enable chrony service
 - name: Make sure Chrony service is up
   service: name=chronyd state=started enabled=yes
-
-  handlers:
-      - name: restart chronyd
-        service: name=chronyd state=restarted

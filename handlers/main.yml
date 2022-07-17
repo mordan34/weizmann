@@ -1,0 +1,18 @@
+---
+      # Reload sshd service
+      - name: Reload sshd.service
+        service:
+          state: reloaded
+          name: sshd.service
+
+      # Restart sssd service
+      - name: restart sssd
+        service: name=sssd state=restarted
+
+      # Restart realmd service
+      - name: restart realmd
+        service: name=realmd state=restarted
+
+      # Restart chronyd service
+      - name: restart chronyd
+        service: name=chronyd state=restarted
